@@ -7,12 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9979925E618F2A8E4CB833A0 /* libPods-VHReproductiveHealth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B9E74EF59C39DFD892495A /* libPods-VHReproductiveHealth.a */; };
 		E863D5701A76172A0070F1F4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E863D56F1A76172A0070F1F4 /* main.m */; };
 		E863D5731A76172A0070F1F4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E863D5721A76172A0070F1F4 /* AppDelegate.m */; };
 		E863D5761A76172A0070F1F4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E863D5751A76172A0070F1F4 /* ViewController.m */; };
-		E863D5791A76172A0070F1F4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E863D5771A76172A0070F1F4 /* Main.storyboard */; };
 		E863D57B1A76172A0070F1F4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E863D57A1A76172A0070F1F4 /* Images.xcassets */; };
-		E863D57E1A76172A0070F1F4 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E863D57C1A76172A0070F1F4 /* LaunchScreen.xib */; };
 		E863D58A1A76172B0070F1F4 /* VHReproductiveHealthTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E863D5891A76172B0070F1F4 /* VHReproductiveHealthTests.m */; };
 /* End PBXBuildFile section */
 
@@ -27,6 +26,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0FF0C1C3316D169A5BEF0A20 /* Pods-VHReproductiveHealth.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VHReproductiveHealth.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VHReproductiveHealth/Pods-VHReproductiveHealth.debug.xcconfig"; sourceTree = "<group>"; };
+		20A3E4A742051B773C4C31D7 /* Pods-VHReproductiveHealth.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VHReproductiveHealth.release.xcconfig"; path = "Pods/Target Support Files/Pods-VHReproductiveHealth/Pods-VHReproductiveHealth.release.xcconfig"; sourceTree = "<group>"; };
+		92B9E74EF59C39DFD892495A /* libPods-VHReproductiveHealth.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VHReproductiveHealth.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E863D56A1A76172A0070F1F4 /* VHReproductiveHealth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VHReproductiveHealth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E863D56E1A76172A0070F1F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E863D56F1A76172A0070F1F4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -34,9 +36,7 @@
 		E863D5721A76172A0070F1F4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		E863D5741A76172A0070F1F4 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		E863D5751A76172A0070F1F4 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		E863D5781A76172A0070F1F4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E863D57A1A76172A0070F1F4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		E863D57D1A76172A0070F1F4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		E863D5831A76172B0070F1F4 /* VHReproductiveHealthTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VHReproductiveHealthTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E863D5881A76172B0070F1F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E863D5891A76172B0070F1F4 /* VHReproductiveHealthTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VHReproductiveHealthTests.m; sourceTree = "<group>"; };
@@ -47,6 +47,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9979925E618F2A8E4CB833A0 /* libPods-VHReproductiveHealth.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,12 +61,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		12DF50B7A23BEAFE51BACF74 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				0FF0C1C3316D169A5BEF0A20 /* Pods-VHReproductiveHealth.debug.xcconfig */,
+				20A3E4A742051B773C4C31D7 /* Pods-VHReproductiveHealth.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		D285D79DBE8054B14316F22F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				92B9E74EF59C39DFD892495A /* libPods-VHReproductiveHealth.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		E863D5611A76172A0070F1F4 = {
 			isa = PBXGroup;
 			children = (
 				E863D56C1A76172A0070F1F4 /* VHReproductiveHealth */,
 				E863D5861A76172B0070F1F4 /* VHReproductiveHealthTests */,
 				E863D56B1A76172A0070F1F4 /* Products */,
+				12DF50B7A23BEAFE51BACF74 /* Pods */,
+				D285D79DBE8054B14316F22F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -85,9 +105,7 @@
 				E863D5721A76172A0070F1F4 /* AppDelegate.m */,
 				E863D5741A76172A0070F1F4 /* ViewController.h */,
 				E863D5751A76172A0070F1F4 /* ViewController.m */,
-				E863D5771A76172A0070F1F4 /* Main.storyboard */,
 				E863D57A1A76172A0070F1F4 /* Images.xcassets */,
-				E863D57C1A76172A0070F1F4 /* LaunchScreen.xib */,
 				E863D56D1A76172A0070F1F4 /* Supporting Files */,
 			);
 			path = VHReproductiveHealth;
@@ -126,9 +144,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E863D58D1A76172B0070F1F4 /* Build configuration list for PBXNativeTarget "VHReproductiveHealth" */;
 			buildPhases = (
+				1661043354D9F20601DA3F48 /* Check Pods Manifest.lock */,
 				E863D5661A76172A0070F1F4 /* Sources */,
 				E863D5671A76172A0070F1F4 /* Frameworks */,
 				E863D5681A76172A0070F1F4 /* Resources */,
+				524FEC6B4CC7EA5DD749293B /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -168,6 +188,7 @@
 				TargetAttributes = {
 					E863D5691A76172A0070F1F4 = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = 7GZHY42TY5;
 					};
 					E863D5821A76172B0070F1F4 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -199,8 +220,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E863D5791A76172A0070F1F4 /* Main.storyboard in Resources */,
-				E863D57E1A76172A0070F1F4 /* LaunchScreen.xib in Resources */,
 				E863D57B1A76172A0070F1F4 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -213,6 +232,39 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1661043354D9F20601DA3F48 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		524FEC6B4CC7EA5DD749293B /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VHReproductiveHealth/Pods-VHReproductiveHealth-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E863D5661A76172A0070F1F4 /* Sources */ = {
@@ -242,25 +294,6 @@
 			targetProxy = E863D5841A76172B0070F1F4 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		E863D5771A76172A0070F1F4 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E863D5781A76172A0070F1F4 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		E863D57C1A76172A0070F1F4 /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E863D57D1A76172A0070F1F4 /* Base */,
-			);
-			name = LaunchScreen.xib;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		E863D58B1A76172B0070F1F4 /* Debug */ = {
@@ -341,21 +374,33 @@
 		};
 		E863D58E1A76172B0070F1F4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0FF0C1C3316D169A5BEF0A20 /* Pods-VHReproductiveHealth.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Lu Xiaoya (RY9PPE4949)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Lu Xiaoya (RY9PPE4949)";
 				INFOPLIST_FILE = VHReproductiveHealth/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "e1fd0e28-4409-4da8-928f-0e3bffb6588c";
 			};
 			name = Debug;
 		};
 		E863D58F1A76172B0070F1F4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 20A3E4A742051B773C4C31D7 /* Pods-VHReproductiveHealth.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Lu Xiaoya (RY9PPE4949)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Lu Xiaoya (RY9PPE4949)";
 				INFOPLIST_FILE = VHReproductiveHealth/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "e1fd0e28-4409-4da8-928f-0e3bffb6588c";
 			};
 			name = Release;
 		};
@@ -412,6 +457,7 @@
 				E863D58F1A76172B0070F1F4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E863D5901A76172B0070F1F4 /* Build configuration list for PBXNativeTarget "VHReproductiveHealthTests" */ = {
 			isa = XCConfigurationList;
@@ -420,6 +466,7 @@
 				E863D5921A76172B0070F1F4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
