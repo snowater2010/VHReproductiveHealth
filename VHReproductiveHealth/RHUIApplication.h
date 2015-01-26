@@ -1,5 +1,5 @@
 //
-//  AppDelegate.h
+//  RHUIApplication.h
 //  VHReproductiveHealth
 //
 //  Created by lipeng on 15/1/26.
@@ -8,10 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
-
-@property (strong, nonatomic) UIWindow *window;
-
+@interface RHUIApplication : UIApplication
 
 @end
-

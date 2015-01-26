@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  RHAppDelegate.h
 //  VHReproductiveHealth
 //
 //  Created by lipeng on 15/1/26.
@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface RHAppDelegate : UIResponder <UIApplicationDelegate>
+
+@property (strong, nonatomic) UIWindow *window;
 
 
 @end
