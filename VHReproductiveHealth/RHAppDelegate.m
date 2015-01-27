@@ -7,7 +7,8 @@
 //
 
 #import "RHAppDelegate.h"
-#import "RHRootViewCtro.h"
+#import "RHRootNavCtro.h"
+#import "RHMenstrualViewCtro.h"
 
 @interface RHAppDelegate ()
 
@@ -15,13 +16,11 @@
 
 @implementation RHAppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.rootViewController = [[RHRootViewCtro alloc] init];
-//    self.window
+    self.window.rootViewController = [[RHRootNavCtro alloc] initWithRootViewController:[[RHMenstrualViewCtro alloc] init]];
     [self.window makeKeyAndVisible];
     
     return YES;

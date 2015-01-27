@@ -1,5 +1,5 @@
 //
-//  RHRootViewCtro.h
+//  RHRootNavCtro.h
 //  VHReproductiveHealth
 //
 //  Created by lipeng on 15/1/26.
@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UIView+CBFrameHelpers.h"
 
-@interface RHRootViewCtro : UIViewController
+@interface RHRootNavCtro : UINavigationController
 
 @end
