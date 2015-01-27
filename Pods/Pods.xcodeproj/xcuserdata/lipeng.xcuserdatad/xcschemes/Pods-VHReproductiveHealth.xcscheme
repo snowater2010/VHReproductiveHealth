@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D1856C5B3A217662D51AF153"
+               BlueprintIdentifier = "77616BE7ABD93ADD46646B02"
                BuildableName = "libPods-VHReproductiveHealth.a"
                BlueprintName = "Pods-VHReproductiveHealth"
                ReferencedContainer = "container:Pods.xcodeproj">

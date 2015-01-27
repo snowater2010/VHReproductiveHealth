@@ -6,12 +6,6 @@
 // project.
 
 
-// JTCalendar
-#define COCOAPODS_POD_AVAILABLE_JTCalendar
-#define COCOAPODS_VERSION_MAJOR_JTCalendar 1
-#define COCOAPODS_VERSION_MINOR_JTCalendar 1
-#define COCOAPODS_VERSION_PATCH_JTCalendar 11
-
 // uiview-frame-helpers
 #define COCOAPODS_POD_AVAILABLE_uiview_frame_helpers
 #define COCOAPODS_VERSION_MAJOR_uiview_frame_helpers 0

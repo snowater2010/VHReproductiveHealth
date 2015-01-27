@@ -1,5 +1,5 @@
 #include "Pods-VHReproductiveHealth-uiview-frame-helpers.xcconfig"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Build" "${PODS_ROOT}/Headers/Build/uiview-frame-helpers" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/JTCalendar" "${PODS_ROOT}/Headers/Public/uiview-frame-helpers"
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Build" "${PODS_ROOT}/Headers/Build/uiview-frame-helpers" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/uiview-frame-helpers"
 OTHER_LDFLAGS = ${PODS_VHREPRODUCTIVEHEALTH_UIVIEW_FRAME_HELPERS_OTHER_LDFLAGS} -ObjC
 PODS_ROOT = ${SRCROOT}
