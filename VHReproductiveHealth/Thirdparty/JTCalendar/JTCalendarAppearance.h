@@ -23,6 +23,10 @@ typedef NSString *(^JTCalendarMonthBlock)(NSDate *date, JTCalendar *jt_calendar)
 @property (assign, nonatomic) BOOL useCacheSystem;
 @property (assign, nonatomic) BOOL focusSelectedDayChangeMode;
 
+@property (assign, nonatomic) BOOL isShowBorder;
+@property (assign, nonatomic) NSInteger borderWidth;
+@property (strong, nonatomic) UIColor *borderColor;
+
 // Month
 @property (strong, nonatomic) UIColor *menuMonthTextColor;
 @property (strong, nonatomic) UIFont *menuMonthTextFont;
@@ -63,7 +67,7 @@ typedef NSString *(^JTCalendarMonthBlock)(NSDate *date, JTCalendar *jt_calendar)
 // Day Background and Border
 @property (strong, nonatomic) UIColor *dayBackgroundColor;
 @property (assign, nonatomic) CGFloat dayBorderWidth;
-@property (assign, nonatomic) UIColor *dayBorderColor;
+@property (strong, nonatomic) UIColor *dayBorderColor;
 
 @property (assign, nonatomic) CGFloat dayCircleRatio;
 @property (assign, nonatomic) CGFloat dayDotRatio;

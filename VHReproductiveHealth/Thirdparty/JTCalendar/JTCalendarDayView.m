@@ -19,6 +19,14 @@
     
     int cacheIsToday;
     NSString *cacheCurrentDateText;
+    
+    // lipeng_b
+    UIImageView *imgV1;
+    UIImageView *imgV2;
+    UIImageView *imgV3;
+    UIImageView *imgV4;
+    UIImageView *imgV5;
+    // lipeng_e
 }
 @end
 
@@ -91,6 +99,24 @@ static NSString *const kJTCalendarDaySelected = @"kJTCalendarDaySelected";
     {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didDaySelected:) name:kJTCalendarDaySelected object:nil];
     }
+    
+    // lipeng_b
+    {
+        imgV1 = [UIImageView new];
+        imgV2 = [UIImageView new];
+        imgV3 = [UIImageView new];
+        imgV4 = [UIImageView new];
+        imgV5 = [UIImageView new];
+        [self addSubview:imgV1];
+        [self addSubview:imgV2];
+        [self addSubview:imgV3];
+        [self addSubview:imgV4];
+        [self addSubview:imgV5];
+        
+        imgV1.image = [UIImage imageNamed:@"menses_acyeterion"];
+        imgV4.image = [UIImage imageNamed:@"menses_condom"];
+    }
+    // lipeng_e
 }
 
 - (void)layoutSubviews
@@ -103,7 +129,27 @@ static NSString *const kJTCalendarDaySelected = @"kJTCalendarDaySelected";
 // Avoid to calcul constraints (very expensive)
 - (void)configureConstraintsForSubviews
 {
-    textLabel.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+    // lipeng_b
+    textLabel.frame = CGRectMake(0, 0, self.frame.size.width*0.5, self.frame.size.height*0.5);
+    
+    float borderPadding = 1.; // 图片与border的距离
+    float borderWidth = self.calendarManager.calendarAppearance.dayBorderWidth;
+    float imageSize = (self.frame.size.height-borderWidth*2-borderPadding)/3;
+    float imagePadding = (self.frame.size.width-borderWidth*2-borderPadding-imageSize*3)/3;
+    
+    imgV1.frame = CGRectMake(self.frame.size.width-imageSize-borderWidth-borderPadding, borderWidth, imageSize, imageSize);
+    imgV2.frame = CGRectMake(self.frame.size.width-imageSize-borderWidth-borderPadding, borderWidth+imageSize, imageSize, imageSize);
+    imgV3.frame = CGRectMake(self.frame.size.width-imageSize-borderWidth-borderPadding, borderWidth+imageSize*2, imageSize, imageSize);
+    imgV4.frame = CGRectMake(borderWidth+imagePadding*2+imageSize, self.frame.size.height-imageSize-borderWidth-borderPadding, imageSize, imageSize);
+    imgV5.frame = CGRectMake(borderWidth+imagePadding, self.frame.size.height-imageSize-borderWidth-borderPadding, imageSize, imageSize);
+    
+//    imgV1.backgroundColor = [UIColor greenColor];
+//    imgV2.backgroundColor = [UIColor blueColor];
+//    imgV3.backgroundColor = [UIColor greenColor];
+//    imgV4.backgroundColor = [UIColor redColor];
+//    imgV5.backgroundColor = [UIColor brownColor];
+    // lipeng_e
+    
     backgroundView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
 
 

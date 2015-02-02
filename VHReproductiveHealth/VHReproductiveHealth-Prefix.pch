@@ -15,5 +15,5 @@
 #ifdef __OBJC__
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
-//#import "CommDef.h"
+#import "RHCommDef.h"
 #endif

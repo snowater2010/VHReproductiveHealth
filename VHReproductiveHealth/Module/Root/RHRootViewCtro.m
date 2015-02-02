@@ -14,9 +14,24 @@
 
 @implementation RHRootViewCtro
 
+- (void)loadView {
+    [super loadView];
+    
+    self.view = [[UIView alloc] initWithFrame:CGRectMake(0, STATUSBAR_HEIGHT+NAVIGATIONBAR_HEIGHT, DEVICE_WIDTH, DEVICE_HEIGHT-STATUSBAR_HEIGHT-NAVIGATIONBAR_HEIGHT)];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    self.view.backgroundColor = COLOR_BG_DEF;
+}
+
+- (void)initData {
+    
+}
+
+- (void)makePageUI {
+    
 }
 
 - (void)didReceiveMemoryWarning {
