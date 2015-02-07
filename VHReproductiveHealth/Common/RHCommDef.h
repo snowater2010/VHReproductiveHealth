@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "UIView+CBFrameHelpers.h"
 
 @interface RHCommDef : NSObject
 

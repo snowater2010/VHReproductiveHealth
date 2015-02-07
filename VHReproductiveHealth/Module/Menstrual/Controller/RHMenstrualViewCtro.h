@@ -8,6 +8,23 @@
 
 #import "RHRootViewCtro.h"
 
+typedef enum {
+    SettingType1,
+    SettingType2,
+    SettingType3,
+    SettingType4,
+    SettingType5,
+    SettingType6,
+    SettingType7,
+    SettingType8,
+    SettingType9,
+    SettingType10,
+    SettingType11,
+    SettingType12,
+    SettingType13,
+    SettingType14
+} SettingType;
+
 @interface RHMenstrualViewCtro : RHRootViewCtro
 
 @end

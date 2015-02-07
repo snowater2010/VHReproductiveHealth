@@ -30,7 +30,7 @@
     
 }
 
-- (void)makePageUI {
+- (void)initUIView {
     
 }
 

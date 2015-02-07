@@ -1,13 +1,14 @@
 //
-//  RHRootViewCtro.h
+//  RHSettingCell2.h
 //  VHReproductiveHealth
 //
-//  Created by lipeng on 15/1/26.
+//  Created by lipeng on 15/2/4.
 //  Copyright (c) 2015年 vichiger. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
+#import "RHSettingCell.h"
 
-@interface RHRootViewCtro : UIViewController
+@interface RHSettingCell2 : RHSettingCell
 
 @end
