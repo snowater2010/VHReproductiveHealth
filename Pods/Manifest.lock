@@ -1,10 +1,20 @@
 PODS:
+  - ESDateHelper (1.4)
+  - FMDB (2.5):
+    - FMDB/standard
+  - FMDB/common (2.5)
+  - FMDB/standard (2.5):
+    - FMDB/common
   - uiview-frame-helpers (0.1.1)
 
 DEPENDENCIES:
+  - ESDateHelper (~> 1.4)
+  - FMDB (~> 2.5)
   - uiview-frame-helpers (~> 0.1.1)
 
 SPEC CHECKSUMS:
+  ESDateHelper: 3af0ad8781877fcfd70e7bb5da3df33ac889bf1d
+  FMDB: 0efa188cf0dd1ce82c27a478cd5f5fa245308677
   uiview-frame-helpers: 68ff15193c81e40695cb50f7eedee88e57077efc
 
 COCOAPODS: 0.34.4

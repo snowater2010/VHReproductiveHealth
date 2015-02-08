@@ -27,11 +27,12 @@
     _signButton = [UIButton buttonWithType:UIButtonTypeSystem];
     [self addSubview:_signButton];
     
-    [_signButton setTitle:@"标注" forState:UIControlStateNormal];
-    _signButton.backgroundColor = [UIColor yellowColor];
     _signButton.contentHorizontalAlignment =UIControlContentHorizontalAlignmentRight;
-    
     [_signButton addTarget:self action:@selector(buttonClicked) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)setBiaozhu:(NSString *)biaozhu {
+    [_signButton setTitle:biaozhu forState:UIControlStateNormal];
 }
 
 - (void)layoutSubviews {
@@ -42,11 +43,8 @@
 
 - (void)buttonClicked {
     if (_actionBlock) {
-        _actionBlock(_settingType);
+        _actionBlock();
     }
-//    if ([_delegate respondsToSelector:@selector(doAction:)]) {
-//        [_delegate doAction:_settingType];
-//    }
 }
 
 @end

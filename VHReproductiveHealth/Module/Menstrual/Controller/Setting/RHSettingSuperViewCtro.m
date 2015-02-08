@@ -21,6 +21,17 @@
     self.settingHeight = 200;
 }
 
++ (NSString *)getSignNameWithValue:(NSInteger)value {
+    switch (value) {
+        case 1:
+            return @"已标注";
+            break;
+        default:
+            return @"未标注";
+            break;
+    }
+}
+
 - (void)loadView {
     [super loadView];
     

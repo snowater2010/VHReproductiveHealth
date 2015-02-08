@@ -26,7 +26,17 @@
 
 - (void)initSet {
     self.settingHeight = 300;
+    self.yizhi = 1;
     _datas = @[@"一个", @"两个"];
+}
+
++ (NSString *)getSignNameWithValue:(NSInteger)value {
+    if (value > 0) {
+        return [NSString stringWithFormat:@"移植%zd个", value];
+    }
+    else {
+        return @"未标注";
+    }
 }
 
 - (void)viewDidLoad {
@@ -38,14 +48,14 @@
     
     _picker.dataSource = self;
     _picker.delegate = self;
+    
+    [_picker selectRow:_yizhi inComponent:0 animated:NO];
 }
 
 - (void)doConfirm {
-    
     if (_settingBlock) {
-        _settingBlock([_picker selectedRowInComponent:0]);
+        _settingBlock([_picker selectedRowInComponent:0]+1);
     }
-    
     [super doConfirm];
 }
 

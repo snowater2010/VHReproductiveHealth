@@ -35,6 +35,15 @@
     self.selectedArray = [NSMutableArray array];
 }
 
++ (NSString *)getSignNameWithText:(NSString *)value {
+    if ([value containsString:@"true"]) {
+        return @"已标注";
+    }
+    else {
+        return @"未标注";
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -57,7 +66,29 @@
     [_tagList setCornerRadius:4.0f];
     [_tagList setBorderColor:[UIColor lightGrayColor]];
     [_tagList setBorderWidth:1.0f];
-    
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    NSArray *bushufuArray = [_bushufu componentsSeparatedByString:@","];
+    int tagIndex = 0;
+    for (NSString *flag in bushufuArray) {
+        UIView *view = (UIView *)[_tagList viewWithTag:tagIndex+1];
+        if ([view isKindOfClass:[DWTagView class]]) {
+            DWTagView *tagView = (DWTagView *)view;
+            if ([flag isEqualToString:@"true"]) {
+                [tagView setTextColor:[UIColor whiteColor]];
+                [tagView setBackgroundColor:COLOR_BG_DGREEN];
+                [_selectedArray addObject:_array[tagIndex]];
+            }
+            else {
+                [tagView setTextColor:[UIColor blackColor]];
+                [tagView setBackgroundColor:[UIColor clearColor]];
+                [tagView setNeedsDisplay];
+                [_selectedArray removeObject:_array[tagIndex]];
+            }
+        }
+        tagIndex++;
+    }
 }
 
 - (void)selectedTag:(NSString *)tagName tagIndex:(NSInteger)tagIndex {
@@ -75,6 +106,26 @@
             [_selectedArray addObject:tagName];
         }
     }
+}
+
+- (void)doConfirm {
+    if (_settingBlock) {
+        NSMutableString *bushufu = [NSMutableString string];
+        
+        for (NSString *str in _array) {
+            if ([_selectedArray containsObject:str]) {
+                [bushufu appendString:@"true,"];
+            }
+            else {
+                [bushufu appendString:@"false,"];
+            }
+        }
+        if (bushufu.length > 0) {
+            [bushufu deleteCharactersInRange:(NSRange){bushufu.length-1, 1}];
+        }
+        _settingBlock(bushufu);
+    }
+    [super doConfirm];
 }
 
 @end

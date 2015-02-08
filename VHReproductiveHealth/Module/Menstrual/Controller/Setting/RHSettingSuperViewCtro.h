@@ -14,5 +14,6 @@
 @property(nonatomic, strong) UIView *contentView;
 
 - (void)doConfirm;
++ (NSString *)getSignNameWithValue:(NSInteger)value;
 
 @end

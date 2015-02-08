@@ -10,4 +10,9 @@
 
 @interface RHSettingBushufuViewCtro : RHSettingSuperViewCtro
 
+@property(nonatomic, strong) NSString *bushufu;
+@property(nonatomic, strong) BlockString settingBlock;
+
++ (NSString *)getSignNameWithText:(NSString *)value;
+
 @end

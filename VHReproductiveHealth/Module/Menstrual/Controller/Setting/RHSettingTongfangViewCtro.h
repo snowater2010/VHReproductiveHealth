@@ -10,6 +10,7 @@
 
 @interface RHSettingTongfangViewCtro : RHSettingSuperViewCtro
 
+@property(nonatomic, assign) NSInteger tongfang;
 @property(nonatomic, strong) BlockInteger settingBlock;
 
 @end

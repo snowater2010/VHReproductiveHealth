@@ -16,6 +16,15 @@
 
 @implementation RHSettingQuluanViewCtro
 
++ (NSString *)getSignNameWithValue:(NSInteger)value {
+    if (value > 0) {
+        return [NSString stringWithFormat:@"取卵%zd个", value];
+    }
+    else {
+        return @"未标注";
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -41,6 +50,10 @@
     qlUnit.text = @"个";
     qlUnit.font = FONT_18;
     qlUnit.textAlignment = NSTextAlignmentLeft;
+    
+    if (_quluan > 0) {
+        qlText.text = [NSString stringWithFormat:@"%zd", _quluan];
+    }
 }
 
 - (void)doConfirm {

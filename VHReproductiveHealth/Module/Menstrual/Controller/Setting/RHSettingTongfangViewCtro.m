@@ -26,7 +26,25 @@
 
 - (void)initSet {
     self.settingHeight = 300;
+    self.tongfang = 1;
     _datas = @[@"无安全措施", @"避孕套", @"避孕药"];
+}
+
++ (NSString *)getSignNameWithValue:(NSInteger)value {
+    switch (value) {
+        case 1:
+            return @"无安全措施";
+            break;
+        case 2:
+            return @"避孕套";
+            break;
+        case 3:
+            return @"避孕药";
+            break;
+        default:
+            return @"未标注";
+            break;
+    }
 }
 
 - (void)viewDidLoad {
@@ -38,14 +56,14 @@
     
     _picker.dataSource = self;
     _picker.delegate = self;
+    
+    [_picker selectRow:_tongfang-1 inComponent:0 animated:NO];
 }
 
 - (void)doConfirm {
-    
     if (_settingBlock) {
-        _settingBlock([_picker selectedRowInComponent:0]);
+        _settingBlock([_picker selectedRowInComponent:0]+1);
     }
-    
     [super doConfirm];
 }
 

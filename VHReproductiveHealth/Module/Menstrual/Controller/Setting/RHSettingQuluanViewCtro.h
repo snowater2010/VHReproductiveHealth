@@ -10,6 +10,7 @@
 
 @interface RHSettingQuluanViewCtro : RHSettingSuperViewCtro
 
+@property(nonatomic, assign) NSInteger quluan;
 @property(nonatomic, strong) BlockInteger settingBlock;
 
 @end

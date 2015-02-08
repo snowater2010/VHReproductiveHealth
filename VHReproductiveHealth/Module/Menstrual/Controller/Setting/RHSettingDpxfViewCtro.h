@@ -10,4 +10,6 @@
 
 @interface RHSettingDpxfViewCtro : RHSettingSuperViewCtro
 
+@property(nonatomic, strong) BlockBool settingBlock;
+
 @end

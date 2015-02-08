@@ -117,4 +117,11 @@
     
 }
 
+- (void)doConfirm {
+    if (_settingBlock) {
+        _settingBlock(xfText.text.length > 0);
+    }
+    [super doConfirm];
+}
+
 @end

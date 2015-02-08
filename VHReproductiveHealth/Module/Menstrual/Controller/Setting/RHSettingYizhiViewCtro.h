@@ -10,6 +10,7 @@
 
 @interface RHSettingYizhiViewCtro : RHSettingSuperViewCtro
 
+@property(nonatomic, assign) NSInteger yizhi;
 @property(nonatomic, strong) BlockInteger settingBlock;
 
 @end

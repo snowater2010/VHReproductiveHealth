@@ -10,20 +10,12 @@
 #import "RHSettingCell.h"
 #import "RHMenstrualViewCtro.h"
 
-typedef void (^BlockSetting)(SettingType type);
-
-@protocol SettingCell1Delegate <NSObject>
-
-- (void)doAction:(SettingType)type;
-
-@end
-
 @interface RHSettingCell1 : RHSettingCell
 
 @property(nonatomic, assign) SettingType settingType;
 
-@property(nonatomic, strong) BlockSetting actionBlock;
+@property(nonatomic, strong) BlockVoid actionBlock;
 
-@property(nonatomic, weak) id<SettingCell1Delegate> delegate;
+- (void)setBiaozhu:(NSString *)biaozhu;
 
 @end
