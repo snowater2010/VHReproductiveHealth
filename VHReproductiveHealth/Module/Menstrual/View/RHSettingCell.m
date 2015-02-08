@@ -14,20 +14,13 @@
 
 @implementation RHSettingCell
 
-//- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
-//    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-//    if (self) {
-//        [self initUIView];
-//    }
-//    return self;
-//}
-//
-//- (void)initUIView {
-//}
-//
-//- (void)layoutSubviews {
-//    [super layoutSubviews];
-//}
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    return self;
+}
 
 - (void)setCellImage:(NSString *)cellImage {
     _cellImage = cellImage;

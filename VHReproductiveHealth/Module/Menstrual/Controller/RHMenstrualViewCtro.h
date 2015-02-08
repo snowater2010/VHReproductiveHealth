@@ -8,7 +8,11 @@
 
 #import "RHRootViewCtro.h"
 
+static NSInteger gJingqi;
+static NSInteger gZhouqi;
+
 typedef enum {
+    SettingTypeNone,
     SettingType1,
     SettingType2,
     SettingType3,

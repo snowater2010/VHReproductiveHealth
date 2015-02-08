@@ -12,8 +12,16 @@
 #import "RHSettingCell.h"
 #import "RHSettingCell1.h"
 #import "RHSettingCell2.h"
+#import "RHSettingCell3.h"
 
-@interface RHMenstrualViewCtro () <JTCalendarDataSource, UITableViewDataSource, UITableViewDelegate, ABCalendarPickerDelegateProtocol>
+#import "RHSettingMenstrualViewCtro.h"
+#import "RHSettingTongfangViewCtro.h"
+#import "RHSettingQuluanViewCtro.h"
+#import "RHSettingYizhiViewCtro.h"
+#import "RHSettingDpxfViewCtro.h"
+#import "RHSettingBushufuViewCtro.h"
+
+@interface RHMenstrualViewCtro () <JTCalendarDataSource, UITableViewDataSource, UITableViewDelegate, ABCalendarPickerDelegateProtocol, SettingCell1Delegate>
 
 @property (nonatomic, strong) JTCalendar *calendar;
 @property (nonatomic, strong) JTCalendarMenuView *calendarMenuView;
@@ -66,17 +74,23 @@
                       @{@"name" : @"进周期", @"color" : @"74A14C", @"image" : @"menses_havesex"},
                       @{@"name" : @"检测B超", @"color" : @"5CA2D3", @"image" : @"menses_acyeterion"}];
     
-    self.settingArray = @[@{@"type" : @(CellType2), @"image" : @"yimalaile", @"title" : @"姨妈来了", @"title2" : @"姨妈来了"},
-                          @{@"type" : @(CellType1), @"image" : @"tongfang", @"title" : @"同房", @"title2" : @"姨妈来了"},
-                          @{@"type" : @(CellType2), @"image" : @"koufubiyunyao", @"title" : @"口服避孕药", @"title2" : @"姨妈来了"},
-                          @{@"type" : @(CellType1), @"image" : @"jiandang", @"title" : @"建档", @"title2" : @"姨妈来了"},
-                          @{@"type" : @(CellType1), @"image" : @"jinzhouqi", @"title" : @"进周期", @"title2" : @"姨妈来了"},
-                          
-                          @{@"type" : @(CellType2), @"image" : @"yimalaile", @"title" : @"姨妈来了", @"title2" : @"姨妈来了"},
-                          @{@"type" : @(CellType1), @"image" : @"tongfang", @"title" : @"同房", @"title2" : @"姨妈来了"},
-                          @{@"type" : @(CellType2), @"image" : @"koufubiyunyao", @"title" : @"口服避孕药", @"title2" : @"姨妈来了"},
-                          @{@"type" : @(CellType1), @"image" : @"jiandang", @"title" : @"建档", @"title2" : @"姨妈来了"},
-                          @{@"type" : @(CellType1), @"image" : @"jinzhouqi", @"title" : @"进周期", @"title2" : @"姨妈来了"}];
+    self.settingArray = @[
+        @{@"type" : @(CellType3), @"image" : @"yimalaile", @"title" : @"姨妈来了", @"setting" : @(SettingType1)},
+        @{@"type" : @(CellType1), @"image" : @"tongfang", @"title" : @"同房", @"setting" : @(SettingType2)},
+        @{@"type" : @(CellType2), @"image" : @"koufubiyunyao", @"title" : @"口服避孕药", @"setting" : @(SettingType3)},
+        @{@"type" : @(CellType1), @"image" : @"jiandang", @"title" : @"建档", @"setting" : @(SettingType4)},
+        @{@"type" : @(CellType1), @"image" : @"jinzhouqi", @"title" : @"进周期", @"setting" : @(SettingType5)},
+        @{@"type" : @(CellType1), @"image" : @"jiancebchao", @"title" : @"检测B超", @"setting" : @(SettingType6)},
+        @{@"type" : @(CellType1), @"image" : @"nanfangzhunbei", @"title" : @"男方准备", @"setting" : @(SettingType7)},
+        @{@"type" : @(CellType1), @"image" : @"dayezhen", @"title" : @"打夜针", @"setting" : @(SettingType8)},
+        
+        @{@"type" : @(CellType1), @"image" : @"quluan", @"title" : @"取卵", @"setting" : @(SettingType9)},
+        @{@"type" : @(CellType1), @"image" : @"yizhi", @"title" : @"移植", @"setting" : @(SettingType10)},
+        
+        @{@"type" : @(CellType2), @"image" : @"redianliliao", @"title" : @"热电理疗", @"setting" : @(SettingType11)},
+        @{@"type" : @(CellType1), @"image" : @"dongpeixufei", @"title" : @"冻胚续费", @"setting" : @(SettingType12)},
+        @{@"type" : @(CellType1), @"image" : @"xiaohuipeitai", @"title" : @"销毁胚胎", @"setting" : @(SettingType13)},
+        @{@"type" : @(CellType1), @"image" : @"bushufu", @"title" : @"不舒服", @"setting" : @(SettingType14)}];
 }
 
 - (void)initUIView {
@@ -219,24 +233,133 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    WEAK_INSTANCE(self);
+    
     NSDictionary *cellDic = self.settingArray[indexPath.row];
     
     static NSString *cellType = @"cellType";
     static NSString *cellType1 = @"cellType1";
     static NSString *cellType2 = @"cellType2";
+    static NSString *cellType3 = @"cellType3";
     
     RHSettingCell *cell = nil;
-    if (((NSNumber *)cellDic[@"type"]).intValue == CellType1) {
+    if (((NSNumber *)cellDic[@"type"]).intValue == CellType3) {
+        cell = [tableView dequeueReusableCellWithIdentifier:cellType3];
+        if (!cell) {
+            cell = [[RHSettingCell3 alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellType3];
+        }
+        RHSettingCell3 *cell3 = (RHSettingCell3 *)cell;
+        WEAK_INSTANCE(cell3)
+        cell3.actionBlock = ^(BOOL isStart) {
+            
+        };
+        cell3.analysisBlock = ^() {
+            
+        };
+        cell3.settingBlock = ^() {
+            RHSettingMenstrualViewCtro *ctro = [[RHSettingMenstrualViewCtro alloc] init];
+            ctro.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+            [weakself presentViewController:ctro animated:YES completion:^{
+                ctro.settingBlock = ^(NSString *jingqi, NSString *zhouqi) {
+                    if (jingqi && jingqi.length > 0) {
+                        gJingqi = jingqi.intValue;
+                    }
+                    if (zhouqi && zhouqi.length > 0) {
+                        gZhouqi = zhouqi.intValue;
+                    }
+                    if (gJingqi > 0 && gZhouqi > 0) {
+                        [weakcell3 setTitleJingqi:gJingqi zhouqi:gZhouqi];
+                    }
+                };
+            }];
+        };
+    }
+    else if (((NSNumber *)cellDic[@"type"]).intValue == CellType1) {
         cell = [tableView dequeueReusableCellWithIdentifier:cellType1];
         if (!cell) {
             cell = [[RHSettingCell1 alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellType1];
         }
+        
+        RHSettingCell1 *cell1 = (RHSettingCell1 *)cell;
+        cell1.settingType = ((NSNumber *)cellDic[@"setting"]).intValue;
+        cell1.delegate = self;
+        cell1.actionBlock = ^(SettingType type) {
+            if (type == SettingType2) {
+                // 同房
+                RHSettingTongfangViewCtro *ctro = [[RHSettingTongfangViewCtro alloc] init];
+                ctro.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+                [weakself presentViewController:ctro animated:YES completion:^{
+                    ctro.settingBlock = ^(NSInteger row) {
+                        
+                    };
+                }];
+            }
+            else if (type == SettingType4) {
+                // 建档
+            }
+            else if (type == SettingType5) {
+                // 进周期
+            }
+            else if (type == SettingType6) {
+                // 检测B超
+            }
+            else if (type == SettingType7) {
+                // 男方准备
+            }
+            else if (type == SettingType8) {
+                // 打夜针
+            }
+            else if (type == SettingType9) {
+                // 取卵
+                RHSettingQuluanViewCtro *ctro = [[RHSettingQuluanViewCtro alloc] init];
+                ctro.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+                [weakself presentViewController:ctro animated:YES completion:^{
+                    ctro.settingBlock = ^(NSInteger number) {
+                        
+                    };
+                }];
+            }
+            else if (type == SettingType10) {
+                // 移植
+                RHSettingYizhiViewCtro *ctro = [[RHSettingYizhiViewCtro alloc] init];
+                ctro.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+                [weakself presentViewController:ctro animated:YES completion:^{
+                    ctro.settingBlock = ^(NSInteger number) {
+                        
+                    };
+                }];
+            }
+            else if (type == SettingType12) {
+                // 冻胚续费
+                RHSettingDpxfViewCtro *ctro = [[RHSettingDpxfViewCtro alloc] init];
+                ctro.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+                [weakself presentViewController:ctro animated:YES completion:^{
+                    
+                }];
+            }
+            else if (type == SettingType13) {
+                // 胚胎销毁
+                
+            }
+            else if (type == SettingType14) {
+                // 不舒服
+                RHSettingBushufuViewCtro *ctro = [[RHSettingBushufuViewCtro alloc] init];
+                ctro.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+                [weakself presentViewController:ctro animated:YES completion:^{
+                    
+                }];
+            }
+        };
     }
     else if (((NSNumber *)cellDic[@"type"]).intValue == CellType2) {
         cell = [tableView dequeueReusableCellWithIdentifier:cellType2];
         if (!cell) {
             cell = [[RHSettingCell2 alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellType2];
         }
+        RHSettingCell2 *cell2 = (RHSettingCell2 *)cell;
+        cell2.actionBlock = ^(BOOL isStart) {
+            
+        };
     }
     else {
         cell = [tableView dequeueReusableCellWithIdentifier:cellType];
@@ -249,6 +372,23 @@
     cell.cellTitle = cellDic[@"title"];
     
     return cell;
+}
+
+- (void)doAction:(SettingType)type {
+    switch (type) {
+        case SettingType2:
+        {
+            RHSettingMenstrualViewCtro *ctro = [[RHSettingMenstrualViewCtro alloc] init];
+            ctro.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+            [self presentViewController:ctro animated:YES completion:^{
+                
+            }];
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 //- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

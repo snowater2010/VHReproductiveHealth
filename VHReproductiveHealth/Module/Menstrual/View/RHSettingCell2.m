@@ -8,24 +8,17 @@
 
 #import "RHSettingCell2.h"
 
-@interface RHSettingCell2 () {
-    UISegmentedControl *_segment;
-}
-@end
-
 @implementation RHSettingCell2
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        [self initUIView];
+        _segment = [[UISegmentedControl alloc] initWithItems:@[@"开始", @"结束"]];
+        [self addSubview:_segment];
+        
+        [_segment addTarget:self action:@selector(segAction:) forControlEvents:UIControlEventValueChanged];
     }
     return self;
-}
-
-- (void)initUIView {
-    _segment = [[UISegmentedControl alloc] initWithItems:@[@"开始", @"结束"]];
-    [self addSubview:_segment];
 }
 
 - (void)layoutSubviews {
@@ -34,5 +27,10 @@
     [[[_segment setW:80 andH:29] centerYWith:self] insideRightEdgeBy:10];
 }
 
+- (void)segAction:(UISegmentedControl *)segment {
+    if (_actionBlock) {
+        _actionBlock(segment.selectedSegmentIndex==0);
+    }
+}
 
 @end

@@ -11,6 +11,15 @@
 
 @interface RHCommDef : NSObject
 
+typedef void (^BlockVoid)();
+typedef void (^BlockObject)(NSObject *obj);
+typedef void (^BlockBool)(BOOL isBool);
+typedef void (^BlockInteger)(NSInteger integer);
+typedef void (^BlockString)(NSString *str);
+
+#define WEAK_SELF __weak typeof(self) weakself = self;
+#define WEAK_INSTANCE(instance) __weak typeof(instance) weak##instance = instance;
+
 /*****************************设备相关宏定义*********************************/
 
 // 基本设备信息
@@ -39,6 +48,8 @@
 #define COLOR_TEXT_DGREEN       (UIColorFromRGB(0x246E39))
 #define COLOR_TEXT_LGREEN       (UIColorFromRGB(0xDFEDB2))
 #define COLOR_TEXT_WHITE        ([UIColor whiteColor])
+#define COLOR_TEXT_BLACK        ([UIColor blackColor])
+#define COLOR_TEXT_PINK       (UIColorFromRGB(0xFF5B83))
 
 #define UIColorFromRGB(rgbValue)    ([UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0])
 

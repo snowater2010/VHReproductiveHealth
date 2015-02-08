@@ -31,7 +31,7 @@
     _signButton.backgroundColor = [UIColor yellowColor];
     _signButton.contentHorizontalAlignment =UIControlContentHorizontalAlignmentRight;
     
-    [_signButton addTarget:self action:@selector(doSetting) forControlEvents:UIControlEventTouchUpInside];
+    [_signButton addTarget:self action:@selector(buttonClicked) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)layoutSubviews {
@@ -40,18 +40,13 @@
     [[[_signButton setW:80 andH:29] centerYWith:self] insideRightEdgeBy:10];
 }
 
-- (void)doSetting {
-//    switch (_cell1Type) {
-//        case Cell1Type1:
-//            
-//            break;
-//        case Cell1Type2:
-//            
-//            break;
-//        default:
-//            break;
+- (void)buttonClicked {
+    if (_actionBlock) {
+        _actionBlock(_settingType);
+    }
+//    if ([_delegate respondsToSelector:@selector(doAction:)]) {
+//        [_delegate doAction:_settingType];
 //    }
 }
-
 
 @end

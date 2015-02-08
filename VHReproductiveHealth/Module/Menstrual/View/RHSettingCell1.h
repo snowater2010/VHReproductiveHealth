@@ -8,9 +8,22 @@
 
 #import <UIKit/UIKit.h>
 #import "RHSettingCell.h"
+#import "RHMenstrualViewCtro.h"
+
+typedef void (^BlockSetting)(SettingType type);
+
+@protocol SettingCell1Delegate <NSObject>
+
+- (void)doAction:(SettingType)type;
+
+@end
 
 @interface RHSettingCell1 : RHSettingCell
 
-//@property(nonatomic, assign) CellType cell1Type;
+@property(nonatomic, assign) SettingType settingType;
+
+@property(nonatomic, strong) BlockSetting actionBlock;
+
+@property(nonatomic, weak) id<SettingCell1Delegate> delegate;
 
 @end
