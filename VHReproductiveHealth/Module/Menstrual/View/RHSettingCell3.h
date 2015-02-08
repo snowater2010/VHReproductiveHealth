@@ -7,6 +7,7 @@
 //
 
 #import "RHSettingCell2.h"
+#import "RHDayimaModel.h"
 
 @interface RHSettingCell3 : RHSettingCell2
 
@@ -14,5 +15,7 @@
 @property(nonatomic, strong) BlockVoid settingBlock;
 
 - (void)setTitleJingqi:(NSInteger)jingqi zhouqi:(NSInteger)zhouqi;
+
+- (void)setDayimaComing:(BOOL)isComing state:(BOOL)state;
 
 @end

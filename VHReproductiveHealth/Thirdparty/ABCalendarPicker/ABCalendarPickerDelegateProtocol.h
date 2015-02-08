@@ -34,7 +34,11 @@ typedef enum {
 - (BOOL)calendarPicker:(ABCalendarPicker*)calendarPicker
        shoudSelectDate:(NSDate*)date
              withState:(ABCalendarPickerState)state;
+//- (void)calendarPicker:(ABCalendarPicker*)calendarPicker
+//          dateSelected:(NSDate*)date
+//             withState:(ABCalendarPickerState)state;
 - (void)calendarPicker:(ABCalendarPicker*)calendarPicker
+       controlSelected:(UIControl*)control
           dateSelected:(NSDate*)date
              withState:(ABCalendarPickerState)state;
 @end

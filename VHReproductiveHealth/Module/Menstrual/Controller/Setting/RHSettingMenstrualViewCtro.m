@@ -78,6 +78,13 @@
     zqTian.text = @"天";
     zqTian.font = FONT_18;
     zqTian.textAlignment = NSTextAlignmentLeft;
+    
+    if (_jingqi > 0) {
+        jqText.text = [NSString stringWithFormat:@"%zd", _jingqi];
+    }
+    if (_zhouqi > 0) {
+        zqText.text = [NSString stringWithFormat:@"%zd", _zhouqi];
+    }
 }
 
 - (void)doConfirm {

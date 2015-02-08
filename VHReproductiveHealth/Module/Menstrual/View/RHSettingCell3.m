@@ -19,6 +19,9 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        [self.segment setTitle:@"是" forSegmentAtIndex:0];
+        [self.segment setTitle:@"否" forSegmentAtIndex:1];
+        
         _analysis = [UIButton buttonWithType:UIButtonTypeSystem];
         _setting = [UIButton buttonWithType:UIButtonTypeSystem];
         [self addSubview:_analysis];
@@ -60,6 +63,21 @@
 - (void)setTitleJingqi:(NSInteger)jingqi zhouqi:(NSInteger)zhouqi {
     NSString *title = [NSString stringWithFormat:@"经期%zd天、周期%zd天", jingqi, zhouqi];
     [_setting setTitle:title forState:UIControlStateNormal];
+}
+
+- (void)setDayimaComing:(BOOL)isComing state:(BOOL)state {
+    if (isComing) {
+        self.textLabel.text = @"大姨妈来了";
+    }
+    else {
+        self.textLabel.text = @"大姨妈走了";
+    }
+    if (state) {
+        [self.segment setSelectedSegmentIndex:0];
+    }
+    else {
+        [self.segment setSelectedSegmentIndex:1];
+    }
 }
 
 @end

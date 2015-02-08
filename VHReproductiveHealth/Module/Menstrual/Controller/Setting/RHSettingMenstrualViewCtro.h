@@ -10,6 +10,8 @@
 
 @interface RHSettingMenstrualViewCtro : RHSettingSuperViewCtro
 
+@property(nonatomic, assign) NSInteger jingqi;
+@property(nonatomic, assign) NSInteger zhouqi;
 @property(nonatomic, strong) void (^settingBlock)(NSString *jingqi, NSString *zhouqi);
 
 @end

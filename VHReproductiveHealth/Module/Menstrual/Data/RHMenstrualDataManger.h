@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "RHBiaoZhuModel.h"
+#import "RHDayimaModel.h"
 
 @interface RHMenstrualDataManger : NSObject
 
@@ -16,6 +17,11 @@
 - (RHBiaoZhuModel *)queryBiaoZhu:(NSDate *)date;
 - (void)insertBiaoZhu:(RHBiaoZhuModel *)biaozhu;
 - (void)updateBiaoZhu:(RHBiaoZhuModel *)biaozhu;
+
+- (void)insertDayima:(RHDayimaModel *)model;
+- (RHDayimaModel *)queryDayimaStartDate:(NSDate *)start;
+- (void)insertDayimaStartDate:(NSDate *)startDate endDate:(NSDate *)endDate;
+- (void)updateDayima:(RHDayimaModel *)model;
 
 - (void)closeDB;
 

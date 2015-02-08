@@ -41,6 +41,7 @@ typedef void (^BlockString)(NSString *str);
 #define COLOR_BG_DEF            (UIColorFromRGB(0xeeeeee))
 #define COLOR_BG_DGREEN         (UIColorFromRGB(0x246E39))
 #define COLOR_BG_LGREEN         (UIColorFromRGB(0xDFEDB2))
+#define COLOR_BG_PINK           (UIColorFromRGB(0xFFD0De))
 #define COLOR_BG_WHITE          ([UIColor whiteColor])
 /*
  * 字体颜色
@@ -51,7 +52,9 @@ typedef void (^BlockString)(NSString *str);
 #define COLOR_TEXT_LGREEN       (UIColorFromRGB(0xDFEDB2))
 #define COLOR_TEXT_WHITE        ([UIColor whiteColor])
 #define COLOR_TEXT_BLACK        ([UIColor blackColor])
-#define COLOR_TEXT_PINK       (UIColorFromRGB(0xFF5B83))
+#define COLOR_TEXT_PINK         (UIColorFromRGB(0xFF5B83))
+
+#define COLOR_DGREEN            (UIColorFromRGB(0x246E39))
 
 #define UIColorFromRGB(rgbValue)    ([UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0])
 

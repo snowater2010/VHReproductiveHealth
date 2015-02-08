@@ -158,10 +158,10 @@
     //if (self.currentState == ABCalendarPickerStateDays
     //    || self.currentState == ABCalendarPickerStateWeekdays)
     //{
-        if ([(id)self.delegate respondsToSelector:@selector(calendarPicker:dateSelected:withState:)])
+        if ([(id)self.delegate respondsToSelector:@selector(calendarPicker:controlSelected:dateSelected:withState:)])
         {
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                [self.delegate calendarPicker:self dateSelected:self.highlightedDate withState:self.currentState];
+                [self.delegate calendarPicker:self controlSelected:self.highlightedControl dateSelected:self.highlightedDate withState:self.currentState];
             }];
         }
     //}
@@ -1565,8 +1565,8 @@
 - (void)updateStateAnimated:(BOOL)animated
 {
     [self setState:self.currentState animated:animated];
-    if ([(id)self.delegate respondsToSelector:@selector(calendarPicker:dateSelected:withState:)])
-        [self.delegate calendarPicker:self dateSelected:self.highlightedDate withState:self.currentState];
+    if ([(id)self.delegate respondsToSelector:@selector(calendarPicker:controlSelected:dateSelected:withState:)])
+        [self.delegate calendarPicker:self controlSelected:self.highlightedControl dateSelected:self.highlightedDate withState:self.currentState];
 }
 
 - (void)setDate:(NSDate*)date andState:(ABCalendarPickerState)state animated:(BOOL)animated

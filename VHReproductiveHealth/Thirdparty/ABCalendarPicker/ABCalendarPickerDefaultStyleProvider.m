@@ -74,7 +74,7 @@
 
 - (UIColor *)textColor
 {
-    return [self normalTextColor];
+    return COLOR_TEXT_DGREEN;
 }
 
 - (void)setTextColor:(UIColor *)textColor
@@ -130,7 +130,7 @@
 - (UIImage *)patternImageForGradientBar
 {
     if (_patternImageForGradientBar == nil)
-        _patternImageForGradientBar = [self imageNamed:@"GradientBar"];
+        _patternImageForGradientBar = [self imageNamed:@"calendar_bg"];
     return _patternImageForGradientBar;
 }
 

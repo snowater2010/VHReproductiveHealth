@@ -8,8 +8,11 @@
 
 #import "RHRootViewCtro.h"
 
-static NSInteger gJingqi;
-static NSInteger gZhouqi;
+#define USER_DEFAULT_JINGQI @"rh_jingqi"
+#define USER_DEFAULT_ZHOUQI @"rh_zhouqi"
+
+#define DefaultJingqi 5
+#define DefaultZhouqi 30
 
 typedef enum {
     SettingTypeNone,

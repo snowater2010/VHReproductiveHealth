@@ -157,4 +157,39 @@
         [NSNumber numberWithLong:biaozhu.calendar]];
 }
 
+- (RHDayimaModel *)queryDayimaStartDate:(NSDate *)start {
+    NSString *sql = @"SELECT * FROM dayima WHERE start = ?";
+    long timeInterval = [start timeIntervalSince1970]*1000;
+    
+    FMResultSet *rs = [_db executeQuery:sql, [NSNumber numberWithLong:timeInterval]];
+    while ([rs next]) {
+        RHDayimaModel *model = [[RHDayimaModel alloc] init];
+        model.tid = [rs intForColumn:@"tid"];
+        model.start = [rs longForColumn:@"start"];
+        model.end = [rs longForColumn:@"end"];
+        return model;
+        break;
+    }
+    [rs close];
+    
+    return nil;
+}
+
+- (void)insertDayima:(RHDayimaModel *)model {
+    NSString *sql = @"INSERT INTO dayima (start, end) VALUES (?, ?)";
+    [_db executeUpdate:sql, [NSNumber numberWithLong:model.start], [NSNumber numberWithLong:model.end]];
+}
+
+- (void)insertDayimaStartDate:(NSDate *)startDate endDate:(NSDate *)endDate {
+    RHDayimaModel *model = [[RHDayimaModel alloc] init];
+    model.start = [startDate timeIntervalSince1970]*1000;
+    model.end = [endDate timeIntervalSince1970]*1000;
+    [self insertDayima:model];
+}
+
+- (void)updateDayima:(RHDayimaModel *)model {
+    NSString *sql = @"UPDATE biaozhu SET start = ?, end = ? WHERE tid = ?";
+    [_db executeUpdate:sql, [NSNumber numberWithLong:model.start], [NSNumber numberWithLong:model.end], [NSNumber numberWithLong:model.tid]];
+}
+
 @end

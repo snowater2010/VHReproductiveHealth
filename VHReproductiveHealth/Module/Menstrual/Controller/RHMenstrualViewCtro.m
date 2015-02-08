@@ -23,26 +23,29 @@
 #import "RHMenstrualDataManger.h"
 
 #import "RHBiaoZhuModel.h"
+#import "RHStyleProvider.h"
+#import "RHCalendarCell.h"
 
 #define DefaultDateFormat @"yyyy-MM-dd"
 
-@interface RHMenstrualViewCtro () <JTCalendarDataSource, UITableViewDataSource, UITableViewDelegate, ABCalendarPickerDelegateProtocol>
-
-@property (nonatomic, strong) JTCalendar *calendar;
-@property (nonatomic, strong) JTCalendarMenuView *calendarMenuView;
-@property (nonatomic, strong) JTCalendarContentView *calendarContentView;
+@interface RHMenstrualViewCtro () <UITableViewDataSource, UITableViewDelegate, ABCalendarPickerDelegateProtocol>
+{
+}
+@property(nonatomic, assign) NSInteger jingqi;
+@property(nonatomic, assign) NSInteger zhouqi;
 
 @property (nonatomic, strong) ABCalendarPicker *datePicker;
 
-@property (nonatomic, strong) NSArray *tipArray;
 @property (nonatomic, strong) UIScrollView *tipView;
 @property (nonatomic, strong) UITableView *settingView;
 
 @property (nonatomic, strong) NSArray *settingArray;
 
+@property (nonatomic, strong) NSDate *currDate;
 @property (nonatomic, strong) RHMenstrualDataManger *dataManager;
 @property (nonatomic, strong) RHBiaoZhuModel *biaozhuModel;
-@property (nonatomic, strong) NSDate *currDate;
+@property (nonatomic, strong) RHDayimaModel *dayimaModel;
+
 
 
 @end
@@ -60,11 +63,6 @@
     [self initUIView];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self.calendar reloadData];
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -79,19 +77,8 @@
 - (void)initData {
     self.dataManager = [RHMenstrualDataManger sharedInstance];
     
-    self.tipArray = @[@{@"name" : @"月经", @"color" : @"5CA2D3", @"image" : @"menses_acyeterion"},
-                      @{@"name" : @"同房", @"color" : @"74A14C", @"image" : @"menses_havesex"},
-                      @{@"name" : @"口服避孕药", @"color" : @"5CA2D3", @"image" : @"menses_acyeterion"},
-                      @{@"name" : @"进周期", @"color" : @"74A14C", @"image" : @"menses_havesex"},
-                      @{@"name" : @"检测B超", @"color" : @"5CA2D3", @"image" : @"menses_acyeterion"},
-                      @{@"name" : @"月经", @"color" : @"5CA2D3", @"image" : @"menses_acyeterion"},
-                      @{@"name" : @"同房", @"color" : @"74A14C", @"image" : @"menses_havesex"},
-                      @{@"name" : @"口服避孕药", @"color" : @"5CA2D3", @"image" : @"menses_acyeterion"},
-                      @{@"name" : @"进周期", @"color" : @"74A14C", @"image" : @"menses_havesex"},
-                      @{@"name" : @"检测B超", @"color" : @"5CA2D3", @"image" : @"menses_acyeterion"}];
-    
     self.settingArray = @[
-        @{@"type" : @(CellType3), @"image" : @"yimalaile", @"title" : @"姨妈来了", @"setting" : @(SettingType1)},
+        @{@"type" : @(CellType3), @"image" : @"yimalaile", @"title" : @"大姨妈来了", @"setting" : @(SettingType1)},
         @{@"type" : @(CellType1), @"image" : @"tongfang", @"title" : @"同房", @"setting" : @(SettingType2)},
         @{@"type" : @(CellType2), @"image" : @"koufubiyunyao", @"title" : @"口服避孕药", @"setting" : @(SettingType3)},
         @{@"type" : @(CellType1), @"image" : @"jiandang", @"title" : @"建档", @"setting" : @(SettingType4)},
@@ -107,6 +94,19 @@
         @{@"type" : @(CellType1), @"image" : @"dongpeixufei", @"title" : @"冻胚续费", @"setting" : @(SettingType12)},
         @{@"type" : @(CellType1), @"image" : @"xiaohuipeitai", @"title" : @"销毁胚胎", @"setting" : @(SettingType13)},
         @{@"type" : @(CellType1), @"image" : @"bushufu", @"title" : @"不舒服", @"setting" : @(SettingType14)}];
+    
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    _jingqi = [defaults integerForKey:USER_DEFAULT_JINGQI];
+    _zhouqi = [defaults integerForKey:USER_DEFAULT_ZHOUQI];
+    if (_jingqi == 0) {
+        _jingqi = DefaultJingqi;
+        [defaults setInteger:DefaultJingqi forKey:USER_DEFAULT_JINGQI];
+    }
+    if (_zhouqi == 0) {
+        _zhouqi = DefaultZhouqi;
+        [defaults setInteger:DefaultZhouqi forKey:USER_DEFAULT_ZHOUQI];
+    }
 }
 
 - (void)initUIView {
@@ -130,25 +130,28 @@
     [[self.tipView setW:self.view.width andH:31] outsideBottomEdgeOf:self.datePicker by:4];
     
     self.tipView.showsHorizontalScrollIndicator = NO;
-    self.tipView.backgroundColor = [UIColor lightGrayColor];
+    self.tipView.backgroundColor = COLOR_BG_WHITE;
     
-    CGFloat imageSize = self.tipView.height/3;
+    CGFloat imageSize = self.tipView.height * 0.5;
     CGFloat padding1 = 6;
     CGFloat padding2 = 10;
     
     int tipLength = 0;
-    for (NSDictionary *tipDic in self.tipArray) {
-        NSString *color = tipDic[@"color"];
+    for (NSDictionary *tipDic in self.settingArray) {
+        CellType cellType = ((NSNumber *)tipDic[@"type"]).intValue;
+        if (cellType != CellType1) {
+            continue;
+        }
         
         UIImage *image = [UIImage imageNamed:tipDic[@"image"]];
         UIImageView *imageView = [[UIImageView alloc] init];
         imageView.image = image;
         
         UILabel *nameLabel = [[UILabel alloc] init];
-        nameLabel.text = tipDic[@"name"];
+        nameLabel.text = tipDic[@"title"];
         nameLabel.font = FONT_12;
         nameLabel.textAlignment = NSTextAlignmentLeft;
-        nameLabel.textColor = UIColorFromRGB(color.intValue);
+        nameLabel.textColor = COLOR_TEXT_BLACK;
         
         [self.tipView addSubview:imageView];
         [self.tipView addSubview:nameLabel];
@@ -171,8 +174,11 @@
     
     self.datePicker.delegate = self;
     
+    RHStyleProvider *styleProvider =[[RHStyleProvider alloc] init];
+    self.datePicker.styleProvider = styleProvider;
+    
     // 默认选中当天
-    [self querySelectedDay:[NSDate date]];
+//    [self querySelectedDay:[NSDate date]];
 }
 
 
@@ -183,9 +189,14 @@
     [[self.settingView setH:self.view.height-self.tipView.maxY-4] outsideBottomEdgeOf:self.tipView by:4];
 }
 
-- (void)calendarPicker:(ABCalendarPicker*)calendarPicker dateSelected:(NSDate*)date withState:(ABCalendarPickerState)state {
+- (void)calendarPicker:(ABCalendarPicker*)calendarPicker controlSelected:(UIControl*)control dateSelected:(NSDate*)date withState:(ABCalendarPickerState)state {
+    RHCalendarCell *tile = (RHCalendarCell *)control;
+    [tile setDayimaImage:DayimaEnd];
+    [tile setDayimaBg:YES];
     [self querySelectedDay:date];
 }
+
+#pragma mark - date view
 
 - (void)querySelectedDay:(NSDate *)date {
     // 改进
@@ -193,60 +204,24 @@
     self.currDate = [NSDate dateFromString:strDate withFormat:DefaultDateFormat];
     self.biaozhuModel = [_dataManager queryBiaoZhu:_currDate];
     
+    self.dayimaModel = [_dataManager queryDayimaStartDate:_currDate];
+    
     [self.settingView reloadData];
 }
 
-//- (void)makeCalendarView {
-//    
-//    self.calendar = [[JTCalendar alloc] init];
-//    
-//    // creat ui
-//    self.calendarMenuView = [[JTCalendarMenuView alloc] init];
-//    self.calendarMenuView.backgroundColor = COLOR_BG_LGREEN;
-//    [self.view addSubview:self.calendarMenuView];
-//    
-//    self.calendarContentView = [[JTCalendarContentView alloc] init];
-//    self.calendarContentView.backgroundColor = COLOR_BG_WHITE;
-//    [self.view addSubview:self.calendarContentView];
-//    
-//    // layout ui
-//    [[self.calendarMenuView setW:self.view.width andH:50] insideTopEdgeBy:0];
-//    [[self.calendarContentView setW:self.view.width andH:300] outsideBottomEdgeOf:self.calendarMenuView by:0];
-//    
-//    // calendar appearance
-//    {
-//        self.calendar.calendarAppearance.calendar.firstWeekday = 2; // Sunday == 1, Saturday == 7
-//        self.calendar.calendarAppearance.dayCircleRatio = 0. / 10.;
-//        self.calendar.calendarAppearance.ratioContentMenu = 1.;
-//        self.calendar.calendarAppearance.focusSelectedDayChangeMode = YES;
-//        
-//        self.calendar.calendarAppearance.menuMonthTextColor = COLOR_TEXT_DGREEN;
-//        self.calendar.calendarAppearance.menuMonthTextFont = FONT_20B;
-//        
-//        self.calendar.calendarAppearance.dayBorderWidth = 1;
-//        self.calendar.calendarAppearance.dayBorderColor = COLOR_BG_DGREEN;
-//        
-//        self.calendar.calendarAppearance.monthBlock = ^NSString *(NSDate *date, JTCalendar *jt_calendar){
-//            NSDateFormatter* fmt = [[NSDateFormatter alloc] init];
-//            [fmt setDateFormat:@"yyyy年MM月"];
-//            return [fmt stringFromDate:date];
-//        };
-//    }
-//    
-//    [self.calendar setMenuMonthsView:self.calendarMenuView];
-//    [self.calendar setContentView:self.calendarContentView];
-//    [self.calendar setDataSource:self];
-//    
-//}
-
-#pragma mark - JTCalendarDataSource
-
-- (BOOL)calendarHaveEvent:(JTCalendar *)calendar date:(NSDate *)date {
-    return (rand() % 10) == 1;
+- (void)settingDayima {
+    NSDate *endDate = [_currDate dateByAddingDays:_zhouqi];
+    [_dataManager insertDayimaStartDate:_currDate endDate:endDate];
+    
+    
 }
 
-- (void)calendarDidDateSelected:(JTCalendar *)calendar date:(NSDate *)date {
-    NSLog(@"Date: %@", date);
+- (void)settingBiyunyao {
+    
+}
+
+- (void)settingRedianliliao {
+    
 }
 
 #pragma mark - UITableViewDataSource, UITableViewDelegate
@@ -283,9 +258,14 @@
             cell = [[RHSettingCell3 alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellType3];
         }
         RHSettingCell3 *cell3 = (RHSettingCell3 *)cell;
+        [cell3 setDayimaComing:NO state:NO];
+        
+        if (_jingqi > 0 && _zhouqi > 0) {
+            [cell3 setTitleJingqi:_jingqi zhouqi:_zhouqi];
+        }
         WEAK_INSTANCE(cell3)
         cell3.actionBlock = ^(BOOL isStart) {
-            
+            [weakself settingDayima];
         };
         cell3.analysisBlock = ^() {
             
@@ -293,16 +273,21 @@
         cell3.settingBlock = ^() {
             RHSettingMenstrualViewCtro *ctro = [[RHSettingMenstrualViewCtro alloc] init];
             ctro.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+            ctro.jingqi = weakself.jingqi;
+            ctro.zhouqi = weakself.zhouqi;
             [weakself presentViewController:ctro animated:YES completion:^{
                 ctro.settingBlock = ^(NSString *jingqi, NSString *zhouqi) {
+                    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
                     if (jingqi && jingqi.length > 0) {
-                        gJingqi = jingqi.intValue;
+                        _jingqi = jingqi.integerValue;
+                        [defaults setInteger:jingqi.integerValue forKey:USER_DEFAULT_JINGQI];
                     }
                     if (zhouqi && zhouqi.length > 0) {
-                        gZhouqi = zhouqi.intValue;
+                        _zhouqi = zhouqi.integerValue;
+                        [defaults setInteger:zhouqi.integerValue forKey:USER_DEFAULT_ZHOUQI];
                     }
-                    if (gJingqi > 0 && gZhouqi > 0) {
-                        [weakcell3 setTitleJingqi:gJingqi zhouqi:gZhouqi];
+                    if (jingqi > 0 && zhouqi > 0) {
+                        [weakcell3 setTitleJingqi:jingqi.intValue zhouqi:zhouqi.intValue];
                     }
                 };
             }];
@@ -474,7 +459,9 @@
     }
     
     cell.cellImage = cellDic[@"image"];
-    cell.cellTitle = cellDic[@"title"];
+    if (indexPath.row != 0) {
+        cell.cellTitle = cellDic[@"title"];
+    }
     
     return cell;
 }
