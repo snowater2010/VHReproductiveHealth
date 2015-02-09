@@ -10,6 +10,7 @@
 
 @interface RHBiaoZhuModel : NSObject
 
+@property(nonatomic, assign) NSInteger tid;
 @property(nonatomic, assign) long calendar;
 @property(nonatomic, assign) NSInteger tongfang;
 @property(nonatomic, assign) NSInteger jiandang;
@@ -22,5 +23,7 @@
 @property(nonatomic, assign) NSInteger dongpeixufei;
 @property(nonatomic, assign) NSInteger xiaohuipeitai;
 @property(nonatomic, strong) NSString *bushufu;
+
+- (instancetype)initWithDate:(NSDate *)date;
 
 @end

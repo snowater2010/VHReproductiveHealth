@@ -17,7 +17,7 @@
 #define RIGHT_ARROW_STRING @"▶"
 
 @interface ABCalendarPicker()
-@property (strong,nonatomic) NSMutableArray * controls;
+
 @property (strong,nonatomic) NSMutableArray * columnLabels;
 @property (strong,nonatomic) UILabel * titleLabel;
 @property (strong,nonatomic) UIButton * titleButton;
@@ -854,7 +854,7 @@
             NSString * label = [provider labelForDate:buttonDate];
             UIControlState controlState = [provider controlStateForDate:buttonDate];
             
-            UIControl * control = [self.styleProvider calendarPicker:self cellViewForTitle:label andState:self.currentState];
+            UIControl * control = [self.styleProvider calendarPicker:self buttonDate:buttonDate cellViewForTitle:label andState:self.currentState];
             
             CGFloat shift = (j < columnsCount - 1) ? 0 : (self.bounds.size.width + 1 - columnsCount*buttonWidth);
             control.frame = CGRectMake(j*buttonWidth-1, i*buttonHeight, buttonWidth+1+shift, buttonHeight+1);

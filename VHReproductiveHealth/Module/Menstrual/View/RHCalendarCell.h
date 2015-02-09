@@ -17,6 +17,7 @@ typedef enum {
 @interface RHCalendarCell : UIControl
 
 @property(nonatomic, strong) NSString *number;
+@property(nonatomic, strong) NSDate *date;
 
 - (void)setImageArray:(NSArray *)array;
 - (void)setDayimaImage:(DayimaState)state;

@@ -31,6 +31,7 @@
 		E83E917E1A8251390037F5E0 /* RHSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E83E917D1A8251390037F5E0 /* RHSettingCell.m */; };
 		E83E91811A826ED60037F5E0 /* RHSettingCell1.m in Sources */ = {isa = PBXBuildFile; fileRef = E83E91801A826ED60037F5E0 /* RHSettingCell1.m */; };
 		E83E91841A826EF40037F5E0 /* RHSettingCell2.m in Sources */ = {isa = PBXBuildFile; fileRef = E83E91831A826EF40037F5E0 /* RHSettingCell2.m */; };
+		E8471C461A886B890010A97B /* RHDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E8471C451A886B890010A97B /* RHDataModel.m */; };
 		E848FF861A776819005B1851 /* RHHomeViewCtro.m in Sources */ = {isa = PBXBuildFile; fileRef = E848FF851A776819005B1851 /* RHHomeViewCtro.m */; };
 		E848FFAA1A777FF4005B1851 /* JTCalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = E848FF941A777FF4005B1851 /* JTCalendar.m */; };
 		E848FFAB1A777FF4005B1851 /* JTCalendarAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = E848FF961A777FF4005B1851 /* JTCalendarAppearance.m */; };
@@ -129,6 +130,8 @@
 		E83E91801A826ED60037F5E0 /* RHSettingCell1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSettingCell1.m; sourceTree = "<group>"; };
 		E83E91821A826EF40037F5E0 /* RHSettingCell2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSettingCell2.h; sourceTree = "<group>"; };
 		E83E91831A826EF40037F5E0 /* RHSettingCell2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSettingCell2.m; sourceTree = "<group>"; };
+		E8471C441A886B890010A97B /* RHDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHDataModel.h; sourceTree = "<group>"; };
+		E8471C451A886B890010A97B /* RHDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHDataModel.m; sourceTree = "<group>"; };
 		E848FF841A776819005B1851 /* RHHomeViewCtro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHHomeViewCtro.h; sourceTree = "<group>"; };
 		E848FF851A776819005B1851 /* RHHomeViewCtro.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHHomeViewCtro.m; sourceTree = "<group>"; };
 		E848FF931A777FF4005B1851 /* JTCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendar.h; sourceTree = "<group>"; };
@@ -540,6 +543,8 @@
 		E8FC7DF91A875C030009403E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E8471C441A886B890010A97B /* RHDataModel.h */,
+				E8471C451A886B890010A97B /* RHDataModel.m */,
 				E8FC7DFA1A875C350009403E /* RHBiaoZhuModel.h */,
 				E8FC7DFB1A875C350009403E /* RHBiaoZhuModel.m */,
 				E8FC7E011A87ABAA0009403E /* RHDayimaModel.h */,
@@ -715,6 +720,7 @@
 				E8FC7DFC1A875C350009403E /* RHBiaoZhuModel.m in Sources */,
 				E83E91791A8247F40037F5E0 /* UIMyButton.m in Sources */,
 				E860F8AA1A7DC9F2007803A3 /* RHRootDataHelper.m in Sources */,
+				E8471C461A886B890010A97B /* RHDataModel.m in Sources */,
 				E83E916D1A8247F40037F5E0 /* ABCalendarPickerDefaultStyleProvider.m in Sources */,
 				E8FC7E001A8768380009403E /* NSDate+Helper.m in Sources */,
 				E83E91811A826ED60037F5E0 /* RHSettingCell1.m in Sources */,

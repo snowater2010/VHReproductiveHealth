@@ -26,6 +26,12 @@
             cellViewForTitle:(NSString*)cellTitle
                     andState:(ABCalendarPickerState)state;
 
+// lipeng
+- (UIControl*)calendarPicker:(ABCalendarPicker*)calendarPicker
+                  buttonDate:(NSDate *)date
+            cellViewForTitle:(NSString*)cellTitle
+                    andState:(ABCalendarPickerState)state;
+
 - (void)calendarPicker:(ABCalendarPicker*)calendarPicker
  postUpdateForCellView:(UIControl*)control
         onControlState:(UIControlState)controlState

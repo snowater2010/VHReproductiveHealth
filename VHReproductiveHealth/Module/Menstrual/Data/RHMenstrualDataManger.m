@@ -8,6 +8,7 @@
 
 #import "RHMenstrualDataManger.h"
 #import "FMDatabase.h"
+#import "RHDataModel.h"
 
 @interface RHMenstrualDataManger () {
     FMDatabase *_db;
@@ -120,6 +121,40 @@
     return biaoZhu;
 }
 
+- (NSArray *)queryBiaoZhuStartDate:(NSDate *)strDate endDate:(NSDate *)endDate{
+    NSString *qBiaozhu = @"SELECT * FROM biaozhu WHERE calendar >= ? and calendar <= ? ";
+    long strTime = [strDate timeIntervalSince1970] * 1000;
+    long endTime = [endDate timeIntervalSince1970] * 1000;
+    
+    NSMutableArray *result = [NSMutableArray array];
+    
+    FMResultSet *rs = [_db executeQuery:qBiaozhu, [NSNumber numberWithLong:strTime], [NSNumber numberWithLong:endTime]];
+    while ([rs next]) {
+        RHBiaoZhuModel *biaoZhu = [[RHBiaoZhuModel alloc] init];
+        
+        biaoZhu.calendar = [rs longForColumn:@"calendar"];
+        biaoZhu.tongfang = [rs intForColumn:@"tongfang"];
+        biaoZhu.jiandang = [rs intForColumn:@"jiandang"];
+        
+        biaoZhu.jinzhouqi = [rs longForColumn:@"jinzhouqi"];
+        biaoZhu.jianceBchao = [rs intForColumn:@"jianceBchao"];
+        biaoZhu.nanfangzhunbei = [rs intForColumn:@"nanfangzhunbei"];
+        
+        biaoZhu.dayezhen = [rs longForColumn:@"dayezhen"];
+        biaoZhu.quruan = [rs intForColumn:@"quruan"];
+        biaoZhu.yizhi = [rs intForColumn:@"yizhi"];
+        
+        biaoZhu.dongpeixufei = [rs longForColumn:@"dongpeixufei"];
+        biaoZhu.xiaohuipeitai = [rs intForColumn:@"xiaohuipeitai"];
+        biaoZhu.bushufu = [rs stringForColumn:@"bushufu"];
+        
+        [result addObject:biaoZhu];
+    }
+    [rs close];
+    
+    return result;
+}
+
 - (void)insertBiaoZhu:(RHBiaoZhuModel *)biaozhu {
     NSString *iBiaozhu = @"INSERT INTO biaozhu (tongfang, jiandang, jinzhouqi, jianceBchao, nanfangzhunbei, dayezhen, quruan, yizhi, dongpeixufei, xiaohuipeitai, bushufu, calendar) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
     
@@ -136,25 +171,31 @@
         [NSNumber numberWithInteger:biaozhu.xiaohuipeitai],
         biaozhu.bushufu,
         [NSNumber numberWithLong:biaozhu.calendar]];
-    
 }
 
 - (void)updateBiaoZhu:(RHBiaoZhuModel *)biaozhu {
-    NSString *uBiaozhu = @"UPDATE biaozhu SET tongfang = ?, jiandang = ?, jinzhouqi = ?, jianceBchao = ?, nanfangzhunbei = ?, dayezhen = ?, quruan = ?, yizhi = ?, dongpeixufei = ?, xiaohuipeitai = ?, bushufu = ? WHERE calendar = ?";
+    // 改进
+
+    NSString *dBiaozhu = @"DELETE biaozhu WHERE calendar = ?";
+    [_db executeQuery:dBiaozhu, [NSNumber numberWithLong:biaozhu.calendar]];
     
-    [_db executeUpdate:uBiaozhu,
-        [NSNumber numberWithInteger:biaozhu.tongfang],
-        [NSNumber numberWithInteger:biaozhu.jiandang],
-        [NSNumber numberWithInteger:biaozhu.jinzhouqi],
-        [NSNumber numberWithInteger:biaozhu.jianceBchao],
-        [NSNumber numberWithInteger:biaozhu.nanfangzhunbei],
-        [NSNumber numberWithInteger:biaozhu.dayezhen],
-        [NSNumber numberWithInteger:biaozhu.quruan],
-        [NSNumber numberWithInteger:biaozhu.yizhi],
-        [NSNumber numberWithInteger:biaozhu.dongpeixufei],
-        [NSNumber numberWithInteger:biaozhu.xiaohuipeitai],
-        biaozhu.bushufu,
-        [NSNumber numberWithLong:biaozhu.calendar]];
+    [self insertBiaoZhu:biaozhu];
+    
+//    NSString *uBiaozhu = @"UPDATE biaozhu SET tongfang = ?, jiandang = ?, jinzhouqi = ?, jianceBchao = ?, nanfangzhunbei = ?, dayezhen = ?, quruan = ?, yizhi = ?, dongpeixufei = ?, xiaohuipeitai = ?, bushufu = ? WHERE calendar = ?";
+//    
+//    [_db executeUpdate:uBiaozhu,
+//        [NSNumber numberWithInteger:biaozhu.tongfang],
+//        [NSNumber numberWithInteger:biaozhu.jiandang],
+//        [NSNumber numberWithInteger:biaozhu.jinzhouqi],
+//        [NSNumber numberWithInteger:biaozhu.jianceBchao],
+//        [NSNumber numberWithInteger:biaozhu.nanfangzhunbei],
+//        [NSNumber numberWithInteger:biaozhu.dayezhen],
+//        [NSNumber numberWithInteger:biaozhu.quruan],
+//        [NSNumber numberWithInteger:biaozhu.yizhi],
+//        [NSNumber numberWithInteger:biaozhu.dongpeixufei],
+//        [NSNumber numberWithInteger:biaozhu.xiaohuipeitai],
+//        biaozhu.bushufu,
+//        [NSNumber numberWithLong:biaozhu.calendar]];
 }
 
 - (RHDayimaModel *)queryDayimaStartDate:(NSDate *)start {
@@ -175,6 +216,27 @@
     return nil;
 }
 
+- (NSArray *)queryDayimaStartDate:(NSDate *)start endDate:(NSDate *)end {
+    NSString *sql = @"SELECT * FROM dayima WHERE end >= ? and start <= ? ";
+    
+    long timeStart = [start timeIntervalSince1970] * 1000;
+    long timeEnd = [end timeIntervalSince1970] * 1000;
+    
+    NSMutableArray *result = [NSMutableArray array];
+    
+    FMResultSet *rs = [_db executeQuery:sql, [NSNumber numberWithLong:timeStart], [NSNumber numberWithLong:timeEnd]];
+    while ([rs next]) {
+        RHDayimaModel *model = [[RHDayimaModel alloc] init];
+        model.tid = [rs intForColumn:@"tid"];
+        model.start = [rs longForColumn:@"start"];
+        model.end = [rs longForColumn:@"end"];
+        [result addObject:model];
+    }
+    [rs close];
+    
+    return result;
+}
+
 - (void)insertDayima:(RHDayimaModel *)model {
     NSString *sql = @"INSERT INTO dayima (start, end) VALUES (?, ?)";
     [_db executeUpdate:sql, [NSNumber numberWithLong:model.start], [NSNumber numberWithLong:model.end]];
@@ -182,14 +244,57 @@
 
 - (void)insertDayimaStartDate:(NSDate *)startDate endDate:(NSDate *)endDate {
     RHDayimaModel *model = [[RHDayimaModel alloc] init];
-    model.start = [startDate timeIntervalSince1970]*1000;
-    model.end = [endDate timeIntervalSince1970]*1000;
+    model.start = [startDate timeIntervalSince1970] * 1000;
+    model.end = [endDate timeIntervalSince1970] * 1000;
     [self insertDayima:model];
 }
 
 - (void)updateDayima:(RHDayimaModel *)model {
     NSString *sql = @"UPDATE biaozhu SET start = ?, end = ? WHERE tid = ?";
     [_db executeUpdate:sql, [NSNumber numberWithLong:model.start], [NSNumber numberWithLong:model.end], [NSNumber numberWithLong:model.tid]];
+}
+
+- (NSArray *)getMonthData:(NSDate *)date {
+    NSDate *startDate = [RHMenstrualDataManger dateFirstAtMonth:date];
+    NSDate *endDate = [RHMenstrualDataManger dateLastAtMonth:date];
+    
+    NSArray *dayimaArray = [self queryDayimaStartDate:startDate endDate:endDate];
+    NSArray *biaozhuArray = [self queryBiaoZhuStartDate:startDate endDate:endDate];
+    
+    NSMutableArray *result = [NSMutableArray array];
+    NSDate *eachDate = startDate;
+    for (int i = 0; i < endDate.day; i++) {
+        RHDataModel *model = [[RHDataModel alloc] initWithDate:eachDate];
+        
+        // dayima
+        long eachTime = [eachDate timeIntervalSince1970] * 1000;
+        for (RHDayimaModel *dayima in dayimaArray) {
+            if (eachTime >= dayima.start && eachTime <= dayima.end) {
+                model.isDayima = YES;
+                break;
+            }
+        }
+        
+        // biaozhu
+        for (RHBiaoZhuModel *biaozhu in biaozhuArray) {
+            if (biaozhu.calendar == eachTime) {
+                model.biaozhu = biaozhu;
+            }
+        }
+        
+        [result addObject:model];
+        eachDate = [eachDate dateByAddingDays:1];
+    }
+    
+    return result;
+}
+
++ (NSDate *)dateFirstAtMonth:(NSDate *)date {
+    return [[date dateBySettingDays:1] dateAtBeginningOfDay];
+}
+
++ (NSDate *)dateLastAtMonth:(NSDate *)date {
+    return [[[[date dateByAddingMonths:1] dateBySettingDays:1] dateByAddingDays:-1] dateAtBeginningOfDay];
 }
 
 @end

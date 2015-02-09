@@ -32,11 +32,13 @@
 }
 
 - (UIControl*)calendarPicker:(ABCalendarPicker*)calendarPicker
+                  buttonDate:(NSDate *)date
             cellViewForTitle:(NSString*)cellTitle
                     andState:(ABCalendarPickerState)state
 {
     RHCalendarCell *cell = [[RHCalendarCell alloc] init];
     cell.number = cellTitle;
+    cell.date = date;
     
     cell.layer.borderWidth = 1;
     cell.layer.borderColor = [COLOR_DGREEN CGColor];

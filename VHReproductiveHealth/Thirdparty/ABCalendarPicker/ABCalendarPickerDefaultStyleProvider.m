@@ -317,6 +317,7 @@
 }
 
 - (UIControl*)calendarPicker:(ABCalendarPicker*)calendarPicker
+                  buttonDate:(NSDate *)date
             cellViewForTitle:(NSString*)cellTitle
                     andState:(ABCalendarPickerState)state
 {

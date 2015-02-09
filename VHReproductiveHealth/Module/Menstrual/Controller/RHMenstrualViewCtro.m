@@ -25,6 +25,7 @@
 #import "RHBiaoZhuModel.h"
 #import "RHStyleProvider.h"
 #import "RHCalendarCell.h"
+#import "RHDataModel.h"
 
 #define DefaultDateFormat @"yyyy-MM-dd"
 
@@ -44,9 +45,10 @@
 @property (nonatomic, strong) NSDate *currDate;
 @property (nonatomic, strong) RHMenstrualDataManger *dataManager;
 @property (nonatomic, strong) RHBiaoZhuModel *biaozhuModel;
-@property (nonatomic, strong) RHDayimaModel *dayimaModel;
+@property (nonatomic, strong) NSArray *monthData;
 
-
+@property (nonatomic, strong) RHStyleProvider *styleProvider;
+@property (nonatomic, strong) NSMutableDictionary *controlDic;
 
 @end
 
@@ -75,7 +77,8 @@
 #pragma mark - user method
 
 - (void)initData {
-    self.dataManager = [RHMenstrualDataManger sharedInstance];
+    
+    self.controlDic = [NSMutableDictionary dictionary];
     
     self.settingArray = @[
         @{@"type" : @(CellType3), @"image" : @"yimalaile", @"title" : @"大姨妈来了", @"setting" : @(SettingType1)},
@@ -107,6 +110,8 @@
         _zhouqi = DefaultZhouqi;
         [defaults setInteger:DefaultZhouqi forKey:USER_DEFAULT_ZHOUQI];
     }
+    
+    self.dataManager = [RHMenstrualDataManger sharedInstance];
 }
 
 - (void)initUIView {
@@ -174,46 +179,77 @@
     
     self.datePicker.delegate = self;
     
-    RHStyleProvider *styleProvider =[[RHStyleProvider alloc] init];
-    self.datePicker.styleProvider = styleProvider;
-    
-    // 默认选中当天
-//    [self querySelectedDay:[NSDate date]];
+    self.styleProvider =[[RHStyleProvider alloc] init];
+    self.datePicker.styleProvider = _styleProvider;
+    self.datePicker.weekdaysProvider = [[ABCalendarPickerDefaultWeekdaysProvider alloc] init];
 }
-
 
 #pragma mark - ABCalendarPickerDelegateProtocol
 - (void)calendarPicker:(ABCalendarPicker*)calendarPicker animateNewHeight:(CGFloat)height {
     [self.tipView outsideBottomEdgeOf:self.datePicker by:4];
-    
     [[self.settingView setH:self.view.height-self.tipView.maxY-4] outsideBottomEdgeOf:self.tipView by:4];
+    
+    [self refreshCellCache];
+    [self refreshCalendar];
 }
 
 - (void)calendarPicker:(ABCalendarPicker*)calendarPicker controlSelected:(UIControl*)control dateSelected:(NSDate*)date withState:(ABCalendarPickerState)state {
-    RHCalendarCell *tile = (RHCalendarCell *)control;
-    [tile setDayimaImage:DayimaEnd];
-    [tile setDayimaBg:YES];
-    [self querySelectedDay:date];
+    // 判断翻页，查询数据
+    BOOL isNewPage = !(_currDate && (_currDate.year == date.year) && (_currDate.month == date.month));
+    self.currDate = [date dateAtBeginningOfDay];
+    
+    if (isNewPage) {
+        [self refreshData];
+        [self refreshCalendar];
+    }
+    
+    RHDataModel *model = self.monthData[_currDate.day-1];
+    self.biaozhuModel = model.biaozhu;
+    
+    [self refreshSetting];
+}
+
+- (void)refreshData {
+    self.monthData = [_dataManager getMonthData:_currDate];
+    [self refreshCellCache];
+}
+
+- (void)refreshCellCache {
+    [_controlDic removeAllObjects];
+    for (int i = 0; i < self.datePicker.controls.count; i++) {
+        NSArray *arr = self.datePicker.controls[i];
+        for (int j = 0; j < arr.count; j++) {
+            RHCalendarCell *cell = (RHCalendarCell *)arr[j];
+            [_controlDic setObject:cell forKey:[cell.date stringWithFormat:DefaultDateFormat]];
+        }
+    }
+}
+
+- (void)refreshCalendar {
+    for (RHDataModel *model in self.monthData) {
+        RHCalendarCell *cell = [_controlDic objectForKey:[model.date stringWithFormat:DefaultDateFormat]];
+        if (model.isDayima) {
+            cell.backgroundColor = COLOR_BG_PINK;
+        }
+        else {
+            cell.backgroundColor = COLOR_BG_WHITE;
+        }
+    }
+}
+
+- (void)refreshSetting {
+    [self.settingView reloadData];
 }
 
 #pragma mark - date view
 
-- (void)querySelectedDay:(NSDate *)date {
-    // 改进
-    NSString *strDate = [date stringWithFormat:DefaultDateFormat];
-    self.currDate = [NSDate dateFromString:strDate withFormat:DefaultDateFormat];
-    self.biaozhuModel = [_dataManager queryBiaoZhu:_currDate];
-    
-    self.dayimaModel = [_dataManager queryDayimaStartDate:_currDate];
-    
-    [self.settingView reloadData];
-}
-
 - (void)settingDayima {
-    NSDate *endDate = [_currDate dateByAddingDays:_zhouqi];
+    NSDate *endDate = [_currDate dateByAddingDays:_jingqi];
     [_dataManager insertDayimaStartDate:_currDate endDate:endDate];
     
-    
+    [self refreshData];
+    [self refreshCalendar];
+    [self refreshSetting];
 }
 
 - (void)settingBiyunyao {
@@ -495,5 +531,7 @@
 //            break;
 //    }
 //}
+
+
 
 @end

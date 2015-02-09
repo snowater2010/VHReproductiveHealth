@@ -83,6 +83,9 @@
 /// @name Accessing current state
 /// ----------------------------------------------------------------
 
+// lipeng
+@property (strong,nonatomic) NSMutableArray * controls;
+
 /** Retrieving current calendar state */
 @property (readonly,nonatomic) ABCalendarPickerState currentState;
 /** Retrieving and setting selected date, looks like today date. */
