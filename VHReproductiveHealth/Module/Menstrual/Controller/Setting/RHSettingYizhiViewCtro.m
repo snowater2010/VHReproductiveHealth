@@ -25,7 +25,7 @@
 }
 
 - (void)initSet {
-    self.settingHeight = 300;
+    self.settingHeight = 200;
     self.yizhi = 1;
     _datas = @[@"一个", @"两个"];
 }
@@ -42,15 +42,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.settingTitle = @"移植记录";
+    
     _picker = [[UIPickerView alloc] initWithFrame:self.contentView.bounds];
     [self.contentView addSubview:_picker];
-    _picker.backgroundColor = [UIColor purpleColor];
     
     _picker.dataSource = self;
     _picker.delegate = self;
     
     if (_yizhi > 0) {
-        [_picker selectRow:_yizhi inComponent:0 animated:NO];
+        [_picker selectRow:_yizhi-1 inComponent:0 animated:NO];
     }
 }
 

@@ -28,6 +28,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.settingTitle = @"取卵记录";
+    
     qlText = [[UITextField alloc] init];
     UILabel *qlLabel = [[UILabel alloc] init];
     UILabel *qlUnit = [[UILabel alloc] init];

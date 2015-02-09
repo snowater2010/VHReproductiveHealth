@@ -50,9 +50,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.settingTitle = @"同房记录";
+    
     _picker = [[UIPickerView alloc] initWithFrame:self.contentView.bounds];
     [self.contentView addSubview:_picker];
-    _picker.backgroundColor = [UIColor purpleColor];
     
     _picker.dataSource = self;
     _picker.delegate = self;

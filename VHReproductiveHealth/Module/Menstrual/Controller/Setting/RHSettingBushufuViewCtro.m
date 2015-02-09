@@ -47,6 +47,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.settingTitle = @"不舒服症状";
+    
     _tagList = [[DWTagList alloc] init];
     [self.contentView addSubview:_tagList];
     

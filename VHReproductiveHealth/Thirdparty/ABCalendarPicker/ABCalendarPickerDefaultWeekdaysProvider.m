@@ -61,10 +61,10 @@
 }
 
 - (ABCalendarPickerAnimation)animationForPrev {
-    return ABCalendarPickerAnimationScrollUp;
+    return ABCalendarPickerAnimationScrollLeft;
 }
 - (ABCalendarPickerAnimation)animationForNext {
-    return ABCalendarPickerAnimationScrollDown;
+    return ABCalendarPickerAnimationScrollRight;
 }
 - (ABCalendarPickerAnimation)animationForZoomInToProvider:(id<ABCalendarPickerDateProviderProtocol>)provider {
     return ABCalendarPickerAnimationNone;

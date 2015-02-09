@@ -12,6 +12,7 @@
 
 @property(nonatomic, assign) CGFloat settingHeight;
 @property(nonatomic, strong) UIView *contentView;
+@property(nonatomic, strong) NSString *settingTitle;
 
 - (void)doConfirm;
 + (NSString *)getSignNameWithValue:(NSInteger)value;

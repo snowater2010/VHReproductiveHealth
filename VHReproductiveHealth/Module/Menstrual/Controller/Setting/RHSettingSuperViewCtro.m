@@ -8,6 +8,12 @@
 
 #import "RHSettingSuperViewCtro.h"
 
+@interface RHSettingSuperViewCtro () {
+    UILabel *titleLabel;
+}
+
+@end
+
 @implementation RHSettingSuperViewCtro
 
 - (instancetype)init {
@@ -52,15 +58,13 @@
     [self.view addSubview:windowView];
     [[[windowView setW:self.view.width*0.8 andH:_settingHeight] centerXWith:self.view] insideTopEdgeBy:100];
     
-    windowView.backgroundColor = COLOR_BG_DEF;
+    windowView.backgroundColor = COLOR_BG_WHITE;
     
-    UILabel *titleLabel = [[UILabel alloc] init];
+    titleLabel = [[UILabel alloc] init];
     [windowView addSubview:titleLabel];
-    [[titleLabel setW:windowView.width andH:30] insideTopEdgeBy:0];
-    titleLabel.backgroundColor = [UIColor redColor];
-    titleLabel.text = @"经期设置";
+    [[titleLabel setW:windowView.width andH:30] insideTopEdgeBy:10];
     titleLabel.textAlignment = NSTextAlignmentCenter;
-    titleLabel.font = FONT_14;
+    titleLabel.font = FONT_18;
     titleLabel.textColor = COLOR_TEXT_DGREEN;
     
     UIButton *cancelBtn = [[UIButton alloc] init];
@@ -68,8 +72,8 @@
     [windowView addSubview:cancelBtn];
     [windowView addSubview:confirmBtn];
     
-    [[[cancelBtn setW:50 andH:30] insideBottomEdgeBy:0] insideLeftEdgeBy:10];
-    [[[confirmBtn setW:50 andH:30] insideBottomEdgeBy:0] insideRightEdgeBy:10];
+    [[[cancelBtn setW:50 andH:30] insideBottomEdgeBy:10] insideLeftEdgeBy:20];
+    [[[confirmBtn setW:50 andH:30] insideBottomEdgeBy:10] insideRightEdgeBy:30];
     
     [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
     [cancelBtn setTitleColor:COLOR_TEXT_DGREEN forState:UIControlStateNormal];
@@ -83,7 +87,11 @@
     self.contentView = [[UIView alloc] init];
     [windowView addSubview:_contentView];
     [[_contentView setW:windowView.width andH:cancelBtn.y-titleLabel.maxY] outsideBottomEdgeOf:titleLabel by:0];
-    _contentView.backgroundColor = [UIColor yellowColor];
+}
+
+- (void)setSettingTitle:(NSString *)settingTitle {
+    _settingTitle = settingTitle;
+    titleLabel.text = _settingTitle;
 }
 
 - (void)doCancel {

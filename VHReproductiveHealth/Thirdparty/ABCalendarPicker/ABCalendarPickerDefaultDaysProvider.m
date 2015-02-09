@@ -64,10 +64,10 @@
 }
 
 - (ABCalendarPickerAnimation)animationForPrev {
-    return ABCalendarPickerAnimationScrollUp;
+    return ABCalendarPickerAnimationScrollLeft;
 }
 - (ABCalendarPickerAnimation)animationForNext {
-    return ABCalendarPickerAnimationScrollDown;
+    return ABCalendarPickerAnimationScrollRight;
 }
 - (ABCalendarPickerAnimation)animationForZoomInToProvider:(id<ABCalendarPickerDateProviderProtocol>)provider {
     if (provider == nil)
@@ -99,19 +99,19 @@
     return [self.calendar dateByAddingComponents:components toDate:[self.dateOwner highlightedDate] options:0]; 
 }
 
-- (NSDate*)dateForLongPrevAnimation
-{
-    NSDateComponents * components = [[NSDateComponents alloc] init];
-    components.year = -1;
-    return [self.calendar dateByAddingComponents:components toDate:[self.dateOwner highlightedDate] options:0];
-}
-
-- (NSDate*)dateForLongNextAnimation
-{
-    NSDateComponents * components = [[NSDateComponents alloc] init];
-    components.year = 1;
-    return [self.calendar dateByAddingComponents:components toDate:[self.dateOwner highlightedDate] options:0];
-}
+//- (NSDate*)dateForLongPrevAnimation
+//{
+//    NSDateComponents * components = [[NSDateComponents alloc] init];
+//    components.year = -1;
+//    return [self.calendar dateByAddingComponents:components toDate:[self.dateOwner highlightedDate] options:0];
+//}
+//
+//- (NSDate*)dateForLongNextAnimation
+//{
+//    NSDateComponents * components = [[NSDateComponents alloc] init];
+//    components.year = 1;
+//    return [self.calendar dateByAddingComponents:components toDate:[self.dateOwner highlightedDate] options:0];
+//}
 
 - (NSInteger)rowsCount
 {

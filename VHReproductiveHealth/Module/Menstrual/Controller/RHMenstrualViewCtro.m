@@ -26,6 +26,7 @@
 #import "RHStyleProvider.h"
 #import "RHCalendarCell.h"
 #import "RHDataModel.h"
+#import "RHDayProvider.h"
 
 #define DefaultDateFormat @"yyyy-MM-dd"
 
@@ -164,8 +165,7 @@
     
     self.datePicker.delegate = self;
     
-    self.styleProvider =[[RHStyleProvider alloc] init];
-    self.datePicker.styleProvider = _styleProvider;
+    self.datePicker.styleProvider = [[RHStyleProvider alloc] init];
     self.datePicker.weekdaysProvider = [[ABCalendarPickerDefaultWeekdaysProvider alloc] init];
 }
 
@@ -179,6 +179,7 @@
 }
 
 - (void)calendarPicker:(ABCalendarPicker*)calendarPicker controlSelected:(UIControl*)control dateSelected:(NSDate*)date withState:(ABCalendarPickerState)state {
+    
     // 选中标记
     RHCalendarCell *cell = (RHCalendarCell *)control;
     [self.lastSelectedCell setSelectedStyle:NO];

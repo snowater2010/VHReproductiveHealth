@@ -31,6 +31,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.settingTitle = @"经期设置";
+    
     //
     jqText = [[UITextField alloc] init];
     UILabel *jqLabel = [[UILabel alloc] init];

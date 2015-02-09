@@ -33,6 +33,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.settingTitle = @"冻胚续费";
+    
     //
     syText = [[UITextField alloc] init];
     UILabel *syLabel = [[UILabel alloc] init];

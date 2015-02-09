@@ -62,6 +62,7 @@
 		E863D57B1A76172A0070F1F4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E863D57A1A76172A0070F1F4 /* Images.xcassets */; };
 		E863D58A1A76172B0070F1F4 /* VHReproductiveHealthTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E863D5891A76172B0070F1F4 /* VHReproductiveHealthTests.m */; };
 		E863D5C81A766C0F0070F1F4 /* RHUIApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = E863D5C71A766C0F0070F1F4 /* RHUIApplication.m */; };
+		E89ED2591A8922CE002CA0EB /* RHDayProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = E89ED2581A8922CE002CA0EB /* RHDayProvider.m */; };
 		E8FC7DEF1A87536F0009403E /* main.sql in Resources */ = {isa = PBXBuildFile; fileRef = E8FC7DEE1A87536F0009403E /* main.sql */; };
 		E8FC7DF81A8758840009403E /* RHMenstrualDataManger.m in Sources */ = {isa = PBXBuildFile; fileRef = E8FC7DF71A8758840009403E /* RHMenstrualDataManger.m */; };
 		E8FC7DFC1A875C350009403E /* RHBiaoZhuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E8FC7DFB1A875C350009403E /* RHBiaoZhuModel.m */; };
@@ -195,6 +196,8 @@
 		E863D5931A7660610070F1F4 /* VHReproductiveHealth-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "VHReproductiveHealth-Prefix.pch"; sourceTree = "<group>"; };
 		E863D5C61A766C0F0070F1F4 /* RHUIApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHUIApplication.h; sourceTree = "<group>"; };
 		E863D5C71A766C0F0070F1F4 /* RHUIApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHUIApplication.m; sourceTree = "<group>"; };
+		E89ED2571A8922CE002CA0EB /* RHDayProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHDayProvider.h; sourceTree = "<group>"; };
+		E89ED2581A8922CE002CA0EB /* RHDayProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHDayProvider.m; sourceTree = "<group>"; };
 		E8FC7DEE1A87536F0009403E /* main.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.sql; sourceTree = "<group>"; };
 		E8FC7DF61A8758840009403E /* RHMenstrualDataManger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHMenstrualDataManger.h; sourceTree = "<group>"; };
 		E8FC7DF71A8758840009403E /* RHMenstrualDataManger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHMenstrualDataManger.m; sourceTree = "<group>"; };
@@ -325,6 +328,8 @@
 				E8FC7E051A87C4040009403E /* RHStyleProvider.m */,
 				E8FC7E071A87C6830009403E /* RHCalendarCell.h */,
 				E8FC7E081A87C6830009403E /* RHCalendarCell.m */,
+				E89ED2571A8922CE002CA0EB /* RHDayProvider.h */,
+				E89ED2581A8922CE002CA0EB /* RHDayProvider.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -721,6 +726,7 @@
 				E83E91791A8247F40037F5E0 /* UIMyButton.m in Sources */,
 				E860F8AA1A7DC9F2007803A3 /* RHRootDataHelper.m in Sources */,
 				E8471C461A886B890010A97B /* RHDataModel.m in Sources */,
+				E89ED2591A8922CE002CA0EB /* RHDayProvider.m in Sources */,
 				E83E916D1A8247F40037F5E0 /* ABCalendarPickerDefaultStyleProvider.m in Sources */,
 				E8FC7E001A8768380009403E /* NSDate+Helper.m in Sources */,
 				E83E91811A826ED60037F5E0 /* RHSettingCell1.m in Sources */,
