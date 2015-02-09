@@ -23,7 +23,8 @@
 - (RHDayimaModel *)queryDayimaStartDate:(NSDate *)start;
 - (NSArray *)queryDayimaStartDate:(NSDate *)start endDate:(NSDate *)end;
 - (void)insertDayimaStartDate:(NSDate *)startDate endDate:(NSDate *)endDate;
-- (void)updateDayima:(RHDayimaModel *)model;
+- (void)deleteDayimaWithDate:(NSDate *)startDate;
+- (void)updateDayimaEndDate:(NSDate *)endDate withDate:(NSDate *)date;
 
 - (void)closeDB;
 

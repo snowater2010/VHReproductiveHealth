@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UIMyButton.h"
 
 typedef enum {
     DayimaBegin,
@@ -18,9 +17,12 @@ typedef enum {
 
 @property(nonatomic, strong) NSString *number;
 @property(nonatomic, strong) NSDate *date;
+@property(nonatomic, assign) BOOL isDayima;
 
 - (void)setImageArray:(NSArray *)array;
 - (void)setDayimaImage:(DayimaState)state;
 - (void)setDayimaBg:(BOOL)isDayima;
+
+- (void)setSelectedStyle:(BOOL)isSelected;
 
 @end

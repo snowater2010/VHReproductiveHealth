@@ -57,7 +57,9 @@
     _picker.dataSource = self;
     _picker.delegate = self;
     
-    [_picker selectRow:_tongfang-1 inComponent:0 animated:NO];
+    if (_tongfang > 0) {
+        [_picker selectRow:_tongfang-1 inComponent:0 animated:NO];
+    }
 }
 
 - (void)doConfirm {

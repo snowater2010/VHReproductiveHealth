@@ -45,10 +45,14 @@
 @property (nonatomic, strong) NSDate *currDate;
 @property (nonatomic, strong) RHMenstrualDataManger *dataManager;
 @property (nonatomic, strong) RHBiaoZhuModel *biaozhuModel;
+
+@property (nonatomic, strong) RHDataModel *currDataModel;
 @property (nonatomic, strong) NSArray *monthData;
 
 @property (nonatomic, strong) RHStyleProvider *styleProvider;
 @property (nonatomic, strong) NSMutableDictionary *controlDic;
+
+@property (nonatomic, strong) RHCalendarCell *lastSelectedCell;
 
 @end
 
@@ -194,6 +198,12 @@
 }
 
 - (void)calendarPicker:(ABCalendarPicker*)calendarPicker controlSelected:(UIControl*)control dateSelected:(NSDate*)date withState:(ABCalendarPickerState)state {
+    // 选中标记
+    RHCalendarCell *cell = (RHCalendarCell *)control;
+    [self.lastSelectedCell setSelectedStyle:NO];
+    [cell setSelectedStyle:YES];
+    self.lastSelectedCell = cell;
+    
     // 判断翻页，查询数据
     BOOL isNewPage = !(_currDate && (_currDate.year == date.year) && (_currDate.month == date.month));
     self.currDate = [date dateAtBeginningOfDay];
@@ -203,14 +213,17 @@
         [self refreshCalendar];
     }
     
-    RHDataModel *model = self.monthData[_currDate.day-1];
-    self.biaozhuModel = model.biaozhu;
+    self.currDataModel = self.monthData[_currDate.day-1];
+    self.biaozhuModel = _currDataModel.biaozhu;
     
     [self refreshSetting];
 }
 
 - (void)refreshData {
     self.monthData = [_dataManager getMonthData:_currDate];
+    self.currDataModel = self.monthData[_currDate.day-1];
+    self.biaozhuModel = _currDataModel.biaozhu;
+    
     [self refreshCellCache];
 }
 
@@ -228,24 +241,85 @@
 - (void)refreshCalendar {
     for (RHDataModel *model in self.monthData) {
         RHCalendarCell *cell = [_controlDic objectForKey:[model.date stringWithFormat:DefaultDateFormat]];
-        if (model.isDayima) {
-            cell.backgroundColor = COLOR_BG_PINK;
-        }
-        else {
-            cell.backgroundColor = COLOR_BG_WHITE;
-        }
+        cell.isDayima = model.isDayima;
     }
 }
 
 - (void)refreshSetting {
+    BOOL showComing = NO;
+    BOOL showStart = NO;
+    if (_currDataModel.isDayima) {
+        if (_currDataModel.isDayimaBegin) {
+            showComing = YES;
+            showStart = YES;
+        }
+        else if (_currDataModel.isDayimaEnd) {
+            showComing = NO;
+            showStart = YES;
+        }
+        else {
+            showComing = NO;
+            showStart = NO;
+        }
+    }
+    else {
+        BOOL isInEndRange = NO;
+        NSInteger currIndex = _currDate.day-1;
+        for (int i = 0; i < _jingqi; i++) {
+            currIndex--;
+            if (self.monthData.count > currIndex) {
+                RHDataModel *testModel = self.monthData[currIndex];
+                if (testModel.isDayima) {
+                    isInEndRange = YES;
+                    break;
+                }
+            }
+            else {
+                break;
+            }
+        }
+        showComing = !isInEndRange;
+        showStart = NO;
+    }
+    
+    _currDataModel.showComing = showComing;
+    _currDataModel.showStart = showStart;
+    
     [self.settingView reloadData];
 }
 
 #pragma mark - date view
 
-- (void)settingDayima {
-    NSDate *endDate = [_currDate dateByAddingDays:_jingqi];
-    [_dataManager insertDayimaStartDate:_currDate endDate:endDate];
+- (void)settingDayima:(BOOL)isStart {
+    if (self.currDataModel.showComing) {
+        if (isStart) {
+            NSDate *endDate = [_currDate dateByAddingDays:_jingqi];
+            [_dataManager insertDayimaStartDate:_currDate endDate:endDate];
+        }
+        else {
+            [_dataManager deleteDayimaWithDate:_currDate];
+        }
+    }
+    else if (!self.currDataModel.showComing) {
+        if (isStart) {
+            RHDataModel *lastModel = nil;
+            NSInteger index = _currDate.day-1;
+            do {
+                if (_monthData.count > index) {
+                    RHDataModel *datamodel = _monthData[index];
+                    if (datamodel.isDayima) {
+                        lastModel = datamodel;
+                        break;
+                    }
+                }
+                index--;
+            } while (index != 0);
+            
+            [_dataManager updateDayimaEndDate:_currDate withDate:lastModel.date];
+        }
+    }
+    
+    
     
     [self refreshData];
     [self refreshCalendar];
@@ -294,14 +368,14 @@
             cell = [[RHSettingCell3 alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellType3];
         }
         RHSettingCell3 *cell3 = (RHSettingCell3 *)cell;
-        [cell3 setDayimaComing:NO state:NO];
+        [cell3 setDayimaComing:_currDataModel.showComing state:_currDataModel.showStart];
         
         if (_jingqi > 0 && _zhouqi > 0) {
             [cell3 setTitleJingqi:_jingqi zhouqi:_zhouqi];
         }
         WEAK_INSTANCE(cell3)
         cell3.actionBlock = ^(BOOL isStart) {
-            [weakself settingDayima];
+            [weakself settingDayima:isStart];
         };
         cell3.analysisBlock = ^() {
             

@@ -30,18 +30,22 @@
 
 - (instancetype)init {
     if (self = [super init]) {
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *documentDirectory = [paths objectAtIndex:0];
+        NSString *documentDirectory = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
         NSString *dbPath = [documentDirectory stringByAppendingPathComponent:@"RHMenstrual.db"];
-        
-        _db = [FMDatabase databaseWithPath:dbPath];
-        if (![_db open]) {
-            return nil;
-        }
         
         NSFileManager *maneger = [NSFileManager defaultManager];
         if (![maneger fileExistsAtPath:dbPath]) {
+            _db = [FMDatabase databaseWithPath:dbPath];
+            if (![_db open]) {
+                return nil;
+            }
             [self createTables];
+        }
+        else {
+            _db = [FMDatabase databaseWithPath:dbPath];
+            if (![_db open]) {
+                return nil;
+            }
         }
     }
     return self;
@@ -176,7 +180,7 @@
 - (void)updateBiaoZhu:(RHBiaoZhuModel *)biaozhu {
     // 改进
 
-    NSString *dBiaozhu = @"DELETE biaozhu WHERE calendar = ?";
+    NSString *dBiaozhu = @"DELETE FROM biaozhu WHERE calendar = ?";
     [_db executeQuery:dBiaozhu, [NSNumber numberWithLong:biaozhu.calendar]];
     
     [self insertBiaoZhu:biaozhu];
@@ -249,6 +253,19 @@
     [self insertDayima:model];
 }
 
+- (void)deleteDayimaWithDate:(NSDate *)date {
+    NSString *sql = @"DELETE FROM dayima WHERE start <= ? and end >= ?";
+    long time = [date timeIntervalSince1970] * 1000;
+    [_db executeUpdate:sql, [NSNumber numberWithLong:time], [NSNumber numberWithLong:time]];
+}
+
+- (void)updateDayimaEndDate:(NSDate *)endDate withDate:(NSDate *)date {
+    NSString *sql = @"UPDATE dayima SET end = ? WHERE start <= ? and end >= ?";
+    long endTime = [endDate timeIntervalSince1970] * 1000;
+    long time = [date timeIntervalSince1970] * 1000;
+    [_db executeUpdate:sql, [NSNumber numberWithLong:endTime], [NSNumber numberWithLong:time], [NSNumber numberWithLong:time]];
+}
+
 - (void)updateDayima:(RHDayimaModel *)model {
     NSString *sql = @"UPDATE biaozhu SET start = ?, end = ? WHERE tid = ?";
     [_db executeUpdate:sql, [NSNumber numberWithLong:model.start], [NSNumber numberWithLong:model.end], [NSNumber numberWithLong:model.tid]];
@@ -271,6 +288,8 @@
         for (RHDayimaModel *dayima in dayimaArray) {
             if (eachTime >= dayima.start && eachTime <= dayima.end) {
                 model.isDayima = YES;
+                model.isDayimaBegin = eachTime == dayima.start;
+                model.isDayimaEnd = eachTime == dayima.end;
                 break;
             }
         }

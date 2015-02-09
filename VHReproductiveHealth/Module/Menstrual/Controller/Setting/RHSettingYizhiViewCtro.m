@@ -49,7 +49,9 @@
     _picker.dataSource = self;
     _picker.delegate = self;
     
-    [_picker selectRow:_yizhi inComponent:0 animated:NO];
+    if (_yizhi > 0) {
+        [_picker selectRow:_yizhi inComponent:0 animated:NO];
+    }
 }
 
 - (void)doConfirm {

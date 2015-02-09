@@ -40,9 +40,22 @@
     cell.number = cellTitle;
     cell.date = date;
     
-    cell.layer.borderWidth = 1;
-    cell.layer.borderColor = [COLOR_DGREEN CGColor];
     cell.backgroundColor = COLOR_BG_WHITE;
+    
+//    cell.opaque = YES;
+//    cell.userInteractionEnabled = NO;
+//    cell.clipsToBounds = YES;
+//    
+//    UIImage *selectedImage = [UIImage imageNamed:@"calendar_bg"];
+////    [cell setBackgroundImage:selectedImage forState:UIControlStateSelected];
+//    
+////    [cell setBackgroundImage:self.normalImage forState:UIControlStateNormal];
+////    [cell setBackgroundImage:self.normalImage forState:UIControlStateDisabled];
+//    [cell setBackgroundImage:selectedImage forState:UIControlStateDisabled | UIControlStateSelected];
+//    [cell setBackgroundImage:selectedImage forState:UIControlStateHighlighted];
+//    [cell setBackgroundImage:selectedImage forState:UIControlStateSelected];
+//    [cell setBackgroundImage:selectedImage forState:UIControlStateSelected | UIControlStateHighlighted];
+    
     
     return cell;
 }

@@ -12,6 +12,12 @@
 @interface RHDataModel : NSObject
 
 @property(nonatomic, assign) BOOL isDayima;
+@property(nonatomic, assign) BOOL isDayimaBegin;
+@property(nonatomic, assign) BOOL isDayimaEnd;
+
+@property(nonatomic, assign) BOOL showComing;
+@property(nonatomic, assign) BOOL showStart;
+
 @property(nonatomic, strong) RHBiaoZhuModel *biaozhu;
 @property(nonatomic, strong) NSDate *date;
 

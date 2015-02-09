@@ -26,6 +26,8 @@
 
 - (instancetype)init {
     if (self = [super init]) {
+        [self setSelectedStyle:NO];
+        
         _numberLabel = [[UILabel alloc] init];
         [self addSubview:_numberLabel];
         _numberLabel.textAlignment = NSTextAlignmentCenter;
@@ -125,6 +127,27 @@
 }
 
 - (void)setDayimaBg:(BOOL)isDayima {
+    if (isDayima) {
+        self.backgroundColor = COLOR_BG_PINK;
+    }
+    else {
+        self.backgroundColor = COLOR_BG_WHITE;
+    }
+}
+
+- (void)setSelectedStyle:(BOOL)isSelected {
+    if (isSelected) {
+        self.layer.borderWidth = 3;
+        self.layer.borderColor = [[UIColor redColor] CGColor];
+    }
+    else {
+        self.layer.borderWidth = 1;
+        self.layer.borderColor = [COLOR_DGREEN CGColor];
+    }
+}
+
+- (void)setIsDayima:(BOOL)isDayima {
+    _isDayima = isDayima;
     if (isDayima) {
         self.backgroundColor = COLOR_BG_PINK;
     }
