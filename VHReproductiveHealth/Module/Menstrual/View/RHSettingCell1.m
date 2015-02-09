@@ -27,6 +27,7 @@
     _signButton = [UIButton buttonWithType:UIButtonTypeSystem];
     [self addSubview:_signButton];
     
+    [_signButton setTitleColor:COLOR_TEXT_DGREEN forState:UIControlStateNormal];
     _signButton.contentHorizontalAlignment =UIControlContentHorizontalAlignmentRight;
     [_signButton addTarget:self action:@selector(buttonClicked) forControlEvents:UIControlEventTouchUpInside];
 }

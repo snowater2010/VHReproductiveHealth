@@ -7,20 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-
-typedef enum {
-    DayimaBegin,
-    DayimaEnd
-} DayimaState;
+#import "RHDataModel.h"
 
 @interface RHCalendarCell : UIControl
 
 @property(nonatomic, strong) NSString *number;
 @property(nonatomic, strong) NSDate *date;
-@property(nonatomic, assign) BOOL isDayima;
+@property(nonatomic, strong) RHDataModel *dataModel;
 
 - (void)setImageArray:(NSArray *)array;
-- (void)setDayimaImage:(DayimaState)state;
 - (void)setDayimaBg:(BOOL)isDayima;
 
 - (void)setSelectedStyle:(BOOL)isSelected;

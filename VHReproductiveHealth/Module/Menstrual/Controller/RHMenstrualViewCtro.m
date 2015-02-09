@@ -44,7 +44,6 @@
 
 @property (nonatomic, strong) NSDate *currDate;
 @property (nonatomic, strong) RHMenstrualDataManger *dataManager;
-@property (nonatomic, strong) RHBiaoZhuModel *biaozhuModel;
 
 @property (nonatomic, strong) RHDataModel *currDataModel;
 @property (nonatomic, strong) NSArray *monthData;
@@ -83,25 +82,7 @@
 - (void)initData {
     
     self.controlDic = [NSMutableDictionary dictionary];
-    
-    self.settingArray = @[
-        @{@"type" : @(CellType3), @"image" : @"yimalaile", @"title" : @"大姨妈来了", @"setting" : @(SettingType1)},
-        @{@"type" : @(CellType1), @"image" : @"tongfang", @"title" : @"同房", @"setting" : @(SettingType2)},
-        @{@"type" : @(CellType2), @"image" : @"koufubiyunyao", @"title" : @"口服避孕药", @"setting" : @(SettingType3)},
-        @{@"type" : @(CellType1), @"image" : @"jiandang", @"title" : @"建档", @"setting" : @(SettingType4)},
-        @{@"type" : @(CellType1), @"image" : @"jinzhouqi", @"title" : @"进周期", @"setting" : @(SettingType5)},
-        @{@"type" : @(CellType1), @"image" : @"jiancebchao", @"title" : @"检测B超", @"setting" : @(SettingType6)},
-        @{@"type" : @(CellType1), @"image" : @"nanfangzhunbei", @"title" : @"男方准备", @"setting" : @(SettingType7)},
-        @{@"type" : @(CellType1), @"image" : @"dayezhen", @"title" : @"打夜针", @"setting" : @(SettingType8)},
-        
-        @{@"type" : @(CellType1), @"image" : @"quluan", @"title" : @"取卵", @"setting" : @(SettingType9)},
-        @{@"type" : @(CellType1), @"image" : @"yizhi", @"title" : @"移植", @"setting" : @(SettingType10)},
-        
-        @{@"type" : @(CellType2), @"image" : @"redianliliao", @"title" : @"热电理疗", @"setting" : @(SettingType11)},
-        @{@"type" : @(CellType1), @"image" : @"dongpeixufei", @"title" : @"冻胚续费", @"setting" : @(SettingType12)},
-        @{@"type" : @(CellType1), @"image" : @"xiaohuipeitai", @"title" : @"销毁胚胎", @"setting" : @(SettingType13)},
-        @{@"type" : @(CellType1), @"image" : @"bushufu", @"title" : @"不舒服", @"setting" : @(SettingType14)}];
-    
+    self.settingArray = [RHBiaoZhuModel getSettingInfo];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     _jingqi = [defaults integerForKey:USER_DEFAULT_JINGQI];
@@ -214,16 +195,12 @@
     }
     
     self.currDataModel = self.monthData[_currDate.day-1];
-    self.biaozhuModel = _currDataModel.biaozhu;
-    
     [self refreshSetting];
 }
 
 - (void)refreshData {
     self.monthData = [_dataManager getMonthData:_currDate];
     self.currDataModel = self.monthData[_currDate.day-1];
-    self.biaozhuModel = _currDataModel.biaozhu;
-    
     [self refreshCellCache];
 }
 
@@ -241,8 +218,13 @@
 - (void)refreshCalendar {
     for (RHDataModel *model in self.monthData) {
         RHCalendarCell *cell = [_controlDic objectForKey:[model.date stringWithFormat:DefaultDateFormat]];
-        cell.isDayima = model.isDayima;
+        cell.dataModel = model;
     }
+}
+
+- (void)refreshCurrentCell {
+    RHCalendarCell *cell = [_controlDic objectForKey:[_currDate stringWithFormat:DefaultDateFormat]];
+    cell.dataModel = _currDataModel;
 }
 
 - (void)refreshSetting {
@@ -318,8 +300,6 @@
             [_dataManager updateDayimaEndDate:_currDate withDate:lastModel.date];
         }
     }
-    
-    
     
     [self refreshData];
     [self refreshCalendar];
@@ -412,140 +392,151 @@
         
         if (settingType == SettingType2) {
             // 同房
-            [cell1 setBiaozhu:[RHSettingTongfangViewCtro getSignNameWithValue:_biaozhuModel.tongfang]];
+            [cell1 setBiaozhu:[RHSettingTongfangViewCtro getSignNameWithValue:_currDataModel.biaozhu.tongfang]];
             
             cell1.actionBlock = ^() {
                 RHSettingTongfangViewCtro *ctro = [[RHSettingTongfangViewCtro alloc] init];
                 ctro.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-                ctro.tongfang = _biaozhuModel.tongfang;
+                ctro.tongfang = _currDataModel.biaozhu.tongfang;
                 [weakself presentViewController:ctro animated:YES completion:^{
                     ctro.settingBlock = ^(NSInteger tongfang) {
-                        weakself.biaozhuModel.tongfang = tongfang;
-                        [weakself.dataManager updateBiaoZhu:weakself.biaozhuModel];
+                        weakself.currDataModel.biaozhu.tongfang = tongfang;
+                        [weakself.dataManager updateBiaoZhu:weakself.currDataModel.biaozhu];
                         [weakself.settingView reloadData];
+                        [weakself refreshCurrentCell];
                     };
                 }];
             };
         }
         else if (settingType == SettingType4) {
             // 建档
-            [cell1 setBiaozhu:[RHSettingSuperViewCtro getSignNameWithValue:_biaozhuModel.jiandang]];
-            BOOL flag = _biaozhuModel.jiandang == 1;
+            [cell1 setBiaozhu:[RHSettingSuperViewCtro getSignNameWithValue:_currDataModel.biaozhu.jiandang]];
+            BOOL flag = _currDataModel.biaozhu.jiandang == 1;
             cell1.actionBlock = ^() {
-                weakself.biaozhuModel.jiandang = [NSNumber numberWithBool:!flag].integerValue;
-                [weakself.dataManager updateBiaoZhu:weakself.biaozhuModel];
+                weakself.currDataModel.biaozhu.jiandang = [NSNumber numberWithBool:!flag].integerValue;
+                [weakself.dataManager updateBiaoZhu:weakself.currDataModel.biaozhu];
                 [weakself.settingView reloadData];
+                [weakself refreshCurrentCell];
             };
         }
         else if (settingType == SettingType5) {
             // 进周期
-            [cell1 setBiaozhu:[RHSettingSuperViewCtro getSignNameWithValue:_biaozhuModel.jinzhouqi]];
-            BOOL flag = _biaozhuModel.jinzhouqi == 1;
+            [cell1 setBiaozhu:[RHSettingSuperViewCtro getSignNameWithValue:_currDataModel.biaozhu.jinzhouqi]];
+            BOOL flag = _currDataModel.biaozhu.jinzhouqi == 1;
             cell1.actionBlock = ^() {
-                weakself.biaozhuModel.jinzhouqi = [NSNumber numberWithBool:!flag].integerValue;
-                [weakself.dataManager updateBiaoZhu:weakself.biaozhuModel];
+                weakself.currDataModel.biaozhu.jinzhouqi = [NSNumber numberWithBool:!flag].integerValue;
+                [weakself.dataManager updateBiaoZhu:weakself.currDataModel.biaozhu];
                 [weakself.settingView reloadData];
+                [weakself refreshCurrentCell];
             };
         }
         else if (settingType == SettingType6) {
             // 检测B超
-            [cell1 setBiaozhu:[RHSettingSuperViewCtro getSignNameWithValue:_biaozhuModel.jianceBchao]];
-            BOOL flag = _biaozhuModel.jianceBchao == 1;
+            [cell1 setBiaozhu:[RHSettingSuperViewCtro getSignNameWithValue:_currDataModel.biaozhu.jianceBchao]];
+            BOOL flag = _currDataModel.biaozhu.jianceBchao == 1;
             cell1.actionBlock = ^() {
-                weakself.biaozhuModel.jianceBchao = [NSNumber numberWithBool:!flag].integerValue;
-                [weakself.dataManager updateBiaoZhu:weakself.biaozhuModel];
+                weakself.currDataModel.biaozhu.jianceBchao = [NSNumber numberWithBool:!flag].integerValue;
+                [weakself.dataManager updateBiaoZhu:weakself.currDataModel.biaozhu];
                 [weakself.settingView reloadData];
+                [weakself refreshCurrentCell];
             };
         }
         else if (settingType == SettingType7) {
             // 男方准备
-            [cell1 setBiaozhu:[RHSettingSuperViewCtro getSignNameWithValue:_biaozhuModel.nanfangzhunbei]];
-            BOOL flag = _biaozhuModel.nanfangzhunbei == 1;
+            [cell1 setBiaozhu:[RHSettingSuperViewCtro getSignNameWithValue:_currDataModel.biaozhu.nanfangzhunbei]];
+            BOOL flag = _currDataModel.biaozhu.nanfangzhunbei == 1;
             cell1.actionBlock = ^() {
-                weakself.biaozhuModel.nanfangzhunbei = [NSNumber numberWithBool:!flag].integerValue;
-                [weakself.dataManager updateBiaoZhu:weakself.biaozhuModel];
+                weakself.currDataModel.biaozhu.nanfangzhunbei = [NSNumber numberWithBool:!flag].integerValue;
+                [weakself.dataManager updateBiaoZhu:weakself.currDataModel.biaozhu];
                 [weakself.settingView reloadData];
+                [weakself refreshCurrentCell];
             };
         }
         else if (settingType == SettingType8) {
             // 打夜针
-            [cell1 setBiaozhu:[RHSettingSuperViewCtro getSignNameWithValue:_biaozhuModel.dayezhen]];
-            BOOL flag = _biaozhuModel.dayezhen == 1;
+            [cell1 setBiaozhu:[RHSettingSuperViewCtro getSignNameWithValue:_currDataModel.biaozhu.dayezhen]];
+            BOOL flag = _currDataModel.biaozhu.dayezhen == 1;
             cell1.actionBlock = ^() {
-                weakself.biaozhuModel.dayezhen = [NSNumber numberWithBool:!flag].integerValue;
-                [weakself.dataManager updateBiaoZhu:weakself.biaozhuModel];
+                weakself.currDataModel.biaozhu.dayezhen = [NSNumber numberWithBool:!flag].integerValue;
+                [weakself.dataManager updateBiaoZhu:weakself.currDataModel.biaozhu];
                 [weakself.settingView reloadData];
+                [weakself refreshCurrentCell];
             };
         }
         else if (settingType == SettingType9) {
             // 取卵
-            [cell1 setBiaozhu:[RHSettingQuluanViewCtro getSignNameWithValue:_biaozhuModel.quruan]];
+            [cell1 setBiaozhu:[RHSettingQuluanViewCtro getSignNameWithValue:_currDataModel.biaozhu.quruan]];
             cell1.actionBlock = ^() {
                 RHSettingQuluanViewCtro *ctro = [[RHSettingQuluanViewCtro alloc] init];
-                ctro.quluan = _biaozhuModel.quruan;
+                ctro.quluan = _currDataModel.biaozhu.quruan;
                 ctro.modalPresentationStyle = UIModalPresentationOverCurrentContext;
                 [weakself presentViewController:ctro animated:YES completion:^{
                     ctro.settingBlock = ^(NSInteger quluan) {
-                        weakself.biaozhuModel.quruan = quluan;
-                        [weakself.dataManager updateBiaoZhu:weakself.biaozhuModel];
+                        weakself.currDataModel.biaozhu.quruan = quluan;
+                        [weakself.dataManager updateBiaoZhu:weakself.currDataModel.biaozhu];
                         [weakself.settingView reloadData];
+                        [weakself refreshCurrentCell];
                     };
                 }];
             };
         }
         else if (settingType == SettingType10) {
             // 移植
-            [cell1 setBiaozhu:[RHSettingYizhiViewCtro getSignNameWithValue:_biaozhuModel.yizhi]];
+            [cell1 setBiaozhu:[RHSettingYizhiViewCtro getSignNameWithValue:_currDataModel.biaozhu.yizhi]];
             cell1.actionBlock =  ^() {
                 RHSettingYizhiViewCtro *ctro = [[RHSettingYizhiViewCtro alloc] init];
                 ctro.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-                ctro.yizhi = _biaozhuModel.yizhi;
+                ctro.yizhi = _currDataModel.biaozhu.yizhi;
                 [weakself presentViewController:ctro animated:YES completion:^{
                     ctro.settingBlock = ^(NSInteger yizhi) {
-                        weakself.biaozhuModel.yizhi = yizhi;
-                        [weakself.dataManager updateBiaoZhu:weakself.biaozhuModel];
+                        weakself.currDataModel.biaozhu.yizhi = yizhi;
+                        [weakself.dataManager updateBiaoZhu:weakself.currDataModel.biaozhu];
                         [weakself.settingView reloadData];
+                        [weakself refreshCurrentCell];
                     };
                 }];
             };
         }
         else if (settingType == SettingType12) {
             // 冻胚续费
-            [cell1 setBiaozhu:[RHSettingDpxfViewCtro getSignNameWithValue:_biaozhuModel.dongpeixufei]];
+            [cell1 setBiaozhu:[RHSettingDpxfViewCtro getSignNameWithValue:_currDataModel.biaozhu.dongpeixufei]];
             cell1.actionBlock =  ^() {
                 RHSettingDpxfViewCtro *ctro = [[RHSettingDpxfViewCtro alloc] init];
                 ctro.modalPresentationStyle = UIModalPresentationOverCurrentContext;
                 [weakself presentViewController:ctro animated:YES completion:^{
                     ctro.settingBlock = ^(BOOL dongpeixufei) {
-                        weakself.biaozhuModel.dongpeixufei = [NSNumber numberWithBool:dongpeixufei].integerValue;
-                        [weakself.dataManager updateBiaoZhu:weakself.biaozhuModel];
+                        weakself.currDataModel.biaozhu.dongpeixufei = [NSNumber numberWithBool:dongpeixufei].integerValue;
+                        [weakself.dataManager updateBiaoZhu:weakself.currDataModel.biaozhu];
                         [weakself.settingView reloadData];
+                        [weakself refreshCurrentCell];
                     };
                 }];
             };
         }
         else if (settingType == SettingType13) {
             // 销毁胚胎
-            [cell1 setBiaozhu:[RHSettingSuperViewCtro getSignNameWithValue:_biaozhuModel.xiaohuipeitai]];
-            BOOL flag = _biaozhuModel.xiaohuipeitai == 1;
+            [cell1 setBiaozhu:[RHSettingSuperViewCtro getSignNameWithValue:_currDataModel.biaozhu.xiaohuipeitai]];
+            BOOL flag = _currDataModel.biaozhu.xiaohuipeitai == 1;
             cell1.actionBlock = ^() {
-                weakself.biaozhuModel.xiaohuipeitai = [NSNumber numberWithBool:!flag].integerValue;
-                [weakself.dataManager updateBiaoZhu:weakself.biaozhuModel];
+                weakself.currDataModel.biaozhu.xiaohuipeitai = [NSNumber numberWithBool:!flag].integerValue;
+                [weakself.dataManager updateBiaoZhu:weakself.currDataModel.biaozhu];
                 [weakself.settingView reloadData];
+                [weakself refreshCurrentCell];
             };
         }
         else if (settingType == SettingType14) {
             // 不舒服
-            [cell1 setBiaozhu:[RHSettingBushufuViewCtro getSignNameWithText:_biaozhuModel.bushufu]];
+            [cell1 setBiaozhu:[RHSettingBushufuViewCtro getSignNameWithText:_currDataModel.biaozhu.bushufu]];
             cell1.actionBlock = ^() {
                 RHSettingBushufuViewCtro *ctro = [[RHSettingBushufuViewCtro alloc] init];
                 ctro.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-                ctro.bushufu = _biaozhuModel.bushufu;
+                ctro.bushufu = _currDataModel.biaozhu.bushufu;
                 [weakself presentViewController:ctro animated:YES completion:^{
                     ctro.settingBlock = ^(NSString *bushufu) {
-                        weakself.biaozhuModel.bushufu = bushufu;
-                        [weakself.dataManager updateBiaoZhu:weakself.biaozhuModel];
+                        weakself.currDataModel.biaozhu.bushufu = bushufu;
+                        [weakself.dataManager updateBiaoZhu:weakself.currDataModel.biaozhu];
                         [weakself.settingView reloadData];
+                        [weakself refreshCurrentCell];
                     };
                 }];
             };
@@ -557,9 +548,16 @@
             cell = [[RHSettingCell2 alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellType2];
         }
         RHSettingCell2 *cell2 = (RHSettingCell2 *)cell;
-        cell2.actionBlock = ^(BOOL isStart) {
-            
-        };
+        if (settingType == SettingType3) {
+            cell2.actionBlock = ^(BOOL isStart) {
+                
+            };
+        }
+        else if (settingType == SettingType11) {
+            cell2.actionBlock = ^(BOOL isStart) {
+                
+            };
+        }
     }
     else {
         cell = [tableView dequeueReusableCellWithIdentifier:cellType0];
@@ -575,37 +573,5 @@
     
     return cell;
 }
-
-- (void)doAction:(SettingType)type {
-    switch (type) {
-        case SettingType2:
-        {
-            RHSettingMenstrualViewCtro *ctro = [[RHSettingMenstrualViewCtro alloc] init];
-            ctro.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-            [self presentViewController:ctro animated:YES completion:^{
-                
-            }];
-        }
-            break;
-            
-        default:
-            break;
-    }
-}
-
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    switch (indexPath.row) {
-//        case 0:
-//            
-//            break;
-//        case 1:
-//            
-//            break;
-//        default:
-//            break;
-//    }
-//}
-
-
 
 @end

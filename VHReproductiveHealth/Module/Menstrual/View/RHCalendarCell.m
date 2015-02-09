@@ -84,6 +84,12 @@
 }
 
 - (void)setImageArray:(NSArray *)array {
+    _iv1.image = nil;
+    _iv2.image = nil;
+    _iv3.image = nil;
+    _iv4.image = nil;
+    _iv5.image = nil;
+    _iv6.image = nil;
     for (int i = 0; i<array.count; i++) {
         UIImage *image = [UIImage imageNamed:array[i]];
         switch (i) {
@@ -111,21 +117,6 @@
     }
 }
 
-- (void)setDayimaImage:(DayimaState)state {
-    
-    switch (state) {
-        case DayimaBegin:
-            _dayimaIv.image = [UIImage imageNamed:@"dayima_begin"];
-            break;
-        case DayimaEnd:
-            _dayimaIv.image = [UIImage imageNamed:@"dayima_end"];
-            break;
-        default:
-            break;
-    }
-    
-}
-
 - (void)setDayimaBg:(BOOL)isDayima {
     if (isDayima) {
         self.backgroundColor = COLOR_BG_PINK;
@@ -146,14 +137,31 @@
     }
 }
 
-- (void)setIsDayima:(BOOL)isDayima {
-    _isDayima = isDayima;
-    if (isDayima) {
+- (void)setDataModel:(RHDataModel *)dataModel
+{
+    _dataModel = dataModel;
+    
+    if (_dataModel.isDayima) {
         self.backgroundColor = COLOR_BG_PINK;
+        if (_dataModel.isDayimaBegin) {
+            _dayimaIv.image = [UIImage imageNamed:@"dayima_begin"];
+        }
+        else if (_dataModel.isDayimaEnd) {
+            _dayimaIv.image = [UIImage imageNamed:@"dayima_end"];
+        }
+        else {
+            _dayimaIv.image = nil;
+        }
     }
     else {
         self.backgroundColor = COLOR_BG_WHITE;
+        _dayimaIv.image = nil;
     }
+    
+    NSArray *images = [_dataModel.biaozhu getBiaozhuImages];
+    [self setImageArray:images];
+    
 }
+
 
 @end

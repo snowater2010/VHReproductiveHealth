@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "RHSettingCell.h"
-#import "RHMenstrualViewCtro.h"
+#import "RHBiaoZhuModel.h"
 
 @interface RHSettingCell1 : RHSettingCell
 
