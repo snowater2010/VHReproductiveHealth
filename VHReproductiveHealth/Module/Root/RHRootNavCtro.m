@@ -19,12 +19,10 @@
     // Do any additional setup after loading the view.
     
     // 设置导航栏不穿透
-    [[UINavigationBar appearance] setTranslucent:NO];
+//    [[UINavigationBar appearance] setTranslucent:NO];
     
     self.navigationBar.barTintColor = COLOR_BG_DGREEN;
-    [self.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : COLOR_TEXT_WHITE,
-                                                 NSFontAttributeName : FONT_18B
-                                                 }];
+    [self.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : COLOR_TEXT_WHITE, NSFontAttributeName : FONT_18B}];
 }
 
 - (void)didReceiveMemoryWarning {

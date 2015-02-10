@@ -7,6 +7,7 @@
 //
 
 #import "RHHomeViewCtro.h"
+#import "RHMyJingliViewCtro.h"
 
 @interface RHHomeViewCtro ()
 
@@ -14,9 +15,181 @@
 
 @implementation RHHomeViewCtro
 
+- (void)loadView {
+    [super loadView];
+    
+    self.view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, DEVICE_WIDTH, DEVICE_HEIGHT)];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.navigationController.navigationBar.translucent = YES;
+    self.navigationController.navigationBar.hidden = YES;
+    
+    [self initUIView];
+}
+
+- (void)initUIView {
+    
+    // title
+    UIView *menuBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, STATUSBAR_HEIGHT+NAVIGATIONBAR_HEIGHT)];
+    [self.view addSubview:menuBar];
+    menuBar.backgroundColor = UIColorFromRGB(0x0079c2);
+    
+    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, STATUSBAR_HEIGHT, menuBar.width, NAVIGATIONBAR_HEIGHT)];
+    [self.view addSubview:titleView];
+    
+    UIImage *xImage = [UIImage imageNamed:@"sd_index_09"];
+    UIImageView *xImageView = [[UIImageView alloc] initWithImage:xImage];
+    [titleView addSubview:xImageView];
+    [[[xImageView setSizeFromSize:xImage.size] centerYWith:titleView] insideLeftEdgeBy:15];
+    
+    UIImage *lImage = [UIImage imageNamed:@"sd_index_06"];
+    UIImageView *lImageView = [[UIImageView alloc] initWithImage:lImage];
+    [titleView addSubview:lImageView];
+    [[[lImageView setSizeFromSize:lImage.size] centerYWith:titleView] outsideRightEdgeOf:xImageView by:15];
+    
+    UIImage *aImage = [UIImage imageNamed:@"sd_index_03"];
+    UIImageView *aImageView = [[UIImageView alloc] initWithImage:aImage];
+    [titleView addSubview:aImageView];
+    [[[aImageView setSizeFromSize:aImage.size] centerYWith:titleView] outsideRightEdgeOf:lImageView by:8];
+    
+    UIImage *rImage = [UIImage imageNamed:@"sd_index_12"];
+    UIImageView *rImageView = [[UIImageView alloc] initWithImage:rImage];
+    [titleView addSubview:rImageView];
+    [[[rImageView setSizeFromSize:rImage.size] centerYWith:titleView] insideRightEdgeBy:20];
+    
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:titleView.frame];
+    [titleView addSubview:titleLabel];
+    [[titleLabel insideTopEdgeBy:0] outsideRightEdgeOf:aImageView by:8];
+    titleLabel.backgroundColor = [UIColor clearColor];
+    titleLabel.text = @"山东大学附属生殖医院";
+    titleLabel.textColor = COLOR_TEXT_WHITE;
+    
+    // main
+    UIView *mainView = [[UIView alloc] initWithFrame:CGRectMake(0, menuBar.height, self.view.width, self.view.height-menuBar.height)];
+    [self.view addSubview:mainView];
+    
+    UIImageView *bgImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sd_home_bg"]];
+    [mainView addSubview:bgImageView];
+    [[[bgImageView setSizeFromView:mainView] insideLeftEdgeBy:0] outsideBottomEdgeOf:menuBar by:0];
+    bgImageView.backgroundColor = [UIColor blackColor];
+    
+    UIImageView *centerImagev = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sd_index_30"]];
+    [mainView addSubview:centerImagev];
+    [[[centerImagev setSizeFromSize:centerImagev.image.size] insideLeftEdgeBy:mainView.width*0.1] insideTopEdgeBy:mainView.height*0.23];
+    
+    UIView *cellsView = [[UIView alloc] initWithFrame:mainView.bounds];
+    [mainView addSubview:cellsView];
+    [cellsView adjustX:30 andY:20];
+    
+    UIImageView *imageView1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sd_index_19"]];
+    [cellsView addSubview:imageView1];
+    [[[imageView1 setSizeFromSize:imageView1.image.size] insideLeftEdgeBy:89] insideTopEdgeBy:18];
+    
+    UIImageView *imageView2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sd_index_22"]];
+    [cellsView addSubview:imageView2];
+    [[[imageView2 setSizeFromSize:imageView2.image.size] insideLeftEdgeBy:144] insideTopEdgeBy:45];
+    
+    UIImageView *imageView3 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sd_index_26"]];
+    [cellsView addSubview:imageView3];
+    [[[imageView3 setSizeFromSize:imageView3.image.size] insideLeftEdgeBy:185] insideTopEdgeBy:88];
+    
+    UIImage *image4 = [UIImage imageNamed:@"sd_index_34"];
+    UIButton *imageView4 = [[UIButton alloc] init];
+    [cellsView addSubview:imageView4];
+    [[[imageView4 setSizeFromSize:image4.size] insideLeftEdgeBy:204] insideTopEdgeBy:142];
+    imageView4.tag = 4;
+    [imageView4 setBackgroundImage:image4 forState:UIControlStateNormal];
+    [imageView4 addTarget:self action:@selector(goModule:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIImageView *imageView5 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sd_index_38"]];
+    [cellsView addSubview:imageView5];
+    [[[imageView5 setSizeFromSize:imageView5.image.size] insideLeftEdgeBy:209] insideTopEdgeBy:200];
+    
+    UIImageView *imageView6 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sd_index_42"]];
+    [cellsView addSubview:imageView6];
+    [[[imageView6 setSizeFromSize:imageView6.image.size] insideLeftEdgeBy:187] insideTopEdgeBy:258];
+    
+    UIImageView *imageView7 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sd_index_46"]];
+    [cellsView addSubview:imageView7];
+    [[[imageView7 setSizeFromSize:imageView7.image.size] insideLeftEdgeBy:143] insideTopEdgeBy:301];
+    
+    UIImageView *imageView8 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sd_index_50"]];
+    [cellsView addSubview:imageView8];
+    [[[imageView8 setSizeFromSize:imageView8.image.size] insideLeftEdgeBy:90] insideTopEdgeBy:323];
+    
+    
+    CGFloat labWidth = 100;
+    CGFloat labHeight = imageView1.height;
+    
+    UILabel *cellLabel1 = [[UILabel alloc] init];
+    [cellsView addSubview:cellLabel1];
+    [[[[cellLabel1 setW:labWidth andH:labHeight] outsideRightEdgeOf:imageView1 by:5] insideTopEdgeBy:imageView1.y] adjustY:-5];
+    [self setCellLabelStyle:&cellLabel1];
+    cellLabel1.text = @"我要预约";
+    
+    UILabel *cellLabel2 = [[UILabel alloc] init];
+    [cellsView addSubview:cellLabel2];
+    [[[cellLabel2 setW:labWidth andH:labHeight] outsideRightEdgeOf:imageView2 by:5] insideTopEdgeBy:imageView2.y];
+    [self setCellLabelStyle:&cellLabel2];
+    cellLabel2.text = @"排队服务";
+    
+    UILabel *cellLabel3 = [[UILabel alloc] init];
+    [cellsView addSubview:cellLabel3];
+    [[[cellLabel3 setW:labWidth andH:labHeight] outsideRightEdgeOf:imageView3 by:5] insideTopEdgeBy:imageView3.y];
+    [self setCellLabelStyle:&cellLabel3];
+    cellLabel3.text = @"我问医生";
+    
+    UILabel *cellLabel4 = [[UILabel alloc] init];
+    [cellsView addSubview:cellLabel4];
+    [[[cellLabel4 setW:labWidth andH:labHeight] outsideRightEdgeOf:imageView4 by:5] insideTopEdgeBy:imageView4.y];
+    [self setCellLabelStyle:&cellLabel4];
+    cellLabel4.text = @"我的经历";
+    
+    UILabel *cellLabel5 = [[UILabel alloc] init];
+    [cellsView addSubview:cellLabel5];
+    [[[cellLabel5 setW:labWidth andH:labHeight] outsideRightEdgeOf:imageView5 by:5] insideTopEdgeBy:imageView5.y];
+    [self setCellLabelStyle:&cellLabel5];
+    cellLabel5.text = @"医院咨询";
+    
+    UILabel *cellLabel6 = [[UILabel alloc] init];
+    [cellsView addSubview:cellLabel6];
+    [[[cellLabel6 setW:labWidth andH:labHeight] outsideRightEdgeOf:imageView6 by:5] insideTopEdgeBy:imageView6.y];
+    [self setCellLabelStyle:&cellLabel6];
+    cellLabel6.text = @"我和宝宝";
+    
+    UILabel *cellLabel7 = [[UILabel alloc] init];
+    [cellsView addSubview:cellLabel7];
+    [[[cellLabel7 setW:labWidth andH:labHeight] outsideRightEdgeOf:imageView7 by:5] insideTopEdgeBy:imageView7.y];
+    [self setCellLabelStyle:&cellLabel7];
+    cellLabel7.text = @"我的查询";
+    
+    UILabel *cellLabel8 = [[UILabel alloc] init];
+    [cellsView addSubview:cellLabel8];
+    [[[[cellLabel8 setW:labWidth andH:labHeight] outsideRightEdgeOf:imageView8 by:0] insideTopEdgeBy:imageView8.y] adjustY:20];
+    [self setCellLabelStyle:&cellLabel8];
+    cellLabel8.text = @"实时提醒";
+    
+    
+    UILabel *nameLabel = [[UILabel alloc] init];
+    [self.view addSubview:nameLabel];
+    [[[nameLabel setW:self.view.width andH:140] insideLeftEdgeBy:0] insideBottomEdgeBy:0];
+    nameLabel.text = @"山大生殖掌上医疗服务平台";
+    nameLabel.font = FONT_20B;
+    nameLabel.textColor = COLOR_TEXT_WHITE;
+    nameLabel.textAlignment = NSTextAlignmentCenter;
+}
+
+- (void)setCellLabelStyle:(UILabel * __autoreleasing *)label {
+    [*label setFont:FONT_14];
+    [*label setTextColor:COLOR_TEXT_WHITE];
+}
+
+- (void)goModule:(UIButton *)button {
+    if (button.tag == 4) {
+        [self.navigationController pushViewController:[[RHMyJingliViewCtro alloc] init] animated:YES];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

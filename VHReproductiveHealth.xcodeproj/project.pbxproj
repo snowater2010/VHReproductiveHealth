@@ -63,6 +63,7 @@
 		E863D58A1A76172B0070F1F4 /* VHReproductiveHealthTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E863D5891A76172B0070F1F4 /* VHReproductiveHealthTests.m */; };
 		E863D5C81A766C0F0070F1F4 /* RHUIApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = E863D5C71A766C0F0070F1F4 /* RHUIApplication.m */; };
 		E89ED2591A8922CE002CA0EB /* RHDayProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = E89ED2581A8922CE002CA0EB /* RHDayProvider.m */; };
+		E89ED25C1A892F3A002CA0EB /* RHMyJingliViewCtro.m in Sources */ = {isa = PBXBuildFile; fileRef = E89ED25B1A892F3A002CA0EB /* RHMyJingliViewCtro.m */; };
 		E8FC7DEF1A87536F0009403E /* main.sql in Resources */ = {isa = PBXBuildFile; fileRef = E8FC7DEE1A87536F0009403E /* main.sql */; };
 		E8FC7DF81A8758840009403E /* RHMenstrualDataManger.m in Sources */ = {isa = PBXBuildFile; fileRef = E8FC7DF71A8758840009403E /* RHMenstrualDataManger.m */; };
 		E8FC7DFC1A875C350009403E /* RHBiaoZhuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E8FC7DFB1A875C350009403E /* RHBiaoZhuModel.m */; };
@@ -70,7 +71,6 @@
 		E8FC7E031A87ABAA0009403E /* RHDayimaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E8FC7E021A87ABAA0009403E /* RHDayimaModel.m */; };
 		E8FC7E061A87C4040009403E /* RHStyleProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = E8FC7E051A87C4040009403E /* RHStyleProvider.m */; };
 		E8FC7E091A87C6830009403E /* RHCalendarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E8FC7E081A87C6830009403E /* RHCalendarCell.m */; };
-		E8FC7E201A87C7D00009403E /* title_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E8FC7E1F1A87C7D00009403E /* title_bg@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -198,6 +198,8 @@
 		E863D5C71A766C0F0070F1F4 /* RHUIApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHUIApplication.m; sourceTree = "<group>"; };
 		E89ED2571A8922CE002CA0EB /* RHDayProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHDayProvider.h; sourceTree = "<group>"; };
 		E89ED2581A8922CE002CA0EB /* RHDayProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHDayProvider.m; sourceTree = "<group>"; };
+		E89ED25A1A892F3A002CA0EB /* RHMyJingliViewCtro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHMyJingliViewCtro.h; sourceTree = "<group>"; };
+		E89ED25B1A892F3A002CA0EB /* RHMyJingliViewCtro.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHMyJingliViewCtro.m; sourceTree = "<group>"; };
 		E8FC7DEE1A87536F0009403E /* main.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.sql; sourceTree = "<group>"; };
 		E8FC7DF61A8758840009403E /* RHMenstrualDataManger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHMenstrualDataManger.h; sourceTree = "<group>"; };
 		E8FC7DF71A8758840009403E /* RHMenstrualDataManger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHMenstrualDataManger.m; sourceTree = "<group>"; };
@@ -211,7 +213,6 @@
 		E8FC7E051A87C4040009403E /* RHStyleProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHStyleProvider.m; sourceTree = "<group>"; };
 		E8FC7E071A87C6830009403E /* RHCalendarCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHCalendarCell.h; sourceTree = "<group>"; };
 		E8FC7E081A87C6830009403E /* RHCalendarCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHCalendarCell.m; sourceTree = "<group>"; };
-		E8FC7E1F1A87C7D00009403E /* title_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "title_bg@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -315,7 +316,6 @@
 		E83E917B1A8251090037F5E0 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E8FC7E1F1A87C7D00009403E /* title_bg@2x.png */,
 				E83E917C1A8251390037F5E0 /* RHSettingCell.h */,
 				E83E917D1A8251390037F5E0 /* RHSettingCell.m */,
 				E83E917F1A826ED60037F5E0 /* RHSettingCell1.h */,
@@ -424,6 +424,8 @@
 		E860F8981A7DC91F007803A3 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				E89ED25A1A892F3A002CA0EB /* RHMyJingliViewCtro.h */,
+				E89ED25B1A892F3A002CA0EB /* RHMyJingliViewCtro.m */,
 				E860F8991A7DC91F007803A3 /* RHMenstrualViewCtro.h */,
 				E860F89A1A7DC91F007803A3 /* RHMenstrualViewCtro.m */,
 				E83BB5A91A8674AB002DD31C /* Setting */,
@@ -653,7 +655,6 @@
 			files = (
 				E83E91781A8247F40037F5E0 /* TileTodaySelected.png in Resources */,
 				E83E91721A8247F40037F5E0 /* GradientBar.png in Resources */,
-				E8FC7E201A87C7D00009403E /* title_bg@2x.png in Resources */,
 				E83E91761A8247F40037F5E0 /* TileSelected.png in Resources */,
 				E863D57B1A76172A0070F1F4 /* Images.xcassets in Resources */,
 				E83E91741A8247F40037F5E0 /* TileNormal.png in Resources */,
@@ -743,6 +744,7 @@
 				E8FC7E031A87ABAA0009403E /* RHDayimaModel.m in Sources */,
 				E8FC7DF81A8758840009403E /* RHMenstrualDataManger.m in Sources */,
 				E85E5AEE1A87140E00D98B8A /* RHSettingQuluanViewCtro.m in Sources */,
+				E89ED25C1A892F3A002CA0EB /* RHMyJingliViewCtro.m in Sources */,
 				E83E91681A8247F40037F5E0 /* ABCalendarPicker.m in Sources */,
 				E860F8AC1A7DC9F2007803A3 /* RHRootViewCtro.m in Sources */,
 				E83E916B1A8247F40037F5E0 /* ABCalendarPickerDefaultMonthsProvider.m in Sources */,
