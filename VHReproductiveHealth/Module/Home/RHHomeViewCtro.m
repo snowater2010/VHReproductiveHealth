@@ -21,10 +21,13 @@
     self.view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, DEVICE_WIDTH, DEVICE_HEIGHT)];
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (void)viewWillAppear:(BOOL)animated {
     self.navigationController.navigationBar.translucent = YES;
     self.navigationController.navigationBar.hidden = YES;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
     
     [self initUIView];
 }
@@ -75,49 +78,49 @@
     [[[bgImageView setSizeFromView:mainView] insideLeftEdgeBy:0] outsideBottomEdgeOf:menuBar by:0];
     bgImageView.backgroundColor = [UIColor blackColor];
     
-    UIImageView *centerImagev = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sd_index_30"]];
-    [mainView addSubview:centerImagev];
-    [[[centerImagev setSizeFromSize:centerImagev.image.size] insideLeftEdgeBy:mainView.width*0.1] insideTopEdgeBy:mainView.height*0.23];
-    
     UIView *cellsView = [[UIView alloc] initWithFrame:mainView.bounds];
     [mainView addSubview:cellsView];
-    [cellsView adjustX:30 andY:20];
+    
+    UIImageView *centerImagev = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sd_index_30"]];
+    [cellsView addSubview:centerImagev];
+    
+    [[[centerImagev setW:[self xBaseOnWidth:centerImagev.image.size.width] andH:[self yBaseOnHeight:centerImagev.image.size.height]] insideLeftEdgeBy:[self xBaseOnWidth:17]] insideTopEdgeBy:[self yBaseOnHeight:102]];
     
     UIImageView *imageView1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sd_index_19"]];
     [cellsView addSubview:imageView1];
-    [[[imageView1 setSizeFromSize:imageView1.image.size] insideLeftEdgeBy:89] insideTopEdgeBy:18];
+    [[[imageView1 setSizeFromSize:imageView1.image.size] insideLeftEdgeBy:[self xBaseOnWidth:89]] insideTopEdgeBy:[self yBaseOnHeight:18]];
     
     UIImageView *imageView2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sd_index_22"]];
     [cellsView addSubview:imageView2];
-    [[[imageView2 setSizeFromSize:imageView2.image.size] insideLeftEdgeBy:144] insideTopEdgeBy:45];
+    [[[imageView2 setSizeFromSize:imageView2.image.size] insideLeftEdgeBy:[self xBaseOnWidth:144]] insideTopEdgeBy:[self yBaseOnHeight:45]];
     
     UIImageView *imageView3 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sd_index_26"]];
     [cellsView addSubview:imageView3];
-    [[[imageView3 setSizeFromSize:imageView3.image.size] insideLeftEdgeBy:185] insideTopEdgeBy:88];
+    [[[imageView3 setSizeFromSize:imageView3.image.size] insideLeftEdgeBy:[self xBaseOnWidth:185]] insideTopEdgeBy:[self yBaseOnHeight:88]];
     
     UIImage *image4 = [UIImage imageNamed:@"sd_index_34"];
     UIButton *imageView4 = [[UIButton alloc] init];
     [cellsView addSubview:imageView4];
-    [[[imageView4 setSizeFromSize:image4.size] insideLeftEdgeBy:204] insideTopEdgeBy:142];
+    [[[imageView4 setSizeFromSize:image4.size] insideLeftEdgeBy:[self xBaseOnWidth:204]] insideTopEdgeBy:[self yBaseOnHeight:142]];
     imageView4.tag = 4;
     [imageView4 setBackgroundImage:image4 forState:UIControlStateNormal];
     [imageView4 addTarget:self action:@selector(goModule:) forControlEvents:UIControlEventTouchUpInside];
     
     UIImageView *imageView5 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sd_index_38"]];
     [cellsView addSubview:imageView5];
-    [[[imageView5 setSizeFromSize:imageView5.image.size] insideLeftEdgeBy:209] insideTopEdgeBy:200];
+    [[[imageView5 setSizeFromSize:imageView5.image.size] insideLeftEdgeBy:[self xBaseOnWidth:209]] insideTopEdgeBy:[self yBaseOnHeight:200]];
     
     UIImageView *imageView6 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sd_index_42"]];
     [cellsView addSubview:imageView6];
-    [[[imageView6 setSizeFromSize:imageView6.image.size] insideLeftEdgeBy:187] insideTopEdgeBy:258];
+    [[[imageView6 setSizeFromSize:imageView6.image.size] insideLeftEdgeBy:[self xBaseOnWidth:187]] insideTopEdgeBy:[self yBaseOnHeight:258]];
     
     UIImageView *imageView7 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sd_index_46"]];
     [cellsView addSubview:imageView7];
-    [[[imageView7 setSizeFromSize:imageView7.image.size] insideLeftEdgeBy:143] insideTopEdgeBy:301];
+    [[[imageView7 setSizeFromSize:imageView7.image.size] insideLeftEdgeBy:[self xBaseOnWidth:143]] insideTopEdgeBy:[self yBaseOnHeight:301]];
     
     UIImageView *imageView8 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sd_index_50"]];
     [cellsView addSubview:imageView8];
-    [[[imageView8 setSizeFromSize:imageView8.image.size] insideLeftEdgeBy:90] insideTopEdgeBy:323];
+    [[[imageView8 setSizeFromSize:imageView8.image.size] insideLeftEdgeBy:[self xBaseOnWidth:90]] insideTopEdgeBy:[self yBaseOnHeight:323]];
     
     
     CGFloat labWidth = 100;
@@ -180,6 +183,15 @@
     nameLabel.textColor = COLOR_TEXT_WHITE;
     nameLabel.textAlignment = NSTextAlignmentCenter;
 }
+
+- (CGFloat)xBaseOnWidth:(CGFloat)x {
+    return self.view.width / 320 * x;
+}
+
+- (CGFloat)yBaseOnHeight:(CGFloat)y {
+    return self.view.height / 568 * y;
+}
+
 
 - (void)setCellLabelStyle:(UILabel * __autoreleasing *)label {
     [*label setFont:FONT_14];
