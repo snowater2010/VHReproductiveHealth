@@ -40,11 +40,17 @@
 #import "RHBarGraphView.h"
 #import "RHYjFxCell.h"
 #import "RHMenstrualDataManger.h"
+#import "RHTontFangGraphView.h"
 
 @interface RHTongFangFenxiViewCtro () <UITableViewDataSource, UITableViewDelegate> {
     UILabel *_labelState;
     UILabel *_labelZhouqi;
     UILabel *_labelJingqi;
+    
+    NSDate *_dateMax;
+    NSDate *_dateMin;
+    
+    NSMutableArray *_chartTongFang;
     
     NSMutableArray *_tongfangDatas;
     NSMutableArray *_zhouqiValues;
@@ -53,8 +59,15 @@
     NSMutableArray *_chartSecondLabels;
     NSMutableArray *_tableDateLabels;
     
+    NSMutableArray *_paiLuanDates;
+    
+    NSMutableArray *_yuejingRange;
+    NSMutableArray *_pailuanRange;
+    NSMutableArray *_yiyunRange;
+    NSMutableArray *_anquanRange;
+    
     UITableView *_tableView;
-    RHBarGraphView *_chartView;
+    RHTontFangGraphView *_chartView;
     
     NSInteger _averageZhouqi;
     
@@ -68,94 +81,180 @@
 
 @implementation RHTongFangFenxiViewCtro
 
-- (NSInteger)calculatePercentWithDate:(NSDate *)tongfangDate {
-    RHDayimaModel *dayima = [_instance queryLastDayimaByDate:tongfangDate];
-    NSDate *strDate = [NSDate dateWithTimeIntervalSince1970:dayima.start * 0.001];
-    NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:dayima.end * 0.001];
-    NSDate *pailuanDate = [strDate dateByAddingDays:_averageZhouqi-14];
-    
-    NSInteger days = [tongfangDate daysFromDate:pailuanDate];
-    NSInteger percent = 0;
-    switch (days) {
-        case 0:
-            percent = 90;
-            break;
-        case 1:
-            percent = 80;
-            break;
-        case 2:
-            percent = 75;
-            break;
-        case 3:
-            percent = 65;
-            break;
-        case 4:
-            percent = 50;
-            break;
-        case -1:
-            percent = 80;
-            break;
-        case -2:
-            percent = 65;
-            break;
-        case -3:
-            percent = 55;
-            break;
-        case -4:
-            percent = 40;
-            break;
-        case -5:
-            percent = 35;
-            break;
-            break;
-        default:
-            percent = 0;
-            break;
-    }
-    
-    //
-    if (percent == 0) {
-        if ([tongfangDate isBetweenDates:strDate andDate:endDate]) {
-            percent = 10;
-        }
-        else {
-            percent = 15;
-        }
-    }
-    
-    return percent;
-}
-
 - (void)initData {
     _instance = [RHMenstrualDataManger sharedInstance];
+    
+    _everydayPercent = [NSMutableArray array];
+    _chartLabels = [NSMutableArray array];
+    _chartSecondLabels = [NSMutableArray array];
+    _tableDateLabels = [NSMutableArray array];
+    _paiLuanDates = [NSMutableArray array];
+    
+    _yuejingRange = [NSMutableArray array];
+    _pailuanRange = [NSMutableArray array];
+    _yiyunRange = [NSMutableArray array];
+    _anquanRange = [NSMutableArray array];
+    
+    _chartTongFang = [NSMutableArray array];
     
     BOOL isJingqiRight = YES;
     _averageZhouqi = 30;
     
     
-    NSDate *today = [NSDate date];
-    NSDate *earlyDate = [today dateByAddingMonths:-2];
-    
-    NSArray *tongfangDatas = [_instance queryBiaoZhuStartDate:earlyDate endDate:today];
-    _tongfangDatas = [NSMutableArray arrayWithArray:tongfangDatas];
-    
-    _everydayPercent = [NSMutableArray array];
-    NSDate *eachDate = earlyDate;
-    // 改进
-    do {
-        NSInteger percent = [self calculatePercentWithDate:eachDate];
-        
-        NSLog(@"____%zd", percent);
-        
-        [_everydayPercent addObject:@(percent)];
-        eachDate = [eachDate dateByAddingDays:1];
-    } while ([eachDate compare:today] == NSOrderedAscending);
+    _dateMax = [[NSDate date] beginningOfDay];
+    _dateMin = [_dateMax dateByAddingMonths:-2];
     
     
-    for (RHBiaoZhuModel *model in _datas) {
-        
+    NSDate *exDate = _dateMin;
+    RHDayimaModel *exDayima = [_instance queryLastDayimaByDate:_dateMin];
+    if (exDayima) {
+        exDate = [NSDate dateWithTimeIntervalSince1970:exDayima.start*0.001];
     }
     
+    // 月经期
+    NSArray *allDayima = [_instance queryDayimaStartDate:exDate endDate:_dateMax];
+    for (RHDayimaModel *dayima in allDayima) {
+        NSDate *strDate = [NSDate dateWithTimeIntervalSince1970:dayima.start * 0.001];
+        NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:dayima.end * 0.001];
+        
+        NSRange range = [self rangeWithStrDate:strDate endDate:endDate];
+        [_yuejingRange addObject:[NSValue valueWithRange:range]];
+    }
+    
+    
+    // 排卵期
+    for (RHDayimaModel *dayima in allDayima) {
+        NSDate *dayimaDate = [NSDate dateWithTimeIntervalSince1970:dayima.start*0.001];
+        NSDate *pailuanDate = [dayimaDate dateByAddingDays:_averageZhouqi-14];
+        [_paiLuanDates addObject:@([pailuanDate daysFromDate:_dateMin])];
+        
+        NSDate *strDate = [pailuanDate dateByAddingDays:-5];
+        NSDate *endDate = [pailuanDate dateByAddingDays:4];
+        
+        NSRange range = [self rangeWithStrDate:strDate endDate:endDate];
+        [_pailuanRange addObject:[NSValue valueWithRange:range]];
+    }
+    
+    // 同房日
+    NSArray *tongfangDatas = [_instance queryBiaoZhuStartDate:_dateMin endDate:_dateMax];
+    _tongfangDatas = [NSMutableArray arrayWithArray:tongfangDatas];
+    
+    for (RHBiaoZhuModel *model in _tongfangDatas) {
+        NSDate *date = [NSDate dateWithTimeIntervalSince1970:model.calendar * 0.001];
+        [_chartTongFang addObject:@{@"index":@([date daysFromDate:_dateMin]), @"type":@(model.tongfang)}];
+    }
+    
+    
+    NSInteger i = 0;
+    NSDate *eachDate = _dateMin;
+    do {
+        NSInteger precent = [self calculatePercentAtIndex:i];
+        [_chartLabels addObject:[eachDate stringWithFormat:@"M/d"]];
+        [_chartSecondLabels addObject:[NSString stringWithFormat:@"%zd", eachDate.weekday]];
+        [_tableDateLabels addObject:[eachDate stringWithFormat:@"yyyy-MM-dd"]];
+        
+        [_everydayPercent addObject:@(precent)];
+        eachDate = [eachDate dateByAddingDays:1];
+        
+        i++;
+    }
+    while ([eachDate compare:_dateMax] != NSOrderedDescending);
+}
+
+- (NSInteger)calculatePercentWithDate:(NSDate *)date {
+    NSInteger index = [date daysFromDate:_dateMin];
+    return [self calculatePercentAtIndex:index];
+}
+
+- (NSInteger)calculatePercentAtIndex:(NSInteger)index {
+    NSInteger precent = 0;
+    NSRange range1 = [self number:index inRangeArray:_pailuanRange];
+    NSRange range2 = [self number:index inRangeArray:_yuejingRange];
+    if (range2.length > 0) {
+        precent = 10;
+    }
+    else if (range1.length > 0) {
+        precent = [self precentAtIndex:index-range1.location];
+    }
+    else {
+        precent = 15;
+    }
+    return precent;
+}
+
+- (NSInteger)precentAtIndex:(NSInteger)index {
+    NSInteger percent = 0;
+    switch (index) {
+        case 0:
+            percent = 35;
+            break;
+        case 1:
+            percent = 40;
+            break;
+        case 2:
+            percent = 55;
+            break;
+        case 3:
+            percent = 65;
+            break;
+        case 4:
+            percent = 80;
+            break;
+        case 5:
+            percent = 90;
+            break;
+        case 6:
+            percent = 80;
+            break;
+        case 7:
+            percent = 75;
+            break;
+        case 8:
+            percent = 65;
+            break;
+        case 9:
+            percent = 50;
+            break;
+        default:
+            percent = 0;
+            break;
+    }
+    return percent;
+}
+
+- (NSRange)rangeWithStrDate:(NSDate *)strDate endDate:(NSDate *)endDate {
+    NSRange range = NSMakeRange(0, 0);
+    NSInteger minStr = [strDate daysFromDate:_dateMin];
+    NSInteger minEnd = [endDate daysFromDate:_dateMin];
+    NSInteger maxStr = [strDate daysFromDate:_dateMax];
+    NSInteger maxEnd = [endDate daysFromDate:_dateMax];
+    
+    if (minEnd < 0 || maxStr > 0) {
+    }
+    else if (minStr < 0) {
+        range = NSMakeRange(0, minEnd+1);
+    }
+    else if (maxEnd > 0) {
+        range = NSMakeRange(minStr, maxStr+1);
+    }
+    else {
+        range = NSMakeRange(minStr, minEnd-minStr+1);
+    }
+    return range;
+}
+
+- (NSRange)number:(NSInteger)number inRangeArray:(NSArray *)rangeArray {
+    for (NSValue *obj in rangeArray) {
+        NSRange range = obj.rangeValue;
+        if (range.length == 0) {
+            continue;
+        }
+        BOOL isInRange = number >= range.location && number <= (range.location+range.length-1);
+        if (isInRange) {
+            return range;
+        }
+    }
+    return NSMakeRange(0, 0);
 }
 
 - (void)viewDidLoad {
@@ -206,11 +305,20 @@
     [seg addTarget:self action:@selector(segmengChanged:) forControlEvents:UIControlEventValueChanged];
     [seg setSelectedSegmentIndex:0];
     
-    _chartView = [[RHBarGraphView alloc] initWithFrame:CGRectMake(0, seg.maxY+20, self.view.width, self.view.height-seg.maxY-40)];
-    _chartView.datas = @[@20, @33, @30, @55, @33];
-    _chartView.labels = @[@"12/09", @"12/10", @"12/10", @"12/10", @"12/10"];
-    _chartView.yUnit = @"天";
-    _chartView.title = @"周期天数";
+    _chartView = [[RHTontFangGraphView alloc] initWithFrame:CGRectMake(0, seg.maxY+20, self.view.width, self.view.height-seg.maxY-40)];
+    _chartView.datas = _everydayPercent;
+    _chartView.labels = _chartLabels;
+    _chartView.secondLabels = _chartSecondLabels;
+    _chartView.yuejingRange = _yuejingRange;
+    _chartView.pailuanRange = _pailuanRange;
+    _chartView.paiLuanIndexs = _paiLuanDates;
+    _chartView.chartTongFang = _chartTongFang;
+    _chartView.yUnit = @"%";
+    _chartView.title = @"怀孕几率";
+    _chartView.minValue = 0;
+    _chartView.maxValue = 100;
+    _chartView.paddingValue = 10;
+    _chartView.explainHeight = 50;
     [self.view addSubview:_chartView];
     [_chartView draw];
     
@@ -248,7 +356,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return _tongfangDatas.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -260,9 +368,38 @@
         cell = [[RHYjFxCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:tffxIdentifier];
     }
     
-    NSDictionary *dataDic = _datas[row];
+    RHBiaoZhuModel *model = _tongfangDatas[row];
     
-    [cell setData0:@"" data1:@"" data2:@""];
+    NSDate *tongfangDate = [NSDate dateWithTimeIntervalSince1970:model.calendar * 0.001];
+    NSString *strDate = [tongfangDate stringWithFormat:@"yyyy-MM-dd"];
+    NSInteger precent = [self calculatePercentWithDate:tongfangDate];
+    NSString *type = @"";
+    if (precent == 10) {
+        type = @"月经期";
+    }
+    else if (precent > 15) {
+        type = @"易孕期";
+    }
+    else {
+        type = @"安全期";
+    }
+    
+    NSString *safe = @"";
+    switch (model.tongfang) {
+        case 1:
+            safe = @"无";
+            break;
+        case 2:
+            safe = @"避孕套";
+            break;
+        case 3:
+            safe = @"避孕药";
+            break;
+        default:
+            break;
+    }
+    
+    [cell setData0:strDate data1:type data2:safe];
     
     return cell;
 }

@@ -10,6 +10,4 @@
 
 @interface RHTongFangFenxiViewCtro : RHRootViewCtro
 
-@property(nonatomic, strong) NSArray *datas;
-
 @end

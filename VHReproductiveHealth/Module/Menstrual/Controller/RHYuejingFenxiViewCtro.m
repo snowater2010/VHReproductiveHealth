@@ -64,7 +64,7 @@
         RHDayimaModel *model1 = _datas[i];
         NSDate *strDate = [NSDate dateWithTimeIntervalSince1970:model1.start * 0.001];
         NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:model1.end * 0.001];
-        [_chartLabels addObject:[strDate stringWithFormat:@"MM/dd"]];
+        [_chartLabels addObject:[strDate stringWithFormat:@"M/d"]];
         [_chartSecondLabels addObject:[strDate stringWithFormat:@"yyyy"]];
         [_tableDateLabels addObject:[strDate stringWithFormat:@"yyyy-MM-dd"]];
         
@@ -177,6 +177,9 @@
     _chartView.rightLine = _averageZhouqi;
     _chartView.yUnit = @"天";
     _chartView.title = @"周期天数";
+    _chartView.minValue = 15;
+    _chartView.maxValue = 60;
+    _chartView.paddingValue = 5;
     [self.view addSubview:_chartView];
     [_chartView draw];
     

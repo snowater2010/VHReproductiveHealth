@@ -127,7 +127,7 @@
 }
 
 - (NSArray *)queryBiaoZhuStartDate:(NSDate *)strDate endDate:(NSDate *)endDate{
-    NSString *qBiaozhu = @"SELECT * FROM biaozhu WHERE calendar >= ? AND calendar <= ? ";
+    NSString *qBiaozhu = @"SELECT * FROM biaozhu WHERE calendar >= ? AND calendar <= ? ORDER BY calendar DESC";
     long strTime = [strDate timeIntervalSince1970] * 1000;
     long endTime = [endDate timeIntervalSince1970] * 1000;
     
@@ -239,31 +239,8 @@
     return result;
 }
 
-//- (NSArray *)queryLast2MonthTongFang {
-//    NSDate *endDate = [NSDate date];
-//    NSDate *strDate = [endDate dateByAddingMonths:-2];
-//    
-//    long timeStart = [strDate timeIntervalSince1970] * 1000;
-//    long timeEnd = [endDate timeIntervalSince1970] * 1000;
-//    
-//    NSString *sql = @"SELECT calendar, tongfang FROM biaozhu WHERE calendar >= ? AND calendar <= ? AND tongfang > 0 ORDER BY calendar ASC";
-//    
-//    NSMutableArray *result = [NSMutableArray array];
-//    
-//    FMResultSet *rs = [_db executeQuery:sql, [NSNumber numberWithLong:timeStart], [NSNumber numberWithLong:timeEnd]];
-//    while ([rs next]) {
-//        RHBiaoZhuModel *model = [[RHBiaoZhuModel alloc] init];
-//        model.calendar = [rs longForColumn:@"calendar"];
-//        model.tongfang = [rs intForColumn:@"tongfang"];
-//        [result addObject:model];
-//    }
-//    [rs close];
-//    
-//    return result;
-//}
-
 - (RHDayimaModel *)queryLastDayimaByDate:(NSDate *)date {
-    NSString *sql = @"SELECT * FROM dayima WHERE start >= ? ";
+    NSString *sql = @"SELECT * FROM dayima WHERE start <= ? ";
     
     long time = [date timeIntervalSince1970] * 1000;
     
@@ -281,7 +258,7 @@
 }
 
 - (NSArray *)queryDayimaStartDate:(NSDate *)start endDate:(NSDate *)end {
-    NSString *sql = @"SELECT * FROM dayima WHERE end >= ? AND start <= ? ";
+    NSString *sql = @"SELECT * FROM dayima WHERE end >= ? AND start <= ? ORDER BY start ASC ";
     
     long timeStart = [start timeIntervalSince1970] * 1000;
     long timeEnd = [end timeIntervalSince1970] * 1000;

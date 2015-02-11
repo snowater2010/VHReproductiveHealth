@@ -363,7 +363,7 @@
             [weakself settingDayima:isStart];
         };
         cell3.analysisBlock = ^() {
-            [weakself.navigationController pushViewController:[[RHYuejingFenxiViewCtro alloc] init] animated:YES];
+            [weakself.navigationController pushViewController:[[RHTongFangFenxiViewCtro alloc] init] animated:YES];
         };
         cell3.settingBlock = ^() {
             RHSettingMenstrualViewCtro *ctro = [[RHSettingMenstrualViewCtro alloc] init];

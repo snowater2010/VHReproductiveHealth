@@ -42,6 +42,7 @@
 		E841A54F1A8A210300C4CA0F /* NSMutableArray+MK_Stack.m in Sources */ = {isa = PBXBuildFile; fileRef = E841A54A1A8A210300C4CA0F /* NSMutableArray+MK_Stack.m */; };
 		E841A5521A8A27B400C4CA0F /* RHTongFangFenxiViewCtro.m in Sources */ = {isa = PBXBuildFile; fileRef = E841A5511A8A27B400C4CA0F /* RHTongFangFenxiViewCtro.m */; };
 		E841A5551A8A290300C4CA0F /* RHYjFxCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E841A5541A8A290300C4CA0F /* RHYjFxCell.m */; };
+		E8442B0E1A8B9CAD009EAF04 /* RHTontFangGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = E8442B0D1A8B9CAD009EAF04 /* RHTontFangGraphView.m */; };
 		E8471C461A886B890010A97B /* RHDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E8471C451A886B890010A97B /* RHDataModel.m */; };
 		E848FF861A776819005B1851 /* RHHomeViewCtro.m in Sources */ = {isa = PBXBuildFile; fileRef = E848FF851A776819005B1851 /* RHHomeViewCtro.m */; };
 		E848FFAA1A777FF4005B1851 /* JTCalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = E848FF941A777FF4005B1851 /* JTCalendar.m */; };
@@ -165,6 +166,8 @@
 		E841A5511A8A27B400C4CA0F /* RHTongFangFenxiViewCtro.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHTongFangFenxiViewCtro.m; sourceTree = "<group>"; };
 		E841A5531A8A290300C4CA0F /* RHYjFxCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHYjFxCell.h; sourceTree = "<group>"; };
 		E841A5541A8A290300C4CA0F /* RHYjFxCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHYjFxCell.m; sourceTree = "<group>"; };
+		E8442B0C1A8B9CAD009EAF04 /* RHTontFangGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHTontFangGraphView.h; sourceTree = "<group>"; };
+		E8442B0D1A8B9CAD009EAF04 /* RHTontFangGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHTontFangGraphView.m; sourceTree = "<group>"; };
 		E8471C441A886B890010A97B /* RHDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHDataModel.h; sourceTree = "<group>"; };
 		E8471C451A886B890010A97B /* RHDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHDataModel.m; sourceTree = "<group>"; };
 		E848FF841A776819005B1851 /* RHHomeViewCtro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHHomeViewCtro.h; sourceTree = "<group>"; };
@@ -352,6 +355,8 @@
 			children = (
 				E841A5351A8A207700C4CA0F /* RHBarGraphView.h */,
 				E841A5361A8A207700C4CA0F /* RHBarGraphView.m */,
+				E8442B0C1A8B9CAD009EAF04 /* RHTontFangGraphView.h */,
+				E8442B0D1A8B9CAD009EAF04 /* RHTontFangGraphView.m */,
 				E83E917C1A8251390037F5E0 /* RHSettingCell.h */,
 				E83E917D1A8251390037F5E0 /* RHSettingCell.m */,
 				E83E917F1A826ED60037F5E0 /* RHSettingCell1.h */,
@@ -842,6 +847,7 @@
 				E860F8AB1A7DC9F2007803A3 /* RHRootNavCtro.m in Sources */,
 				E841A5551A8A290300C4CA0F /* RHYjFxCell.m in Sources */,
 				E83E91691A8247F40037F5E0 /* ABCalendarPickerDefaultDaysProvider.m in Sources */,
+				E8442B0E1A8B9CAD009EAF04 /* RHTontFangGraphView.m in Sources */,
 				E83E916F1A8247F40037F5E0 /* ABCalendarPickerDefaultWeekdaysProvider.m in Sources */,
 				E848FFB21A777FF4005B1851 /* JTCalendarMonthWeekDaysView.m in Sources */,
 				E848FFB41A777FF4005B1851 /* JTCircleView.m in Sources */,
@@ -952,7 +958,7 @@
 			baseConfigurationReference = 0FF0C1C3316D169A5BEF0A20 /* Pods-VHReproductiveHealth.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Lu Xiaoya (RY9PPE4949)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Lu Xiaoya (RY9PPE4949)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -970,7 +976,7 @@
 			baseConfigurationReference = 20A3E4A742051B773C4C31D7 /* Pods-VHReproductiveHealth.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Lu Xiaoya (RY9PPE4949)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Lu Xiaoya (RY9PPE4949)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

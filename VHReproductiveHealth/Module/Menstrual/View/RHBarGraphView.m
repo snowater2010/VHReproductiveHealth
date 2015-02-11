@@ -7,7 +7,6 @@
 //
 
 #import "RHBarGraphView.h"
-#import "GKBarGraph.h"
 #import "UIView+CBFrameHelpers.h"
 
 #define kDefaultBarWidth        22
@@ -19,11 +18,11 @@
 
 #define kDefaultMinValue        15
 #define kDefaultMaxValue        60
-#define kDefaultRightLine       30
+#define kDefaultPaddingValue    10
+#define kDefaultRightLine       -1
 
 @interface RHBarGraphView () <GKBarGraphDataSource> {
     UIScrollView *_scrollView;
-    GKBarGraph *_barGraph;
 }
 
 @end
@@ -42,35 +41,40 @@
     _rightLine = kDefaultRightLine;
     _maxValue = kDefaultMaxValue;
     _minValue = kDefaultMinValue;
+    _paddingValue = kDefaultPaddingValue;
+    _explainHeight = kDefaultExplainHeight;
     
-    _scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
+    _barWidth = kDefaultBarWidth;
+    _barMargin = kDefaultBarMargin;
+    
+    _scrollView = [[UIScrollView alloc] init];
     _scrollView.showsHorizontalScrollIndicator = NO;
     [self addSubview:_scrollView];
     
-    _barGraph = [[GKBarGraph alloc] initWithFrame:CGRectMake(kDefaultBarMargin, 0, _scrollView.width, _scrollView.height-kDefaultExplainHeight)];
+    _barGraph = [[GKBarGraph alloc] init];
     _barGraph.dataSource = self;
-    _barGraph.barWidth = kDefaultBarWidth;
-    _barGraph.barHeight = _barGraph.height - kDefaultLabelHeight*2 - 40;
-    _barGraph.marginBar = kDefaultBarMargin;
     [_scrollView addSubview:_barGraph];
-    
 }
 
 - (void)draw {
-    [self drawAxis];
-    [self drawScales];
+    _scrollView.frame = self.bounds;
+    _barGraph.frame = CGRectMake(_barMargin, 0, _scrollView.width, _scrollView.height-_explainHeight);
     
     // resize graph
-    CGFloat graphWidth = self.datas.count * (kDefaultBarWidth + kDefaultBarMargin) + kDefaultBarMargin;
+    CGFloat graphWidth = self.datas.count * (_barWidth + _barMargin) + _barMargin;
     [_barGraph setW:graphWidth];
+    _barGraph.barWidth = _barWidth;
+    _barGraph.barHeight = _barGraph.height - kDefaultLabelHeight*2 - 40;
+    _barGraph.marginBar = _barMargin;
     [_barGraph draw];
     
+    [self drawAxis];
+    [self drawScales];
     [self drawRightLine];
-    
     [self drawTitle];
     [self drawExplain];
     
-    _scrollView.contentSize = CGSizeMake(_barGraph.frame.size.width + kDefaultBarMargin, _barGraph.frame.size.height);
+    _scrollView.contentSize = CGSizeMake(_barGraph.frame.size.width + _barMargin, _barGraph.frame.size.height);
     [_scrollView scrollRectToVisible:CGRectMake(_scrollView.contentSize.width-_scrollView.width, 0, _scrollView.width, _scrollView.height) animated:NO];
 }
 
@@ -79,7 +83,7 @@
     CGFloat xLoc = initPoint.x;
     
     NSString *tip1 = @"---理想周期";
-    NSString *tip2 = @"（30天）";
+    NSString *tip2 = [NSString stringWithFormat:@"（%zd天）", _rightLine];
     NSString *tip3 = @"月/日";
     NSString *tip4 = @"来经时间";
     CGSize size1 = [tip1 sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:14]}];
@@ -94,7 +98,7 @@
     textLayer1.fontSize = 14.f;
     textLayer1.alignmentMode = kCAAlignmentLeft;
     textLayer1.foregroundColor = [UIColorFromRGB(0xAE9570) CGColor];
-    textLayer1.frame = CGRectMake(xLoc+5, _barGraph.maxY+(kDefaultExplainHeight-size1.height)*0.5, size1.width,size1.height);
+    textLayer1.frame = CGRectMake(xLoc+5, _barGraph.maxY+(_explainHeight-size1.height)*0.5, size1.width,size1.height);
     [self.layer addSublayer:textLayer1];
     
     xLoc += size1.width;
@@ -148,6 +152,9 @@
 }
 
 - (void)drawRightLine {
+    if (_rightLine == -1) {
+        return;
+    }
     
     CGFloat rightLineY = [self getHeightByNumber:self.rightLine];
     
@@ -170,23 +177,16 @@
 }
 
 - (CGPoint)getInitPoint {
-    return CGPointMake(kDefaultBarMargin, self.height - kDefaultLabelHeight * 2 - kDefaultExplainHeight);
+    return CGPointMake(_barMargin, self.height - kDefaultLabelHeight * 2 - _explainHeight);
 }
 
 - (void)drawAxis {
+    [self drawYAxis];
+    [self drawXAxis];
+}
+
+- (void)drawXAxis {
     CGPoint initPoint = [self getInitPoint];
-    
-    // y axis
-    UIBezierPath *yAxisPath = [UIBezierPath bezierPath];
-    [yAxisPath moveToPoint:CGPointMake(initPoint.x, self.height)];
-    [yAxisPath addLineToPoint:CGPointMake(initPoint.x, 0)];
-    
-    CAShapeLayer *yAxis = [CAShapeLayer layer];
-    yAxis.lineWidth = 1;
-    yAxis.path = yAxisPath.CGPath;
-    yAxis.strokeColor = [UIColorFromRGB(0xA19996) CGColor];
-    
-    [self.layer addSublayer:yAxis];
     
     // x axis
     UIBezierPath *xAxisPath = [UIBezierPath bezierPath];
@@ -204,22 +204,40 @@
     [self.layer addSublayer:xAxis];
 }
 
+- (void)drawYAxis {
+    CGPoint initPoint = [self getInitPoint];
+    
+    // y axis
+    UIBezierPath *yAxisPath = [UIBezierPath bezierPath];
+    [yAxisPath moveToPoint:CGPointMake(initPoint.x, initPoint.y)];
+    [yAxisPath addLineToPoint:CGPointMake(initPoint.x, 0)];
+    
+    CAShapeLayer *yAxis = [CAShapeLayer layer];
+    yAxis.lineWidth = 1;
+    yAxis.path = yAxisPath.CGPath;
+    yAxis.strokeColor = [UIColorFromRGB(0xA19996) CGColor];
+    
+    [self.layer addSublayer:yAxis];
+}
+
+
 // 刻度
 - (void)drawScales {
     CGPoint initPoint = [self getInitPoint];
     
     UIBezierPath *scalePath = [UIBezierPath bezierPath];
     
+    int i = 0;
     CGFloat axisY = .0;
-    NSInteger scaleValue = _minValue + 5;
+    NSInteger scaleValue = _minValue + _paddingValue;
     while (scaleValue <= _maxValue) {
         axisY = [self getHeightByNumber:scaleValue];
         [scalePath moveToPoint:CGPointMake(initPoint.x, axisY)];
-        if (scaleValue % 10 == 0) {
+        if (i % 2 == 0) {
             [scalePath addLineToPoint:CGPointMake(initPoint.x-7, axisY)];
         }
         else {
-            [scalePath addLineToPoint:CGPointMake(initPoint.x-3, axisY)];
+            [scalePath addLineToPoint:CGPointMake(initPoint.x-4, axisY)];
         }
         
         CATextLayer *textLayer = [CATextLayer layer];
@@ -231,7 +249,8 @@
         textLayer.frame = CGRectMake(0, axisY-8, initPoint.x-10, 16);
         [self.layer addSublayer:textLayer];
         
-        scaleValue += 5;
+        scaleValue += _paddingValue;
+        i++;
     }
     
     CAShapeLayer *scales = [CAShapeLayer layer];
@@ -274,11 +293,11 @@
 }
 
 - (UIColor *)colorForBarAtIndex:(NSInteger)index {
-    if (((NSNumber *)self.datas[index]).integerValue >= self.rightLine) {
-        return UIColorFromRGB(0xFFECD6);
+    if (index+1 == _datas.count) {
+        return UIColorFromRGB(0xA19996);
     }
     else {
-        return UIColorFromRGB(0xA19996);
+        return UIColorFromRGB(0xFFECD6);
     }
 }
 
