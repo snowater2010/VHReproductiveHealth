@@ -9,6 +9,7 @@
 #import "RHMenstrualDataManger.h"
 #import "FMDatabase.h"
 #import "RHDataModel.h"
+#import "ESDateHelper.h"
 
 @interface RHMenstrualDataManger () {
     FMDatabase *_db;
@@ -126,7 +127,7 @@
 }
 
 - (NSArray *)queryBiaoZhuStartDate:(NSDate *)strDate endDate:(NSDate *)endDate{
-    NSString *qBiaozhu = @"SELECT * FROM biaozhu WHERE calendar >= ? and calendar <= ? ";
+    NSString *qBiaozhu = @"SELECT * FROM biaozhu WHERE calendar >= ? AND calendar <= ? ";
     long strTime = [strDate timeIntervalSince1970] * 1000;
     long endTime = [endDate timeIntervalSince1970] * 1000;
     
@@ -238,8 +239,49 @@
     return result;
 }
 
+//- (NSArray *)queryLast2MonthTongFang {
+//    NSDate *endDate = [NSDate date];
+//    NSDate *strDate = [endDate dateByAddingMonths:-2];
+//    
+//    long timeStart = [strDate timeIntervalSince1970] * 1000;
+//    long timeEnd = [endDate timeIntervalSince1970] * 1000;
+//    
+//    NSString *sql = @"SELECT calendar, tongfang FROM biaozhu WHERE calendar >= ? AND calendar <= ? AND tongfang > 0 ORDER BY calendar ASC";
+//    
+//    NSMutableArray *result = [NSMutableArray array];
+//    
+//    FMResultSet *rs = [_db executeQuery:sql, [NSNumber numberWithLong:timeStart], [NSNumber numberWithLong:timeEnd]];
+//    while ([rs next]) {
+//        RHBiaoZhuModel *model = [[RHBiaoZhuModel alloc] init];
+//        model.calendar = [rs longForColumn:@"calendar"];
+//        model.tongfang = [rs intForColumn:@"tongfang"];
+//        [result addObject:model];
+//    }
+//    [rs close];
+//    
+//    return result;
+//}
+
+- (RHDayimaModel *)queryLastDayimaByDate:(NSDate *)date {
+    NSString *sql = @"SELECT * FROM dayima WHERE start >= ? ";
+    
+    long time = [date timeIntervalSince1970] * 1000;
+    
+    RHDayimaModel *model = nil;
+    FMResultSet *rs = [_db executeQuery:sql, [NSNumber numberWithLong:time]];
+    while ([rs next]) {
+        model = [[RHDayimaModel alloc] init];
+        model.tid = [rs intForColumn:@"tid"];
+        model.start = [rs longForColumn:@"start"];
+        model.end = [rs longForColumn:@"end"];
+    }
+    [rs close];
+    
+    return model;
+}
+
 - (NSArray *)queryDayimaStartDate:(NSDate *)start endDate:(NSDate *)end {
-    NSString *sql = @"SELECT * FROM dayima WHERE end >= ? and start <= ? ";
+    NSString *sql = @"SELECT * FROM dayima WHERE end >= ? AND start <= ? ";
     
     long timeStart = [start timeIntervalSince1970] * 1000;
     long timeEnd = [end timeIntervalSince1970] * 1000;
@@ -272,13 +314,13 @@
 }
 
 - (void)deleteDayimaWithDate:(NSDate *)date {
-    NSString *sql = @"DELETE FROM dayima WHERE start <= ? and end >= ?";
+    NSString *sql = @"DELETE FROM dayima WHERE start <= ? AND end >= ?";
     long time = [date timeIntervalSince1970] * 1000;
     [_db executeUpdate:sql, [NSNumber numberWithLong:time], [NSNumber numberWithLong:time]];
 }
 
 - (void)updateDayimaEndDate:(NSDate *)endDate withDate:(NSDate *)date {
-    NSString *sql = @"UPDATE dayima SET end = ? WHERE start <= ? and end >= ?";
+    NSString *sql = @"UPDATE dayima SET end = ? WHERE start <= ? AND end >= ?";
     long endTime = [endDate timeIntervalSince1970] * 1000;
     long time = [date timeIntervalSince1970] * 1000;
     [_db executeUpdate:sql, [NSNumber numberWithLong:endTime], [NSNumber numberWithLong:time], [NSNumber numberWithLong:time]];

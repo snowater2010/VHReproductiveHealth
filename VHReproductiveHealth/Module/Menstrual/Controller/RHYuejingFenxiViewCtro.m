@@ -70,8 +70,8 @@
         
         NSInteger jingqi = [endDate daysFromDate:strDate];
         [_jingqiValues addObject:@(jingqi)];
-        BOOL isIn3Month = strDate.month+2 > strDateLast.month;
-        if (isIn3Month) {
+        BOOL isIn2Month = strDate.month+2 > strDateLast.month;
+        if (isIn2Month) {
             sumJingqi += jingqi;
             in3MonthCount ++;
         }
@@ -81,7 +81,7 @@
             NSDate *strDate2 = [NSDate dateWithTimeIntervalSince1970:model2.start * 0.001];
             NSInteger zhouqi = [strDate2 daysFromDate:strDate];
             [_zhouqiValues addObject:@(zhouqi)];
-            if (isIn3Month) {
+            if (isIn2Month) {
                 sumZhouqi += zhouqi;
             }
             if (!isTwiceInMonth) {
@@ -174,6 +174,7 @@
     _chartView.datas = _zhouqiValues;
     _chartView.labels = _chartLabels;
     _chartView.secondLabels = _chartSecondLabels;
+    _chartView.rightLine = _averageZhouqi;
     _chartView.yUnit = @"天";
     _chartView.title = @"周期天数";
     [self.view addSubview:_chartView];
@@ -184,7 +185,6 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.hidden = YES;
-//    [_tableView reloadData];
 }
 
 - (BOOL)doAnalyze {

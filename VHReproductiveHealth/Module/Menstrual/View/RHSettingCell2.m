@@ -25,8 +25,6 @@
     [super layoutSubviews];
     
     [[[_segment setW:90 andH:29] centerYWith:self] insideRightEdgeBy:10];
-//    [_segment setBackgroundImage:[UIImage imageNamed:@"seg_normal"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-//    [_segment setBackgroundImage:[UIImage imageNamed:@"seg_blue"] forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
 }
 
 - (void)segAction:(UISegmentedControl *)segment {

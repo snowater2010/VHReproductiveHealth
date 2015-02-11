@@ -25,7 +25,11 @@
 - (void)insertDayimaStartDate:(NSDate *)startDate endDate:(NSDate *)endDate;
 - (void)deleteDayimaWithDate:(NSDate *)startDate;
 - (void)updateDayimaEndDate:(NSDate *)endDate withDate:(NSDate *)date;
+
+- (RHDayimaModel *)queryLastDayimaByDate:(NSDate *)date;
+
 - (NSArray *)queryDayima;
+//- (NSArray *)queryLast2MonthTongFang;
 
 - (void)closeDB;
 

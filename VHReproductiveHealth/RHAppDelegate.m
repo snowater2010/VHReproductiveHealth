@@ -11,6 +11,7 @@
 #import "RHHomeViewCtro.h"
 #import "RHYuejingFenxiViewCtro.h"
 #import "RHMenstrualViewCtro.h"
+#import "RHTongFangFenxiViewCtro.h"
 
 @interface RHAppDelegate ()
 
@@ -22,7 +23,7 @@
     // Override point for customization after application launch.
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.rootViewController = [[RHRootNavCtro alloc] initWithRootViewController:[[RHHomeViewCtro alloc] init]];
+    self.window.rootViewController = [[RHRootNavCtro alloc] initWithRootViewController:[[RHTongFangFenxiViewCtro alloc] init]];
     [self.window makeKeyAndVisible];
     
     return YES;

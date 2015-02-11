@@ -29,6 +29,7 @@
 #import "RHDayProvider.h"
 
 #import "RHYuejingFenxiViewCtro.h"
+#import "RHTongFangFenxiViewCtro.h"
 
 #define DefaultDateFormat @"yyyy-MM-dd"
 
