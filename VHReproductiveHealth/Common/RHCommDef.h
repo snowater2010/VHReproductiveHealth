@@ -22,6 +22,9 @@ typedef void (^BlockString)(NSString *str);
 #define WEAK_SELF __weak typeof(self) weakself = self;
 #define WEAK_INSTANCE(instance) __weak typeof(instance) weak##instance = instance;
 
+#define USER_DEFAULT_JINGQI @"rh_jingqi"
+#define USER_DEFAULT_ZHOUQI @"rh_zhouqi"
+
 /*****************************设备相关宏定义*********************************/
 
 // 基本设备信息
@@ -53,6 +56,7 @@ typedef void (^BlockString)(NSString *str);
 #define COLOR_TEXT_WHITE        ([UIColor whiteColor])
 #define COLOR_TEXT_BLACK        ([UIColor blackColor])
 #define COLOR_TEXT_PINK         (UIColorFromRGB(0xFF5B83))
+#define COLOR_TEXT_BROWN        (UIColorFromRGB(0xA19996))
 
 #define COLOR_DGREEN            (UIColorFromRGB(0x246E39))
 

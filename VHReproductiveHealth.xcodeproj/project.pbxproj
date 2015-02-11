@@ -31,6 +31,17 @@
 		E83E917E1A8251390037F5E0 /* RHSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E83E917D1A8251390037F5E0 /* RHSettingCell.m */; };
 		E83E91811A826ED60037F5E0 /* RHSettingCell1.m in Sources */ = {isa = PBXBuildFile; fileRef = E83E91801A826ED60037F5E0 /* RHSettingCell1.m */; };
 		E83E91841A826EF40037F5E0 /* RHSettingCell2.m in Sources */ = {isa = PBXBuildFile; fileRef = E83E91831A826EF40037F5E0 /* RHSettingCell2.m */; };
+		E841A5331A89CE5900C4CA0F /* RHYuejingFenxiViewCtro.m in Sources */ = {isa = PBXBuildFile; fileRef = E841A5321A89CE5900C4CA0F /* RHYuejingFenxiViewCtro.m */; };
+		E841A5371A8A207700C4CA0F /* RHBarGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = E841A5361A8A207700C4CA0F /* RHBarGraphView.m */; };
+		E841A53D1A8A209C00C4CA0F /* GKBar.m in Sources */ = {isa = PBXBuildFile; fileRef = E841A53A1A8A209C00C4CA0F /* GKBar.m */; };
+		E841A53E1A8A209C00C4CA0F /* GKBarGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = E841A53C1A8A209C00C4CA0F /* GKBarGraph.m */; };
+		E841A54B1A8A210300C4CA0F /* NSArray+MK_Block.m in Sources */ = {isa = PBXBuildFile; fileRef = E841A5421A8A210300C4CA0F /* NSArray+MK_Block.m */; };
+		E841A54C1A8A210300C4CA0F /* NSArray+MK_Misc.m in Sources */ = {isa = PBXBuildFile; fileRef = E841A5441A8A210300C4CA0F /* NSArray+MK_Misc.m */; };
+		E841A54D1A8A210300C4CA0F /* NSMutableArray+MK_Misc.m in Sources */ = {isa = PBXBuildFile; fileRef = E841A5461A8A210300C4CA0F /* NSMutableArray+MK_Misc.m */; };
+		E841A54E1A8A210300C4CA0F /* NSMutableArray+MK_Queue.m in Sources */ = {isa = PBXBuildFile; fileRef = E841A5481A8A210300C4CA0F /* NSMutableArray+MK_Queue.m */; };
+		E841A54F1A8A210300C4CA0F /* NSMutableArray+MK_Stack.m in Sources */ = {isa = PBXBuildFile; fileRef = E841A54A1A8A210300C4CA0F /* NSMutableArray+MK_Stack.m */; };
+		E841A5521A8A27B400C4CA0F /* RHTongFangFenxiViewCtro.m in Sources */ = {isa = PBXBuildFile; fileRef = E841A5511A8A27B400C4CA0F /* RHTongFangFenxiViewCtro.m */; };
+		E841A5551A8A290300C4CA0F /* RHYjFxCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E841A5541A8A290300C4CA0F /* RHYjFxCell.m */; };
 		E8471C461A886B890010A97B /* RHDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E8471C451A886B890010A97B /* RHDataModel.m */; };
 		E848FF861A776819005B1851 /* RHHomeViewCtro.m in Sources */ = {isa = PBXBuildFile; fileRef = E848FF851A776819005B1851 /* RHHomeViewCtro.m */; };
 		E848FFAA1A777FF4005B1851 /* JTCalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = E848FF941A777FF4005B1851 /* JTCalendar.m */; };
@@ -131,6 +142,29 @@
 		E83E91801A826ED60037F5E0 /* RHSettingCell1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSettingCell1.m; sourceTree = "<group>"; };
 		E83E91821A826EF40037F5E0 /* RHSettingCell2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSettingCell2.h; sourceTree = "<group>"; };
 		E83E91831A826EF40037F5E0 /* RHSettingCell2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSettingCell2.m; sourceTree = "<group>"; };
+		E841A5311A89CE5900C4CA0F /* RHYuejingFenxiViewCtro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHYuejingFenxiViewCtro.h; sourceTree = "<group>"; };
+		E841A5321A89CE5900C4CA0F /* RHYuejingFenxiViewCtro.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHYuejingFenxiViewCtro.m; sourceTree = "<group>"; };
+		E841A5351A8A207700C4CA0F /* RHBarGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHBarGraphView.h; sourceTree = "<group>"; };
+		E841A5361A8A207700C4CA0F /* RHBarGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHBarGraphView.m; sourceTree = "<group>"; };
+		E841A5391A8A209C00C4CA0F /* GKBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKBar.h; sourceTree = "<group>"; };
+		E841A53A1A8A209C00C4CA0F /* GKBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKBar.m; sourceTree = "<group>"; };
+		E841A53B1A8A209C00C4CA0F /* GKBarGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKBarGraph.h; sourceTree = "<group>"; };
+		E841A53C1A8A209C00C4CA0F /* GKBarGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKBarGraph.m; sourceTree = "<group>"; };
+		E841A5401A8A210300C4CA0F /* NSArray+MK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+MK.h"; sourceTree = "<group>"; };
+		E841A5411A8A210300C4CA0F /* NSArray+MK_Block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+MK_Block.h"; sourceTree = "<group>"; };
+		E841A5421A8A210300C4CA0F /* NSArray+MK_Block.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+MK_Block.m"; sourceTree = "<group>"; };
+		E841A5431A8A210300C4CA0F /* NSArray+MK_Misc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+MK_Misc.h"; sourceTree = "<group>"; };
+		E841A5441A8A210300C4CA0F /* NSArray+MK_Misc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+MK_Misc.m"; sourceTree = "<group>"; };
+		E841A5451A8A210300C4CA0F /* NSMutableArray+MK_Misc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+MK_Misc.h"; sourceTree = "<group>"; };
+		E841A5461A8A210300C4CA0F /* NSMutableArray+MK_Misc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+MK_Misc.m"; sourceTree = "<group>"; };
+		E841A5471A8A210300C4CA0F /* NSMutableArray+MK_Queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+MK_Queue.h"; sourceTree = "<group>"; };
+		E841A5481A8A210300C4CA0F /* NSMutableArray+MK_Queue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+MK_Queue.m"; sourceTree = "<group>"; };
+		E841A5491A8A210300C4CA0F /* NSMutableArray+MK_Stack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+MK_Stack.h"; sourceTree = "<group>"; };
+		E841A54A1A8A210300C4CA0F /* NSMutableArray+MK_Stack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+MK_Stack.m"; sourceTree = "<group>"; };
+		E841A5501A8A27B400C4CA0F /* RHTongFangFenxiViewCtro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHTongFangFenxiViewCtro.h; sourceTree = "<group>"; };
+		E841A5511A8A27B400C4CA0F /* RHTongFangFenxiViewCtro.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHTongFangFenxiViewCtro.m; sourceTree = "<group>"; };
+		E841A5531A8A290300C4CA0F /* RHYjFxCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHYjFxCell.h; sourceTree = "<group>"; };
+		E841A5541A8A290300C4CA0F /* RHYjFxCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHYjFxCell.m; sourceTree = "<group>"; };
 		E8471C441A886B890010A97B /* RHDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHDataModel.h; sourceTree = "<group>"; };
 		E8471C451A886B890010A97B /* RHDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHDataModel.m; sourceTree = "<group>"; };
 		E848FF841A776819005B1851 /* RHHomeViewCtro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHHomeViewCtro.h; sourceTree = "<group>"; };
@@ -316,6 +350,8 @@
 		E83E917B1A8251090037F5E0 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E841A5351A8A207700C4CA0F /* RHBarGraphView.h */,
+				E841A5361A8A207700C4CA0F /* RHBarGraphView.m */,
 				E83E917C1A8251390037F5E0 /* RHSettingCell.h */,
 				E83E917D1A8251390037F5E0 /* RHSettingCell.m */,
 				E83E917F1A826ED60037F5E0 /* RHSettingCell1.h */,
@@ -330,8 +366,39 @@
 				E8FC7E081A87C6830009403E /* RHCalendarCell.m */,
 				E89ED2571A8922CE002CA0EB /* RHDayProvider.h */,
 				E89ED2581A8922CE002CA0EB /* RHDayProvider.m */,
+				E841A5531A8A290300C4CA0F /* RHYjFxCell.h */,
+				E841A5541A8A290300C4CA0F /* RHYjFxCell.m */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		E841A5381A8A209C00C4CA0F /* BarGraph */ = {
+			isa = PBXGroup;
+			children = (
+				E841A5391A8A209C00C4CA0F /* GKBar.h */,
+				E841A53A1A8A209C00C4CA0F /* GKBar.m */,
+				E841A53B1A8A209C00C4CA0F /* GKBarGraph.h */,
+				E841A53C1A8A209C00C4CA0F /* GKBarGraph.m */,
+			);
+			path = BarGraph;
+			sourceTree = "<group>";
+		};
+		E841A53F1A8A210300C4CA0F /* NSArray */ = {
+			isa = PBXGroup;
+			children = (
+				E841A5401A8A210300C4CA0F /* NSArray+MK.h */,
+				E841A5411A8A210300C4CA0F /* NSArray+MK_Block.h */,
+				E841A5421A8A210300C4CA0F /* NSArray+MK_Block.m */,
+				E841A5431A8A210300C4CA0F /* NSArray+MK_Misc.h */,
+				E841A5441A8A210300C4CA0F /* NSArray+MK_Misc.m */,
+				E841A5451A8A210300C4CA0F /* NSMutableArray+MK_Misc.h */,
+				E841A5461A8A210300C4CA0F /* NSMutableArray+MK_Misc.m */,
+				E841A5471A8A210300C4CA0F /* NSMutableArray+MK_Queue.h */,
+				E841A5481A8A210300C4CA0F /* NSMutableArray+MK_Queue.m */,
+				E841A5491A8A210300C4CA0F /* NSMutableArray+MK_Stack.h */,
+				E841A54A1A8A210300C4CA0F /* NSMutableArray+MK_Stack.m */,
+			);
+			path = NSArray;
 			sourceTree = "<group>";
 		};
 		E848FF821A7767A2005B1851 /* Home */ = {
@@ -358,6 +425,8 @@
 		E848FF8A1A777214005B1851 /* Thirdparty */ = {
 			isa = PBXGroup;
 			children = (
+				E841A53F1A8A210300C4CA0F /* NSArray */,
+				E841A5381A8A209C00C4CA0F /* BarGraph */,
 				E8FC7DFD1A8768380009403E /* NSDate+Helper */,
 				E85E5B251A872F4000D98B8A /* DWTagList */,
 				E83E91451A8247F40037F5E0 /* ABCalendarPicker */,
@@ -428,6 +497,10 @@
 				E89ED25B1A892F3A002CA0EB /* RHMyJingliViewCtro.m */,
 				E860F8991A7DC91F007803A3 /* RHMenstrualViewCtro.h */,
 				E860F89A1A7DC91F007803A3 /* RHMenstrualViewCtro.m */,
+				E841A5311A89CE5900C4CA0F /* RHYuejingFenxiViewCtro.h */,
+				E841A5321A89CE5900C4CA0F /* RHYuejingFenxiViewCtro.m */,
+				E841A5501A8A27B400C4CA0F /* RHTongFangFenxiViewCtro.h */,
+				E841A5511A8A27B400C4CA0F /* RHTongFangFenxiViewCtro.m */,
 				E83BB5A91A8674AB002DD31C /* Setting */,
 			);
 			path = Controller;
@@ -713,10 +786,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E841A53E1A8A209C00C4CA0F /* GKBarGraph.m in Sources */,
 				E85E5AE51A86EF2300D98B8A /* RHSettingCell3.m in Sources */,
 				E848FFAD1A777FF4005B1851 /* JTCalendarDataCache.m in Sources */,
 				E860F8A21A7DC9CF007803A3 /* RHMenstrualDataHelper.m in Sources */,
 				E85E5B281A872F4000D98B8A /* DWTagList.m in Sources */,
+				E841A54D1A8A210300C4CA0F /* NSMutableArray+MK_Misc.m in Sources */,
 				E83E917E1A8251390037F5E0 /* RHSettingCell.m in Sources */,
 				E863D5C81A766C0F0070F1F4 /* RHUIApplication.m in Sources */,
 				E848FF861A776819005B1851 /* RHHomeViewCtro.m in Sources */,
@@ -724,7 +799,9 @@
 				E83E916E1A8247F40037F5E0 /* ABCalendarPickerDefaultTripleWeekdaysProvider.m in Sources */,
 				E848FFAE1A777FF4005B1851 /* JTCalendarDayView.m in Sources */,
 				E8FC7DFC1A875C350009403E /* RHBiaoZhuModel.m in Sources */,
+				E841A5371A8A207700C4CA0F /* RHBarGraphView.m in Sources */,
 				E83E91791A8247F40037F5E0 /* UIMyButton.m in Sources */,
+				E841A5521A8A27B400C4CA0F /* RHTongFangFenxiViewCtro.m in Sources */,
 				E860F8AA1A7DC9F2007803A3 /* RHRootDataHelper.m in Sources */,
 				E8471C461A886B890010A97B /* RHDataModel.m in Sources */,
 				E89ED2591A8922CE002CA0EB /* RHDayProvider.m in Sources */,
@@ -748,15 +825,22 @@
 				E83E91681A8247F40037F5E0 /* ABCalendarPicker.m in Sources */,
 				E860F8AC1A7DC9F2007803A3 /* RHRootViewCtro.m in Sources */,
 				E83E916B1A8247F40037F5E0 /* ABCalendarPickerDefaultMonthsProvider.m in Sources */,
+				E841A54F1A8A210300C4CA0F /* NSMutableArray+MK_Stack.m in Sources */,
 				E848FFAC1A777FF4005B1851 /* JTCalendarContentView.m in Sources */,
 				E83E91841A826EF40037F5E0 /* RHSettingCell2.m in Sources */,
 				E85E5AEB1A87022400D98B8A /* RHSettingTongfangViewCtro.m in Sources */,
+				E841A54E1A8A210300C4CA0F /* NSMutableArray+MK_Queue.m in Sources */,
 				E85E5AF41A871F0800D98B8A /* RHSettingDpxfViewCtro.m in Sources */,
+				E841A54B1A8A210300C4CA0F /* NSArray+MK_Block.m in Sources */,
+				E841A5331A89CE5900C4CA0F /* RHYuejingFenxiViewCtro.m in Sources */,
 				E863D5701A76172A0070F1F4 /* main.m in Sources */,
+				E841A54C1A8A210300C4CA0F /* NSArray+MK_Misc.m in Sources */,
+				E841A53D1A8A209C00C4CA0F /* GKBar.m in Sources */,
 				E83E91711A8247F40037F5E0 /* ABViewPool.m in Sources */,
 				E848FFB11A777FF4005B1851 /* JTCalendarMonthView.m in Sources */,
 				E83E916A1A8247F40037F5E0 /* ABCalendarPickerDefaultErasProvider.m in Sources */,
 				E860F8AB1A7DC9F2007803A3 /* RHRootNavCtro.m in Sources */,
+				E841A5551A8A290300C4CA0F /* RHYjFxCell.m in Sources */,
 				E83E91691A8247F40037F5E0 /* ABCalendarPickerDefaultDaysProvider.m in Sources */,
 				E83E916F1A8247F40037F5E0 /* ABCalendarPickerDefaultWeekdaysProvider.m in Sources */,
 				E848FFB21A777FF4005B1851 /* JTCalendarMonthWeekDaysView.m in Sources */,
@@ -868,7 +952,7 @@
 			baseConfigurationReference = 0FF0C1C3316D169A5BEF0A20 /* Pods-VHReproductiveHealth.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Lu Xiaoya (RY9PPE4949)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Lu Xiaoya (RY9PPE4949)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -886,7 +970,7 @@
 			baseConfigurationReference = 20A3E4A742051B773C4C31D7 /* Pods-VHReproductiveHealth.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Lu Xiaoya (RY9PPE4949)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Lu Xiaoya (RY9PPE4949)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

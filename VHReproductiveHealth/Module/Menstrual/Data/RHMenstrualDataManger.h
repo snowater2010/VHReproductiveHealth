@@ -25,6 +25,7 @@
 - (void)insertDayimaStartDate:(NSDate *)startDate endDate:(NSDate *)endDate;
 - (void)deleteDayimaWithDate:(NSDate *)startDate;
 - (void)updateDayimaEndDate:(NSDate *)endDate withDate:(NSDate *)date;
+- (NSArray *)queryDayima;
 
 - (void)closeDB;
 

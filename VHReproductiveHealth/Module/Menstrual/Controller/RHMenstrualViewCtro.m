@@ -28,6 +28,8 @@
 #import "RHDataModel.h"
 #import "RHDayProvider.h"
 
+#import "RHYuejingFenxiViewCtro.h"
+
 #define DefaultDateFormat @"yyyy-MM-dd"
 
 @interface RHMenstrualViewCtro () <UITableViewDataSource, UITableViewDelegate, ABCalendarPickerDelegateProtocol>
@@ -359,7 +361,7 @@
             [weakself settingDayima:isStart];
         };
         cell3.analysisBlock = ^() {
-            
+            [weakself.navigationController pushViewController:[[RHYuejingFenxiViewCtro alloc] init] animated:YES];
         };
         cell3.settingBlock = ^() {
             RHSettingMenstrualViewCtro *ctro = [[RHSettingMenstrualViewCtro alloc] init];

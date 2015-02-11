@@ -9,6 +9,8 @@
 #import "RHAppDelegate.h"
 #import "RHRootNavCtro.h"
 #import "RHHomeViewCtro.h"
+#import "RHYuejingFenxiViewCtro.h"
+#import "RHMenstrualViewCtro.h"
 
 @interface RHAppDelegate ()
 

@@ -220,6 +220,24 @@
     return nil;
 }
 
+- (NSArray *)queryDayima {
+    NSString *sql = @"SELECT * FROM dayima ORDER BY start ASC";
+    
+    NSMutableArray *result = [NSMutableArray array];
+    
+    FMResultSet *rs = [_db executeQuery:sql];
+    while ([rs next]) {
+        RHDayimaModel *model = [[RHDayimaModel alloc] init];
+        model.tid = [rs intForColumn:@"tid"];
+        model.start = [rs longForColumn:@"start"];
+        model.end = [rs longForColumn:@"end"];
+        [result addObject:model];
+    }
+    [rs close];
+    
+    return result;
+}
+
 - (NSArray *)queryDayimaStartDate:(NSDate *)start endDate:(NSDate *)end {
     NSString *sql = @"SELECT * FROM dayima WHERE end >= ? and start <= ? ";
     
