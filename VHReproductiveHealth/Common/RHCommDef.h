@@ -77,13 +77,14 @@ typedef void (^BlockString)(NSString *str);
 #define FONT_16             (FONT_LIGHT(16))
 #define FONT_14             (FONT_LIGHT(14))
 #define FONT_12             (FONT_LIGHT(12))
+#define FONT_10             (FONT_LIGHT(10))
 
 #define FONT_20B            (FONT_BOLD(20))
 #define FONT_18B            (FONT_BOLD(18))
 #define FONT_16B            (FONT_BOLD(16))
 #define FONT_14B            (FONT_BOLD(14))
 #define FONT_12B            (FONT_BOLD(12))
-
+#define FONT_10B            (FONT_BOLD(10))
 
 
 @end

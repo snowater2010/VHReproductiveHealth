@@ -53,6 +53,7 @@
     _barGraph.barHeight = _barGraph.height - kDefaultLabelHeight*2 - 40;
     _barGraph.marginBar = kDefaultBarMargin;
     [_scrollView addSubview:_barGraph];
+    
 }
 
 - (void)draw {
@@ -62,14 +63,15 @@
     // resize graph
     CGFloat graphWidth = self.datas.count * (kDefaultBarWidth + kDefaultBarMargin) + kDefaultBarMargin;
     [_barGraph setW:graphWidth];
-    _scrollView.contentSize = CGSizeMake(_barGraph.frame.size.width + kDefaultBarMargin, _barGraph.frame.size.height);
-    
     [_barGraph draw];
     
     [self drawRightLine];
     
     [self drawTitle];
     [self drawExplain];
+    
+    _scrollView.contentSize = CGSizeMake(_barGraph.frame.size.width + kDefaultBarMargin, _barGraph.frame.size.height);
+    [_scrollView scrollRectToVisible:CGRectMake(_scrollView.contentSize.width-_scrollView.width, 0, _scrollView.width, _scrollView.height) animated:NO];
 }
 
 - (void)drawExplain {

@@ -166,7 +166,7 @@ static CGFloat kDefaultAnimationDuration = 2.0;
         CGRect frame = CGRectMake(0, 0, kDefaultLabelWidth, kDefaultLabelHeight);
         UILabel *item = [[UILabel alloc] initWithFrame:frame];
         item.textAlignment = NSTextAlignmentCenter;
-        item.font = [UIFont boldSystemFontOfSize:13];
+        item.font = FONT_12;
         item.textColor = COLOR_TEXT_BROWN;
         item.text = [self.dataSource titleForBarAtIndex:idx];
         
@@ -175,7 +175,7 @@ static CGFloat kDefaultAnimationDuration = 2.0;
         // lipeng_ second title
         UILabel *item2 = [[UILabel alloc] initWithFrame:CGRectOffset(frame, 0, kDefaultLabelHeight)];
         item2.textAlignment = NSTextAlignmentCenter;
-        item2.font = [UIFont boldSystemFontOfSize:11];
+        item2.font = FONT_10;
         item2.textColor = COLOR_TEXT_BROWN;
         item2.text = [self.dataSource secondTitleForBarAtIndex:idx];
         

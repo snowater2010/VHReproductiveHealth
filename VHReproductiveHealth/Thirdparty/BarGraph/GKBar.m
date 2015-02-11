@@ -98,6 +98,7 @@ static CFTimeInterval kDefaultAnimationDuration = 1.0;
     CGFloat converted = (_percentage / 100);
     
     CATextLayer *textLayer = [CATextLayer layer];
+    textLayer.contentsScale = 2;
     textLayer.string = [NSString stringWithFormat:@"%.0f", showValue];
     textLayer.fontSize = 12.f;
     textLayer.alignmentMode = kCAAlignmentCenter;
