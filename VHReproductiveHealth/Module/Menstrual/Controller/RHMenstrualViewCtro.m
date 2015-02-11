@@ -351,6 +351,7 @@
             cell = [[RHSettingCell3 alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellType3];
         }
         RHSettingCell3 *cell3 = (RHSettingCell3 *)cell;
+        cell3.segmentColor = UIColorFromRGB(0xFD879F);
         [cell3 setDayimaComing:_currDataModel.showComing state:_currDataModel.showStart];
         
         if (_jingqi > 0 && _zhouqi > 0) {
@@ -552,11 +553,13 @@
         }
         RHSettingCell2 *cell2 = (RHSettingCell2 *)cell;
         if (settingType == SettingType3) {
+            cell2.segmentColor = UIColorFromRGB(0x94BDF9);
             cell2.actionBlock = ^(BOOL isStart) {
                 
             };
         }
         else if (settingType == SettingType11) {
+            cell2.segmentColor = UIColorFromRGB(0xFFB036);
             cell2.actionBlock = ^(BOOL isStart) {
                 
             };

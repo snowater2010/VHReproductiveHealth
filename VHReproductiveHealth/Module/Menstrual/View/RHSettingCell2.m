@@ -35,4 +35,9 @@
     }
 }
 
+- (void)setSegmentColor:(UIColor *)segmentColor {
+    _segmentColor = segmentColor;
+    _segment.tintColor = _segmentColor;
+}
+
 @end
