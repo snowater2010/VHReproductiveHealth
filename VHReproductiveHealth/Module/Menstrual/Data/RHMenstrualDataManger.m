@@ -312,7 +312,7 @@
 }
 
 - (NSArray *)queryKfbyyStartDate:(NSDate *)start endDate:(NSDate *)end {
-    NSString *sql = @"SELECT * FROM koufubiyuanyao WHERE end >= ? AND start <= ? ORDER BY start ASC ";
+    NSString *sql = @"SELECT * FROM koufubiyuanyao WHERE (end >= ? OR end = 0) AND start <= ? ORDER BY start ASC ";
     
     long timeStart = [start timeIntervalSince1970] * 1000;
     long timeEnd = [end timeIntervalSince1970] * 1000;
@@ -333,7 +333,7 @@
 }
 
 - (NSArray *)queryRdllStartDate:(NSDate *)start endDate:(NSDate *)end {
-    NSString *sql = @"SELECT * FROM redianliliao WHERE end >= ? AND start <= ? ORDER BY start ASC ";
+    NSString *sql = @"SELECT * FROM redianliliao WHERE (end >= ? OR end = 0) AND start <= ? ORDER BY start ASC ";
     
     long timeStart = [start timeIntervalSince1970] * 1000;
     long timeEnd = [end timeIntervalSince1970] * 1000;
@@ -410,17 +410,29 @@
         
         // kfbyy
         for (RHKoufubiyuanyaoModel *kjbyy in kfbyyArray) {
-            if (eachTime >= kjbyy.start && eachTime <= kjbyy.end) {
-                model.isKfbyy = YES;
-                break;
+            if (eachTime >= kjbyy.start) {
+                if (kjbyy.end == 0) {
+                    model.isKfbyy = YES;
+                    break;
+                }
+                else if (eachTime <= kjbyy.end) {
+                    model.isKfbyy = YES;
+                    break;
+                }
             }
         }
         
         // rdll
         for (RHRedianliliaoModel *rdll in rdllArray) {
-            if (eachTime >= rdll.start && eachTime <= rdll.end) {
-                model.isRdll = YES;
-                break;
+            if (eachTime >= rdll.start) {
+                if (rdll.end == 0) {
+                    model.isRdll = YES;
+                    break;
+                }
+                else if (eachTime <= rdll.end) {
+                    model.isRdll = YES;
+                    break;
+                }
             }
         }
         
@@ -447,7 +459,7 @@
 }
 
 - (RHKoufubiyuanyaoModel *)queryLastKfbyy:(NSDate *)date {
-    NSString *sql = @"SELECT * FROM koufubiyuanyao WHERE start <= ? ORDER BY start DESC ";
+    NSString *sql = @"SELECT * FROM koufubiyuanyao WHERE start <= ? AND end = 0 ORDER BY start DESC ";
     
     long time = [date timeIntervalSince1970] * 1000;
     
@@ -468,9 +480,8 @@
     NSString *sql = @"INSERT INTO koufubiyuanyao (start, end) VALUES (?, ?)";
     
     long strTime = [strDate timeIntervalSince1970] * 1000;
-    long endTime = [[strDate dateByAddingYears:1] timeIntervalSince1970] * 1000;
     
-    [_db executeUpdate:sql, [NSNumber numberWithLong:strTime], [NSNumber numberWithLong:endTime]];
+    [_db executeUpdate:sql, [NSNumber numberWithLong:strTime], [NSNumber numberWithLong:0]];
 }
 
 - (void)updateKfbyy:(RHKoufubiyuanyaoModel *)model {
@@ -482,7 +493,7 @@
 
 
 - (RHRedianliliaoModel *)queryLastRdll:(NSDate *)date {
-    NSString *sql = @"SELECT * FROM redianliliao WHERE start <= ? ORDER BY start DESC ";
+    NSString *sql = @"SELECT * FROM redianliliao WHERE start <= ? AND end = 0 ORDER BY start DESC ";
     
     long time = [date timeIntervalSince1970] * 1000;
     
@@ -503,9 +514,8 @@
     NSString *sql = @"INSERT INTO redianliliao (start, end) VALUES (?, ?)";
     
     long strTime = [strDate timeIntervalSince1970] * 1000;
-    long endTime = [[strDate dateByAddingYears:1] timeIntervalSince1970] * 1000;
     
-    [_db executeUpdate:sql, [NSNumber numberWithLong:strTime], [NSNumber numberWithLong:endTime]];
+    [_db executeUpdate:sql, [NSNumber numberWithLong:strTime], [NSNumber numberWithLong:0]];
 }
 
 - (void)updateRdll:(RHRedianliliaoModel *)model {
@@ -514,4 +524,70 @@
 }
 
 
+//- (RHKoufubiyuanyaoModel *)queryLastKfbyy:(NSDate *)date {
+//    NSString *sql = @"SELECT * FROM koufubiyuanyao WHERE start <= ?  ORDER BY start DESC ";
+//    
+//    long time = [date timeIntervalSince1970] * 1000;
+//    
+//    RHKoufubiyuanyaoModel *model = nil;
+//    FMResultSet *rs = [_db executeQuery:sql, [NSNumber numberWithLong:time]];
+//    while ([rs next] && !model) {
+//        model = [[RHKoufubiyuanyaoModel alloc] init];
+//        model.tid = [rs intForColumn:@"tid"];
+//        model.start = [rs longForColumn:@"start"];
+//        model.end = [rs longForColumn:@"end"];
+//    }
+//    [rs close];
+//    
+//    return model;
+//}
+//
+//- (void)insertKfbyy:(NSDate *)strDate {
+//    NSString *sql = @"INSERT INTO koufubiyuanyao (start, end) VALUES (?, ?)";
+//    
+//    long strTime = [strDate timeIntervalSince1970] * 1000;
+//    long endTime = [[strDate dateByAddingYears:1] timeIntervalSince1970] * 1000;
+//    
+//    [_db executeUpdate:sql, [NSNumber numberWithLong:strTime], [NSNumber numberWithLong:endTime]];
+//}
+//
+//- (void)updateKfbyy:(RHKoufubiyuanyaoModel *)model {
+//    NSString *sql = @"UPDATE koufubiyuanyao SET start = ?, end = ? WHERE tid = ?";
+//    [_db executeUpdate:sql, [NSNumber numberWithLong:model.start], [NSNumber numberWithLong:model.end], [NSNumber numberWithLong:model.tid]];
+//}
+//
+//
+//
+//
+//- (RHRedianliliaoModel *)queryLastRdll:(NSDate *)date {
+//    NSString *sql = @"SELECT * FROM redianliliao WHERE start <= ? ORDER BY start DESC ";
+//    
+//    long time = [date timeIntervalSince1970] * 1000;
+//    
+//    RHRedianliliaoModel *model = nil;
+//    FMResultSet *rs = [_db executeQuery:sql, [NSNumber numberWithLong:time]];
+//    while ([rs next] && !model) {
+//        model = [[RHRedianliliaoModel alloc] init];
+//        model.tid = [rs intForColumn:@"tid"];
+//        model.start = [rs longForColumn:@"start"];
+//        model.end = [rs longForColumn:@"end"];
+//    }
+//    [rs close];
+//    
+//    return model;
+//}
+//
+//- (void)insertRdll:(NSDate *)strDate {
+//    NSString *sql = @"INSERT INTO redianliliao (start, end) VALUES (?, ?)";
+//    
+//    long strTime = [strDate timeIntervalSince1970] * 1000;
+//    long endTime = [[strDate dateByAddingYears:1] timeIntervalSince1970] * 1000;
+//    
+//    [_db executeUpdate:sql, [NSNumber numberWithLong:strTime], [NSNumber numberWithLong:endTime]];
+//}
+//
+//- (void)updateRdll:(RHRedianliliaoModel *)model {
+//    NSString *sql = @"UPDATE redianliliao SET start = ?, end = ? WHERE tid = ?";
+//    [_db executeUpdate:sql, [NSNumber numberWithLong:model.start], [NSNumber numberWithLong:model.end], [NSNumber numberWithLong:model.tid]];
+//}
 @end
