@@ -26,6 +26,15 @@
     self.navigationController.navigationBar.hidden = NO;
     
     self.view.backgroundColor = COLOR_BG_DEF;
+    
+    self.navigationItem.hidesBackButton = YES;
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"btn_back"] style:UIBarButtonItemStylePlain target:self action:@selector(goBackNav)];
+    self.navigationItem.leftBarButtonItem = backItem;
+    self.navigationController.navigationBar.tintColor = COLOR_TEXT_WHITE;
+}
+
+- (void)goBackNav {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)initData {

@@ -83,7 +83,7 @@
     if (self.yizhi > 0) {
         [images addObject:settingInfo[9][@"image"]];
     }
-    if (self.dongpeixufei.length > 0) {
+    if (self.dongpeixufei.length > 3) {
         [images addObject:settingInfo[11][@"image"]];
     }
     if (self.xiaohuipeitai > 0) {
