@@ -31,6 +31,9 @@
 #import "RHYuejingFenxiViewCtro.h"
 #import "RHTongFangFenxiViewCtro.h"
 
+#import "RHKoufubiyuanyaoModel.h"
+
+
 #define DefaultDateFormat @"yyyy-MM-dd"
 
 @interface RHMenstrualViewCtro () <UITableViewDataSource, UITableViewDelegate, ABCalendarPickerDelegateProtocol>
@@ -558,14 +561,16 @@
         RHSettingCell2 *cell2 = (RHSettingCell2 *)cell;
         if (settingType == SettingType3) {
             cell2.segmentColor = UIColorFromRGB(0x94BDF9);
+            cell2.segmentState = _currDataModel.isKfbyy;
             cell2.actionBlock = ^(BOOL isStart) {
-                
+                [weakself doKoufuBiyunyao:isStart];
             };
         }
         else if (settingType == SettingType11) {
             cell2.segmentColor = UIColorFromRGB(0xFFB036);
+            cell2.segmentState = _currDataModel.isRdll;
             cell2.actionBlock = ^(BOOL isStart) {
-                
+                [weakself doRdll:isStart];
             };
         }
     }
@@ -582,6 +587,40 @@
     }
     
     return cell;
+}
+
+- (void)doKoufuBiyunyao:(BOOL)isStart {
+    if (isStart) {
+        [_dataManager insertKfbyy:_currDate];
+    }
+    else {
+        RHKoufubiyuanyaoModel *model = [_dataManager queryLastKfbyy:_currDate];
+        if (model) {
+            model.end = [_currDate timeIntervalSince1970] * 1000;
+            [_dataManager updateKfbyy:model];
+        }
+    }
+    
+    [self refreshData];
+    [self refreshCalendar];
+    [self refreshSetting];
+}
+
+- (void)doRdll:(BOOL)isStart {
+    if (isStart) {
+        [_dataManager insertRdll:_currDate];
+    }
+    else {
+        RHRedianliliaoModel *model = [_dataManager queryLastRdll:_currDate];
+        if (model) {
+            model.end = [_currDate timeIntervalSince1970] * 1000;
+            [_dataManager updateRdll:model];
+        }
+    }
+    
+    [self refreshData];
+    [self refreshCalendar];
+    [self refreshSetting];
 }
 
 @end

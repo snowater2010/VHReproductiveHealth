@@ -15,6 +15,9 @@
 @property(nonatomic, assign) BOOL isDayimaBegin;
 @property(nonatomic, assign) BOOL isDayimaEnd;
 
+@property(nonatomic, assign) BOOL isKfbyy;
+@property(nonatomic, assign) BOOL isRdll;
+
 @property(nonatomic, assign) BOOL showComing;
 @property(nonatomic, assign) BOOL showStart;
 

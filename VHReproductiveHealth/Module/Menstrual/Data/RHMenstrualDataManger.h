@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "RHBiaoZhuModel.h"
 #import "RHDayimaModel.h"
+#import "RHKoufubiyuanyaoModel.h"
+#import "RHRedianliliaoModel.h"
 
 @interface RHMenstrualDataManger : NSObject
 
@@ -26,6 +28,8 @@
 - (void)deleteDayimaWithDate:(NSDate *)startDate;
 - (void)updateDayimaEndDate:(NSDate *)endDate withDate:(NSDate *)date;
 
+- (NSArray *)queryTongFangStartDate:(NSDate *)strDate endDate:(NSDate *)endDate;
+
 - (RHDayimaModel *)queryLastDayimaByDate:(NSDate *)date;
 
 - (NSArray *)queryDayima;
@@ -37,5 +41,13 @@
 + (NSDate *)dateLastAtMonth:(NSDate *)date;
 
 - (NSArray *)getMonthData:(NSDate *)date;
+
+- (void)insertKfbyy:(NSDate *)strDate;
+- (void)updateKfbyy:(RHKoufubiyuanyaoModel *)model;
+- (RHKoufubiyuanyaoModel *)queryLastKfbyy:(NSDate *)date;
+
+- (RHRedianliliaoModel *)queryLastRdll:(NSDate *)date;
+- (void)insertRdll:(NSDate *)strDate;
+- (void)updateRdll:(RHRedianliliaoModel *)model;
 
 @end

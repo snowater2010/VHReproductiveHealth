@@ -161,6 +161,12 @@
     NSArray *images = [_dataModel.biaozhu getBiaozhuImages];
     [self setImageArray:images];
     
+    if (_dataModel.isKfbyy) {
+        _iv5.image = [UIImage imageNamed:@"koufubiyunyao"];
+    }
+    if (_dataModel.isRdll) {
+        _iv4.image = [UIImage imageNamed:@"redianliliao"];
+    }
 }
 
 

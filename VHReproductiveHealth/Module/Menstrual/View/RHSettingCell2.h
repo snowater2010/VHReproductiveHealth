@@ -12,6 +12,7 @@
 @interface RHSettingCell2 : RHSettingCell
 
 @property(nonatomic, strong) UIColor *segmentColor;
+@property(nonatomic, assign) BOOL segmentState;
 @property(nonatomic, strong) UISegmentedControl *segment;
 @property(nonatomic, strong) BlockBool actionBlock;
 

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		9979925E618F2A8E4CB833A0 /* libPods-VHReproductiveHealth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B9E74EF59C39DFD892495A /* libPods-VHReproductiveHealth.a */; };
 		E8358DD61A8C3B78007137ED /* CHCircleGaugeView.m in Sources */ = {isa = PBXBuildFile; fileRef = E8358DD41A8C3B78007137ED /* CHCircleGaugeView.m */; };
+		E8358DD91A8C90C3007137ED /* RHKoufubiyuanyaoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E8358DD81A8C90C3007137ED /* RHKoufubiyuanyaoModel.m */; };
+		E8358DDC1A8C90DF007137ED /* RHRedianliliaoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E8358DDB1A8C90DF007137ED /* RHRedianliliaoModel.m */; };
 		E83BB5AE1A8674AB002DD31C /* RHSettingMenstrualViewCtro.m in Sources */ = {isa = PBXBuildFile; fileRef = E83BB5AB1A8674AB002DD31C /* RHSettingMenstrualViewCtro.m */; };
 		E83BB5AF1A8674AB002DD31C /* RHSettingSuperViewCtro.m in Sources */ = {isa = PBXBuildFile; fileRef = E83BB5AD1A8674AB002DD31C /* RHSettingSuperViewCtro.m */; };
 		E83E91681A8247F40037F5E0 /* ABCalendarPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = E83E91481A8247F40037F5E0 /* ABCalendarPicker.m */; };
@@ -103,6 +105,10 @@
 		E8358DD31A8C3B78007137ED /* CHCircleGaugeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCircleGaugeView.h; sourceTree = "<group>"; };
 		E8358DD41A8C3B78007137ED /* CHCircleGaugeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHCircleGaugeView.m; sourceTree = "<group>"; };
 		E8358DD51A8C3B78007137ED /* CHCircleGaugeViewDebugMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCircleGaugeViewDebugMacros.h; sourceTree = "<group>"; };
+		E8358DD71A8C90C3007137ED /* RHKoufubiyuanyaoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHKoufubiyuanyaoModel.h; sourceTree = "<group>"; };
+		E8358DD81A8C90C3007137ED /* RHKoufubiyuanyaoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHKoufubiyuanyaoModel.m; sourceTree = "<group>"; };
+		E8358DDA1A8C90DF007137ED /* RHRedianliliaoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHRedianliliaoModel.h; sourceTree = "<group>"; };
+		E8358DDB1A8C90DF007137ED /* RHRedianliliaoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHRedianliliaoModel.m; sourceTree = "<group>"; };
 		E83BB5AA1A8674AB002DD31C /* RHSettingMenstrualViewCtro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSettingMenstrualViewCtro.h; sourceTree = "<group>"; };
 		E83BB5AB1A8674AB002DD31C /* RHSettingMenstrualViewCtro.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSettingMenstrualViewCtro.m; sourceTree = "<group>"; };
 		E83BB5AC1A8674AB002DD31C /* RHSettingSuperViewCtro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSettingSuperViewCtro.h; sourceTree = "<group>"; };
@@ -649,6 +655,10 @@
 				E8FC7DFB1A875C350009403E /* RHBiaoZhuModel.m */,
 				E8FC7E011A87ABAA0009403E /* RHDayimaModel.h */,
 				E8FC7E021A87ABAA0009403E /* RHDayimaModel.m */,
+				E8358DD71A8C90C3007137ED /* RHKoufubiyuanyaoModel.h */,
+				E8358DD81A8C90C3007137ED /* RHKoufubiyuanyaoModel.m */,
+				E8358DDA1A8C90DF007137ED /* RHRedianliliaoModel.h */,
+				E8358DDB1A8C90DF007137ED /* RHRedianliliaoModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -822,6 +832,7 @@
 				E841A5371A8A207700C4CA0F /* RHBarGraphView.m in Sources */,
 				E83E91791A8247F40037F5E0 /* UIMyButton.m in Sources */,
 				E841A5521A8A27B400C4CA0F /* RHTongFangFenxiViewCtro.m in Sources */,
+				E8358DDC1A8C90DF007137ED /* RHRedianliliaoModel.m in Sources */,
 				E860F8AA1A7DC9F2007803A3 /* RHRootDataHelper.m in Sources */,
 				E8471C461A886B890010A97B /* RHDataModel.m in Sources */,
 				E89ED2591A8922CE002CA0EB /* RHDayProvider.m in Sources */,
@@ -848,6 +859,7 @@
 				E83E916B1A8247F40037F5E0 /* ABCalendarPickerDefaultMonthsProvider.m in Sources */,
 				E841A54F1A8A210300C4CA0F /* NSMutableArray+MK_Stack.m in Sources */,
 				E848FFAC1A777FF4005B1851 /* JTCalendarContentView.m in Sources */,
+				E8358DD91A8C90C3007137ED /* RHKoufubiyuanyaoModel.m in Sources */,
 				E83E91841A826EF40037F5E0 /* RHSettingCell2.m in Sources */,
 				E85E5AEB1A87022400D98B8A /* RHSettingTongfangViewCtro.m in Sources */,
 				E841A54E1A8A210300C4CA0F /* NSMutableArray+MK_Queue.m in Sources */,

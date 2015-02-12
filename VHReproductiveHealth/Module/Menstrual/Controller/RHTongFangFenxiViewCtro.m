@@ -150,7 +150,7 @@
     }
     
     // 同房日
-    NSArray *tongfangDatas = [_instance queryBiaoZhuStartDate:_dateMin endDate:_dateMax];
+    NSArray *tongfangDatas = [_instance queryTongFangStartDate:_dateMin endDate:_dateMax];
     _tongfangDatas = [NSMutableArray arrayWithArray:tongfangDatas];
     
     for (RHBiaoZhuModel *model in _tongfangDatas) {
@@ -177,6 +177,11 @@
             precent = [self calculatePercentAtIndex:i];
         }
         
+        // 易孕总值
+        if ([_yiyunqiTongFang containsObject:eachDate]) {
+            _averagePrecent+=precent;
+        }
+        
         [_chartLabels addObject:[eachDate stringWithFormat:@"M/d"]];
         [_chartSecondLabels addObject:[NSString stringWithFormat:@"%zd", eachDate.weekday]];
         [_tableDateLabels addObject:[eachDate stringWithFormat:@"yyyy-MM-dd"]];
@@ -184,12 +189,13 @@
         [_everydayPercent addObject:@(precent)];
         eachDate = [eachDate dateByAddingDays:1];
         
-        _averagePrecent+=precent;
         i++;
     }
     while ([eachDate compare:_dateMax] != NSOrderedDescending);
     
-    _averagePrecent = _averagePrecent/_everydayPercent.count;
+    if (_yiyunqiTongFang.count != 0) {
+        _averagePrecent = _averagePrecent/_yiyunqiTongFang.count;
+    }
 }
 
 - (NSInteger)calculatePercentWithDate:(NSDate *)date {

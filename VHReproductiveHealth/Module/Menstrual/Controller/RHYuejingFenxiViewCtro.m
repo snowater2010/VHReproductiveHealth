@@ -93,10 +93,12 @@
         }
     }
     
-    CGFloat aZhouqi = sumZhouqi / (in3MonthCount-1);
-    CGFloat aJingqi = sumJingqi / (in3MonthCount);
-    _averageZhouqi = round(aZhouqi);
-    _averageJingqi = round(aJingqi);
+    if (in3MonthCount > 1) {
+        CGFloat aZhouqi = sumZhouqi / (in3MonthCount-1);
+        CGFloat aJingqi = sumJingqi / (in3MonthCount);
+        _averageZhouqi = round(aZhouqi);
+        _averageJingqi = round(aJingqi);
+    }
     
     
 //    1、相邻＞2次月经月经周期＜21天   月经不规律

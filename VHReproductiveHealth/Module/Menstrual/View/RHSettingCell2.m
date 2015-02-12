@@ -38,4 +38,14 @@
     _segment.tintColor = _segmentColor;
 }
 
+- (void)setSegmentState:(BOOL)segmentState {
+    _segmentState = segmentState;
+    if (segmentState) {
+        _segment.selectedSegmentIndex = 0;
+    }
+    else {
+        _segment.selectedSegmentIndex = 1;
+    }
+}
+
 @end
