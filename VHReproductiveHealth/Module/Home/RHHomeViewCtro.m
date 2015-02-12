@@ -8,6 +8,7 @@
 
 #import "RHHomeViewCtro.h"
 #import "RHMyJingliViewCtro.h"
+#import "RHMenstrualViewCtro.h"
 
 @interface RHHomeViewCtro ()
 
@@ -200,7 +201,7 @@
 
 - (void)goModule:(UIButton *)button {
     if (button.tag == 4) {
-        [self.navigationController pushViewController:[[RHMyJingliViewCtro alloc] init] animated:YES];
+        [self.navigationController pushViewController:[[RHMenstrualViewCtro alloc] init] animated:YES];
     }
 }
 

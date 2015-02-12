@@ -135,12 +135,12 @@
     [self.view addSubview:imageView];
     [[[imageView setSizeFromSize:imageView.image.size] insideTopEdgeBy:10] insideLeftEdgeBy:10];
     
-    CGFloat labelHeight = imageView.height / 3;
+    CGFloat labelHeight = (imageView.height-20) / 3;
     
     _labelState = [[UILabel alloc] init];
     [self.view addSubview:_labelState];
-    [[[_labelState setW:self.view.width-imageView.maxX andH:labelHeight] outsideRightEdgeOf:imageView by:0] insideTopEdgeBy:0];
-    _labelState.font = FONT_14;
+    [[[_labelState setW:self.view.width-imageView.maxX andH:labelHeight] outsideRightEdgeOf:imageView by:20] insideTopEdgeBy:10];
+    _labelState.font = FONT_16;
     _labelState.textColor = COLOR_TEXT_DGREEN;
     _labelState.textAlignment = NSTextAlignmentLeft;
     _labelState.text = _state;
@@ -149,7 +149,7 @@
     [self.view addSubview:_labelZhouqi];
     _labelZhouqi.frame = _labelState.frame;
     [_labelZhouqi adjustY:_labelState.height];
-    _labelZhouqi.font = FONT_14;
+    _labelZhouqi.font = FONT_16;
     _labelZhouqi.textColor = COLOR_TEXT_BROWN;
     _labelZhouqi.textAlignment = NSTextAlignmentLeft;
     _labelZhouqi.text = [NSString stringWithFormat:@"平均周期：%zd天", _averageZhouqi];
@@ -158,7 +158,7 @@
     [self.view addSubview:_labelJingqi];
     _labelJingqi.frame = _labelZhouqi.frame;
     [_labelJingqi adjustY:_labelState.height];
-    _labelJingqi.font = FONT_14;
+    _labelJingqi.font = FONT_16;
     _labelJingqi.textColor = COLOR_TEXT_BROWN;
     _labelJingqi.textAlignment = NSTextAlignmentLeft;
     _labelJingqi.text = [NSString stringWithFormat:@"平均经期：%zd天", _averageJingqi];

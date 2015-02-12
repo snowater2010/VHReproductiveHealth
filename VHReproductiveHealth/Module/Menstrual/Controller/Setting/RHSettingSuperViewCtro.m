@@ -9,8 +9,9 @@
 #import "RHSettingSuperViewCtro.h"
 
 @interface RHSettingSuperViewCtro () {
-    UILabel *titleLabel;
 }
+
+
 
 @end
 
@@ -54,23 +55,23 @@
     bgView.backgroundColor = [UIColor blackColor];
     bgView.alpha = 0.5;
     
-    UIView *windowView = [[UIView alloc] init];
-    [self.view addSubview:windowView];
-    [[[windowView setW:self.view.width*0.8 andH:_settingHeight] centerXWith:self.view] insideTopEdgeBy:100];
+    _windowView = [[UIView alloc] init];
+    [self.view addSubview:_windowView];
+    [[[_windowView setW:self.view.width*0.8 andH:_settingHeight] centerXWith:self.view] insideTopEdgeBy:100];
     
-    windowView.backgroundColor = COLOR_BG_WHITE;
+    _windowView.backgroundColor = COLOR_BG_WHITE;
     
-    titleLabel = [[UILabel alloc] init];
-    [windowView addSubview:titleLabel];
-    [[titleLabel setW:windowView.width andH:30] insideTopEdgeBy:10];
-    titleLabel.textAlignment = NSTextAlignmentCenter;
-    titleLabel.font = FONT_18;
-    titleLabel.textColor = COLOR_TEXT_DGREEN;
+    _titleLabel = [[UILabel alloc] init];
+    [_windowView addSubview:_titleLabel];
+    [[_titleLabel setW:_windowView.width andH:30] insideTopEdgeBy:10];
+    _titleLabel.textAlignment = NSTextAlignmentCenter;
+    _titleLabel.font = FONT_18;
+    _titleLabel.textColor = COLOR_TEXT_DGREEN;
     
     UIButton *cancelBtn = [[UIButton alloc] init];
     UIButton *confirmBtn = [[UIButton alloc] init];
-    [windowView addSubview:cancelBtn];
-    [windowView addSubview:confirmBtn];
+    [_windowView addSubview:cancelBtn];
+    [_windowView addSubview:confirmBtn];
     
     [[[cancelBtn setW:50 andH:30] insideBottomEdgeBy:10] insideLeftEdgeBy:20];
     [[[confirmBtn setW:50 andH:30] insideBottomEdgeBy:10] insideRightEdgeBy:30];
@@ -85,13 +86,13 @@
     
     // content
     self.contentView = [[UIView alloc] init];
-    [windowView addSubview:_contentView];
-    [[_contentView setW:windowView.width andH:cancelBtn.y-titleLabel.maxY] outsideBottomEdgeOf:titleLabel by:0];
+    [_windowView addSubview:_contentView];
+    [[_contentView setW:_windowView.width andH:cancelBtn.y-_titleLabel.maxY] outsideBottomEdgeOf:_titleLabel by:0];
 }
 
 - (void)setSettingTitle:(NSString *)settingTitle {
     _settingTitle = settingTitle;
-    titleLabel.text = _settingTitle;
+    _titleLabel.text = _settingTitle;
 }
 
 - (void)doCancel {

@@ -41,6 +41,7 @@
 #import "RHYjFxCell.h"
 #import "RHMenstrualDataManger.h"
 #import "RHTontFangGraphView.h"
+#import "CHCircleGaugeView.h"
 
 @interface RHTongFangFenxiViewCtro () <UITableViewDataSource, UITableViewDelegate> {
     UILabel *_labelState;
@@ -51,10 +52,13 @@
     NSDate *_dateMin;
     
     NSMutableArray *_chartTongFang;
-    
     NSMutableArray *_tongfangDatas;
+    NSMutableArray *_yiyunqiTongFang;
+    NSMutableArray *_buYiyunqiTongFang;
+    
     NSMutableArray *_zhouqiValues;
     NSMutableArray *_jingqiValues;
+    
     NSMutableArray *_chartLabels;
     NSMutableArray *_chartSecondLabels;
     NSMutableArray *_tableDateLabels;
@@ -65,6 +69,10 @@
     NSMutableArray *_pailuanRange;
     NSMutableArray *_yiyunRange;
     NSMutableArray *_anquanRange;
+    
+    NSInteger _jingqi;
+    NSInteger _zhouqi;
+    NSInteger _averagePrecent;
     
     UITableView *_tableView;
     RHTontFangGraphView *_chartView;
@@ -96,9 +104,15 @@
     _anquanRange = [NSMutableArray array];
     
     _chartTongFang = [NSMutableArray array];
+    _yiyunqiTongFang = [NSMutableArray array];
+    _buYiyunqiTongFang = [NSMutableArray array];
     
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    _jingqi = [defaults integerForKey:USER_DEFAULT_JINGQI];
+    _zhouqi = [defaults integerForKey:USER_DEFAULT_ZHOUQI];
+    // 改进
     BOOL isJingqiRight = YES;
-    _averageZhouqi = 30;
+    _averageZhouqi = _zhouqi;//这里应该算平均周期
     
     
     _dateMax = [[NSDate date] beginningOfDay];
@@ -142,13 +156,27 @@
     for (RHBiaoZhuModel *model in _tongfangDatas) {
         NSDate *date = [NSDate dateWithTimeIntervalSince1970:model.calendar * 0.001];
         [_chartTongFang addObject:@{@"index":@([date daysFromDate:_dateMin]), @"type":@(model.tongfang)}];
+        
+        NSInteger precent = [self calculatePercentWithDate:date];
+        if (precent > 15) {
+            [_yiyunqiTongFang addObject:date];
+        }
+        if (model.tongfang > 1) {
+            [_buYiyunqiTongFang addObject:date];
+        }
     }
-    
     
     NSInteger i = 0;
     NSDate *eachDate = _dateMin;
     do {
-        NSInteger precent = [self calculatePercentAtIndex:i];
+        NSInteger precent = 0;
+        if ([_buYiyunqiTongFang containsObject:eachDate]) {
+            precent = 1;
+        }
+        else {
+            precent = [self calculatePercentAtIndex:i];
+        }
+        
         [_chartLabels addObject:[eachDate stringWithFormat:@"M/d"]];
         [_chartSecondLabels addObject:[NSString stringWithFormat:@"%zd", eachDate.weekday]];
         [_tableDateLabels addObject:[eachDate stringWithFormat:@"yyyy-MM-dd"]];
@@ -156,9 +184,12 @@
         [_everydayPercent addObject:@(precent)];
         eachDate = [eachDate dateByAddingDays:1];
         
+        _averagePrecent+=precent;
         i++;
     }
     while ([eachDate compare:_dateMax] != NSOrderedDescending);
+    
+    _averagePrecent = _averagePrecent/_everydayPercent.count;
 }
 
 - (NSInteger)calculatePercentWithDate:(NSDate *)date {
@@ -262,40 +293,59 @@
     
     [self initData];
     
-//    self.title = @"同房分析";
+    self.title = @"同房分析";
     self.view.backgroundColor = COLOR_BG_WHITE;
     
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"touxiang"]];
     [self.view addSubview:imageView];
     [[[imageView setSizeFromSize:imageView.image.size] insideTopEdgeBy:10] insideLeftEdgeBy:10];
+    imageView.hidden = YES;
     
-    CGFloat labelHeight = imageView.height / 3;
+    CHCircleGaugeView *rignView = [[CHCircleGaugeView alloc] initWithFrame:imageView.frame];
+    [self.view addSubview:rignView];
+    [[rignView adjustW:-30 andH:-30] adjustX:15 andY:15];
+    rignView.trackWidth = 15;
+    rignView.gaugeWidth = 15;
+    rignView.trackTintColor = UIColorFromRGB(0xEFEFEF);
+    rignView.gaugeTintColor = UIColorFromRGB(0xFFC37C);
+    rignView.font = FONT_18;
+    rignView.textColor = COLOR_TEXT_DGREEN;
+    rignView.state = CHCircleGaugeViewStatePercentSign;
+    rignView.value = _averagePrecent*0.01;
+    
+    
+    CGFloat labelHeight = (imageView.height-20) / 3;
     
     _labelState = [[UILabel alloc] init];
     [self.view addSubview:_labelState];
-    [[[_labelState setW:self.view.width-imageView.maxX andH:labelHeight] outsideRightEdgeOf:imageView by:0] insideTopEdgeBy:0];
-    _labelState.font = FONT_14;
+    [[[_labelState setW:self.view.width-imageView.maxX andH:labelHeight] outsideRightEdgeOf:imageView by:20] insideTopEdgeBy:10];
+    _labelState.font = FONT_16;
     _labelState.textColor = COLOR_TEXT_DGREEN;
     _labelState.textAlignment = NSTextAlignmentLeft;
-//    _labelState.text = _state;
+    if (_averagePrecent < 50) {
+        _labelState.text = @"怀孕几率低！";
+    }
+    else {
+        _labelState.text = @"怀孕几率高！";
+    }
     
     _labelZhouqi = [[UILabel alloc] init];
     [self.view addSubview:_labelZhouqi];
     _labelZhouqi.frame = _labelState.frame;
     [_labelZhouqi adjustY:_labelState.height];
-    _labelZhouqi.font = FONT_14;
+    _labelZhouqi.font = FONT_16;
     _labelZhouqi.textColor = COLOR_TEXT_BROWN;
     _labelZhouqi.textAlignment = NSTextAlignmentLeft;
-//    _labelZhouqi.text = [NSString stringWithFormat:@"平均周期：%zd天", _averageZhouqi];
-    
+    _labelZhouqi.text = [NSString stringWithFormat:@"同房次数：%zd次", _tongfangDatas.count];
+
     _labelJingqi = [[UILabel alloc] init];
     [self.view addSubview:_labelJingqi];
     _labelJingqi.frame = _labelZhouqi.frame;
     [_labelJingqi adjustY:_labelState.height];
-    _labelJingqi.font = FONT_14;
+    _labelJingqi.font = FONT_16;
     _labelJingqi.textColor = COLOR_TEXT_BROWN;
     _labelJingqi.textAlignment = NSTextAlignmentLeft;
-//    _labelJingqi.text = [NSString stringWithFormat:@"平均经期：%zd天", _averageJingqi];
+    _labelJingqi.text = [NSString stringWithFormat:@"易孕期同房：%zd次", _yiyunqiTongFang.count];
     
     
     UISegmentedControl *seg = [[UISegmentedControl alloc] initWithItems:@[@"分析", @"表格"]];

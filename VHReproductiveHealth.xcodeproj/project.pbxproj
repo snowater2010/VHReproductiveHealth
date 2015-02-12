@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9979925E618F2A8E4CB833A0 /* libPods-VHReproductiveHealth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B9E74EF59C39DFD892495A /* libPods-VHReproductiveHealth.a */; };
+		E8358DD61A8C3B78007137ED /* CHCircleGaugeView.m in Sources */ = {isa = PBXBuildFile; fileRef = E8358DD41A8C3B78007137ED /* CHCircleGaugeView.m */; };
 		E83BB5AE1A8674AB002DD31C /* RHSettingMenstrualViewCtro.m in Sources */ = {isa = PBXBuildFile; fileRef = E83BB5AB1A8674AB002DD31C /* RHSettingMenstrualViewCtro.m */; };
 		E83BB5AF1A8674AB002DD31C /* RHSettingSuperViewCtro.m in Sources */ = {isa = PBXBuildFile; fileRef = E83BB5AD1A8674AB002DD31C /* RHSettingSuperViewCtro.m */; };
 		E83E91681A8247F40037F5E0 /* ABCalendarPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = E83E91481A8247F40037F5E0 /* ABCalendarPicker.m */; };
@@ -99,6 +100,9 @@
 		0FF0C1C3316D169A5BEF0A20 /* Pods-VHReproductiveHealth.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VHReproductiveHealth.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VHReproductiveHealth/Pods-VHReproductiveHealth.debug.xcconfig"; sourceTree = "<group>"; };
 		20A3E4A742051B773C4C31D7 /* Pods-VHReproductiveHealth.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VHReproductiveHealth.release.xcconfig"; path = "Pods/Target Support Files/Pods-VHReproductiveHealth/Pods-VHReproductiveHealth.release.xcconfig"; sourceTree = "<group>"; };
 		92B9E74EF59C39DFD892495A /* libPods-VHReproductiveHealth.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VHReproductiveHealth.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E8358DD31A8C3B78007137ED /* CHCircleGaugeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCircleGaugeView.h; sourceTree = "<group>"; };
+		E8358DD41A8C3B78007137ED /* CHCircleGaugeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHCircleGaugeView.m; sourceTree = "<group>"; };
+		E8358DD51A8C3B78007137ED /* CHCircleGaugeViewDebugMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCircleGaugeViewDebugMacros.h; sourceTree = "<group>"; };
 		E83BB5AA1A8674AB002DD31C /* RHSettingMenstrualViewCtro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSettingMenstrualViewCtro.h; sourceTree = "<group>"; };
 		E83BB5AB1A8674AB002DD31C /* RHSettingMenstrualViewCtro.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHSettingMenstrualViewCtro.m; sourceTree = "<group>"; };
 		E83BB5AC1A8674AB002DD31C /* RHSettingSuperViewCtro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSettingSuperViewCtro.h; sourceTree = "<group>"; };
@@ -288,6 +292,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E8358DD21A8C3B78007137ED /* CHCircleGaugeView */ = {
+			isa = PBXGroup;
+			children = (
+				E8358DD31A8C3B78007137ED /* CHCircleGaugeView.h */,
+				E8358DD41A8C3B78007137ED /* CHCircleGaugeView.m */,
+				E8358DD51A8C3B78007137ED /* CHCircleGaugeViewDebugMacros.h */,
+			);
+			path = CHCircleGaugeView;
+			sourceTree = "<group>";
+		};
 		E83BB5A91A8674AB002DD31C /* Setting */ = {
 			isa = PBXGroup;
 			children = (
@@ -430,6 +444,7 @@
 		E848FF8A1A777214005B1851 /* Thirdparty */ = {
 			isa = PBXGroup;
 			children = (
+				E8358DD21A8C3B78007137ED /* CHCircleGaugeView */,
 				E841A53F1A8A210300C4CA0F /* NSArray */,
 				E841A5381A8A209C00C4CA0F /* BarGraph */,
 				E8FC7DFD1A8768380009403E /* NSDate+Helper */,
@@ -817,6 +832,7 @@
 				E848FFB01A777FF4005B1851 /* JTCalendarMenuView.m in Sources */,
 				E8FC7E061A87C4040009403E /* RHStyleProvider.m in Sources */,
 				E860F89C1A7DC91F007803A3 /* RHMenstrualViewCtro.m in Sources */,
+				E8358DD61A8C3B78007137ED /* CHCircleGaugeView.m in Sources */,
 				E83E91701A8247F40037F5E0 /* ABCalendarPickerDefaultYearsProvider.m in Sources */,
 				E83BB5AF1A8674AB002DD31C /* RHSettingSuperViewCtro.m in Sources */,
 				E848FFB31A777FF4005B1851 /* JTCalendarWeekView.m in Sources */,

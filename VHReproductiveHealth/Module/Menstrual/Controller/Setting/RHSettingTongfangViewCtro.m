@@ -7,6 +7,7 @@
 //
 
 #import "RHSettingTongfangViewCtro.h"
+#import "RHTongFangFenxiViewCtro.h"
 
 @interface RHSettingTongfangViewCtro() <UIPickerViewDataSource, UIPickerViewDelegate>
 {
@@ -60,6 +61,21 @@
     
     if (_tongfang > 0) {
         [_picker selectRow:_tongfang-1 inComponent:0 animated:NO];
+    }
+    
+    UIButton *analyze = [[UIButton alloc] initWithFrame:self.titleLabel.frame];
+    [self.windowView addSubview:analyze];
+    [[analyze setW:100] insideRightEdgeBy:0];
+    [analyze setTitleColor:COLOR_TEXT_DGREEN forState:UIControlStateNormal];
+    [analyze setTitle:@"查看分析" forState:UIControlStateNormal];
+    analyze.titleLabel.font = FONT_14;
+    [analyze addTarget:self action:@selector(doAnalyze) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)doAnalyze {
+    [self doCancel];
+    if (_analyzeBlock) {
+        _analyzeBlock();
     }
 }
 

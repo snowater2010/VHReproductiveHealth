@@ -12,5 +12,6 @@
 
 @property(nonatomic, assign) NSInteger tongfang;
 @property(nonatomic, strong) BlockInteger settingBlock;
+@property(nonatomic, strong) BlockVoid analyzeBlock;
 
 @end
