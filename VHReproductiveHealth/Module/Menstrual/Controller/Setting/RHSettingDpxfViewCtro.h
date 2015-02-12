@@ -10,6 +10,9 @@
 
 @interface RHSettingDpxfViewCtro : RHSettingSuperViewCtro
 
-@property(nonatomic, strong) BlockBool settingBlock;
+@property(nonatomic, strong) NSString *dongpeixufei;
+@property(nonatomic, strong) BlockString settingBlock;
+
++ (NSString *)getSignNameWithText:(NSString *)value;
 
 @end

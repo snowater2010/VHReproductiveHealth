@@ -510,13 +510,15 @@
         }
         else if (settingType == SettingType12) {
             // 冻胚续费
-            [cell1 setBiaozhu:[RHSettingDpxfViewCtro getSignNameWithValue:_currDataModel.biaozhu.dongpeixufei]];
+            [cell1 setBiaozhu:[RHSettingDpxfViewCtro getSignNameWithText:_currDataModel.biaozhu.dongpeixufei]];
             cell1.actionBlock =  ^() {
                 RHSettingDpxfViewCtro *ctro = [[RHSettingDpxfViewCtro alloc] init];
                 ctro.modalPresentationStyle = UIModalPresentationOverCurrentContext;
                 [weakself presentViewController:ctro animated:YES completion:^{
-                    ctro.settingBlock = ^(BOOL dongpeixufei) {
-                        weakself.currDataModel.biaozhu.dongpeixufei = [NSNumber numberWithBool:dongpeixufei].integerValue;
+                    ctro.dongpeixufei = _currDataModel.biaozhu.dongpeixufei;
+
+                    ctro.settingBlock = ^(NSString *dongpeixufei) {
+                        weakself.currDataModel.biaozhu.dongpeixufei = dongpeixufei;
                         [weakself.dataManager updateBiaoZhu:weakself.currDataModel.biaozhu];
                         [weakself.settingView reloadData];
                         [weakself refreshCurrentCell];

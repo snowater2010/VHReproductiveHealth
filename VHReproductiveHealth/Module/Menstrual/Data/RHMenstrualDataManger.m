@@ -109,7 +109,7 @@
         biaoZhu.quruan = [rs intForColumn:@"quruan"];
         biaoZhu.yizhi = [rs intForColumn:@"yizhi"];
         
-        biaoZhu.dongpeixufei = [rs longForColumn:@"dongpeixufei"];
+        biaoZhu.dongpeixufei = [rs stringForColumn:@"dongpeixufei"];
         biaoZhu.xiaohuipeitai = [rs intForColumn:@"xiaohuipeitai"];
         biaoZhu.bushufu = [rs stringForColumn:@"bushufu"];
         
@@ -149,7 +149,7 @@
         biaoZhu.quruan = [rs intForColumn:@"quruan"];
         biaoZhu.yizhi = [rs intForColumn:@"yizhi"];
         
-        biaoZhu.dongpeixufei = [rs longForColumn:@"dongpeixufei"];
+        biaoZhu.dongpeixufei = [rs stringForColumn:@"dongpeixufei"];
         biaoZhu.xiaohuipeitai = [rs intForColumn:@"xiaohuipeitai"];
         biaoZhu.bushufu = [rs stringForColumn:@"bushufu"];
         
@@ -183,7 +183,7 @@
         biaoZhu.quruan = [rs intForColumn:@"quruan"];
         biaoZhu.yizhi = [rs intForColumn:@"yizhi"];
         
-        biaoZhu.dongpeixufei = [rs longForColumn:@"dongpeixufei"];
+        biaoZhu.dongpeixufei = [rs stringForColumn:@"dongpeixufei"];
         biaoZhu.xiaohuipeitai = [rs intForColumn:@"xiaohuipeitai"];
         biaoZhu.bushufu = [rs stringForColumn:@"bushufu"];
         
@@ -206,7 +206,7 @@
         [NSNumber numberWithInteger:biaozhu.dayezhen],
         [NSNumber numberWithInteger:biaozhu.quruan],
         [NSNumber numberWithInteger:biaozhu.yizhi],
-        [NSNumber numberWithInteger:biaozhu.dongpeixufei],
+        biaozhu.dongpeixufei,
         [NSNumber numberWithInteger:biaozhu.xiaohuipeitai],
         biaozhu.bushufu,
         [NSNumber numberWithLong:biaozhu.calendar]];

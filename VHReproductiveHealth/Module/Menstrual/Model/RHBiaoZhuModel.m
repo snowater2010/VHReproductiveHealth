@@ -35,7 +35,6 @@
     _dayezhen = -1;
     _quruan = -1;
     _yizhi = -1;
-    _dongpeixufei = -1;
     _xiaohuipeitai = -1;
 }
 
@@ -84,7 +83,7 @@
     if (self.yizhi > 0) {
         [images addObject:settingInfo[9][@"image"]];
     }
-    if (self.dongpeixufei > 0) {
+    if (self.dongpeixufei.length > 0) {
         [images addObject:settingInfo[11][@"image"]];
     }
     if (self.xiaohuipeitai > 0) {

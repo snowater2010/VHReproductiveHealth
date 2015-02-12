@@ -13,6 +13,9 @@
 @interface RHSettingDpxfViewCtro () {
     UITextField *syText;
     UITextField *xfText;
+    
+    UITextField *toDate;
+    UITextField *alertDate;
 }
 
 @end
@@ -26,8 +29,17 @@
     return self;
 }
 
++ (NSString *)getSignNameWithText:(NSString *)value {
+    if (value.length > 3) {
+        return @"已标注";
+    }
+    else {
+        return @"未标注";
+    }
+}
+
 - (void)initSet {
-    self.settingHeight = 300;
+    self.settingHeight = 250;
 }
 
 - (void)viewDidLoad {
@@ -43,20 +55,20 @@
     [self.contentView addSubview:syText];
     [self.contentView addSubview:syTian];
     
-    [[[syText setW:50 andH:27] centerXWith:self.contentView] insideTopEdgeBy:yPadding];
-    [[[syLabel setW:(self.contentView.width-syText.width-18)*0.5 andH:27] insideTopEdgeBy:yPadding] insideLeftEdgeBy:0];
+    [[[syText setW:50 andH:25] centerXWith:self.contentView] insideTopEdgeBy:yPadding];
+    [[[syLabel setW:(self.contentView.width-syText.width-18)*0.5 andH:25] insideTopEdgeBy:yPadding] insideLeftEdgeBy:0];
     [[[syTian setSizeFromView:syLabel] insideTopEdgeBy:yPadding] insideRightEdgeBy:0];
     
-    syText.font = FONT_18;
+    syText.font = FONT_16;
     syText.textAlignment = NSTextAlignmentCenter;
     syText.keyboardType = UIKeyboardTypeNumberPad;
     syText.layer.borderWidth = 1;
     syText.layer.borderColor = [[UIColor lightGrayColor] CGColor];
     syLabel.text = @"剩余：";
-    syLabel.font = FONT_18;
+    syLabel.font = FONT_16;
     syLabel.textAlignment = NSTextAlignmentRight;
     syTian.text = @"管";
-    syTian.font = FONT_18;
+    syTian.font = FONT_16;
     syTian.textAlignment = NSTextAlignmentLeft;
     
     //
@@ -71,57 +83,74 @@
     [xfLabel adjustY:xfLabel.height+yPadding];
     [xfTian adjustY:xfTian.height+yPadding];
     
-    xfText.font = FONT_18;
+    xfText.font = FONT_16;
     xfText.textAlignment = NSTextAlignmentCenter;
     xfText.keyboardType = UIKeyboardTypeNumberPad;
     xfText.layer.borderWidth = 1;
     xfText.layer.borderColor = [[UIColor lightGrayColor] CGColor];
     xfLabel.text = @"续费：";
-    xfLabel.font = FONT_18;
+    xfLabel.font = FONT_16;
     xfLabel.textAlignment = NSTextAlignmentRight;
     xfTian.text = @"年";
-    xfTian.font = FONT_18;
+    xfTian.font = FONT_16;
     xfTian.textAlignment = NSTextAlignmentLeft;
     
     //
-    UILabel *toLabel = [[UILabel alloc] init];
+    UILabel *toLabel = [[UILabel alloc] initWithFrame:xfLabel.frame];
     [self.contentView addSubview:toLabel];
-    [[toLabel setW:self.contentView.width andH:27] outsideBottomEdgeOf:xfText by:yPadding];
-    toLabel.text = @"至";
-    toLabel.font = FONT_18;
-    toLabel.textAlignment = NSTextAlignmentCenter;
+    [toLabel adjustY:xfLabel.height+yPadding];
+    toLabel.text = @"至：";
+    toLabel.font = FONT_16;
+    toLabel.textAlignment = NSTextAlignmentRight;
     
-    UITextField *toDate = [[UITextField alloc] initWithFrame:toLabel.frame];
+    toDate = [[UITextField alloc] initWithFrame:CGRectMake(xfText.x, xfText.maxY+yPadding, 100, xfText.height)];
     [self.contentView addSubview:toDate];
-    [toDate adjustY:toLabel.height + yPadding];
-    toDate.font = FONT_18;
+    toDate.font = FONT_16;
     toDate.textAlignment = NSTextAlignmentCenter;
     toDate.keyboardType = UIKeyboardTypeNumberPad;
     toDate.layer.borderWidth = 1;
     toDate.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+    toDate.placeholder = [[NSDate date] stringWithFormat:@"yyyy-MM"];
     
     //
-    UILabel *alertLabel = [[UILabel alloc] initWithFrame:toDate.frame];
+    UILabel *alertLabel = [[UILabel alloc] initWithFrame:toLabel.frame];
     [self.contentView addSubview:alertLabel];
     [alertLabel adjustY:toDate.height+yPadding];
     alertLabel.text = @"设置提醒：";
-    alertLabel.font = FONT_18;
-    alertLabel.textAlignment = NSTextAlignmentCenter;
+    alertLabel.font = FONT_16;
+    alertLabel.textAlignment = NSTextAlignmentRight;
     
-    UITextField *alertDate = [[UITextField alloc] initWithFrame:alertLabel.frame];
+    alertDate = [[UITextField alloc] initWithFrame:toDate.frame];
     [self.contentView addSubview:alertDate];
     [alertDate adjustY:toLabel.height + yPadding];
-    alertDate.font = FONT_18;
+    alertDate.font = FONT_16;
     alertDate.textAlignment = NSTextAlignmentCenter;
     alertDate.keyboardType = UIKeyboardTypeNumberPad;
     alertDate.layer.borderWidth = 1;
     alertDate.layer.borderColor = [[UIColor lightGrayColor] CGColor];
-    
+    alertDate.placeholder = [[NSDate date] stringWithFormat:@"yyyy-MM-dd"];
+}
+
+- (void)setDongpeixufei:(NSString *)dongpeixufei {
+    NSArray *arr = [dongpeixufei componentsSeparatedByString:@","];
+    if (arr.count > 0) {
+        syText.text = arr[0];
+    }
+    if (arr.count > 1) {
+        xfText.text = arr[1];
+    }
+    if (arr.count > 2) {
+        toDate.text = arr[2];
+    }
+    if (arr.count > 3) {
+        alertDate.text = arr[3];
+    }
 }
 
 - (void)doConfirm {
     if (_settingBlock) {
-        _settingBlock(xfText.text.length > 0);
+        NSString *str = [NSString stringWithFormat:@"%@,%@,%@,%@", syText.text, xfText.text, toDate.text, alertDate.text];
+        _settingBlock(str);
     }
     [super doConfirm];
 }

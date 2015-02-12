@@ -38,7 +38,7 @@ typedef enum {
 @property(nonatomic, assign) NSInteger dayezhen;
 @property(nonatomic, assign) NSInteger quruan;
 @property(nonatomic, assign) NSInteger yizhi;
-@property(nonatomic, assign) NSInteger dongpeixufei;
+@property(nonatomic, copy) NSString *dongpeixufei;
 @property(nonatomic, assign) NSInteger xiaohuipeitai;
 @property(nonatomic, strong) NSString *bushufu;
 
