@@ -16,6 +16,8 @@
 
 @property(nonatomic, strong) BlockVoid actionBlock;
 
+@property(nonatomic, strong) UIButton *signButton;
+
 - (void)setBiaozhu:(NSString *)biaozhu;
 
 @end

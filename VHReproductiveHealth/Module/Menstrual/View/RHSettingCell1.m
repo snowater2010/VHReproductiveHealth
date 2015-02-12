@@ -9,7 +9,7 @@
 #import "RHSettingCell1.h"
 
 @interface RHSettingCell1 () {
-    UIButton *_signButton;
+    
 }
 @end
 
@@ -29,6 +29,7 @@
     
     [_signButton setTitleColor:COLOR_TEXT_DGREEN forState:UIControlStateNormal];
     _signButton.contentHorizontalAlignment =UIControlContentHorizontalAlignmentRight;
+    _signButton.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     [_signButton addTarget:self action:@selector(buttonClicked) forControlEvents:UIControlEventTouchUpInside];
 }
 
@@ -39,7 +40,7 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    [[[_signButton setW:80 andH:29] centerYWith:self] insideRightEdgeBy:10];
+    [[[_signButton setW:self.width*0.5 andH:29] centerYWith:self] insideRightEdgeBy:10];
 }
 
 - (void)buttonClicked {

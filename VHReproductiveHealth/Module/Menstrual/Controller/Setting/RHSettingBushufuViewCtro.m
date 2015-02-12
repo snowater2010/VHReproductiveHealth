@@ -31,13 +31,30 @@
 - (void)initSet {
     self.settingHeight = 300;
     
-    self.array = @[@"头痛" ,@"呕吐", @"腹泻", @"小腹追涨", @"乳房胀痛", @"白带异常", @"感冒", @"其他"];
+    self.array = [RHSettingBushufuViewCtro bushufuArray];
     self.selectedArray = [NSMutableArray array];
 }
 
++ (NSArray *)bushufuArray {
+    return @[@"头痛" ,@"呕吐", @"腹泻", @"小腹追涨", @"乳房胀痛", @"白带异常", @"感冒", @"其他"];
+}
+
 + (NSString *)getSignNameWithText:(NSString *)value {
+    NSArray *array = [RHSettingBushufuViewCtro bushufuArray];
+    
     if ([value containsString:@"true"]) {
-        return @"已标注";
+        NSMutableString *bushufu = [NSMutableString string];
+        NSArray *bushufuArray = [value componentsSeparatedByString:@","];
+        for (int i = 0; i < bushufuArray.count; i++) {
+            NSString *str = bushufuArray[i];
+            if ([str isEqualToString:@"true"]) {
+                [bushufu appendFormat:@"%@、", array[i]];
+            }
+        }
+        if (bushufu.length > 0) {
+            [bushufu deleteCharactersInRange:(NSRange){bushufu.length-1, 1}];
+        }
+        return bushufu;
     }
     else {
         return @"未标注";
