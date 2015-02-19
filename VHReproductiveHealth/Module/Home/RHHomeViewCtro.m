@@ -178,11 +178,12 @@
     
     UILabel *nameLabel = [[UILabel alloc] init];
     [self.view addSubview:nameLabel];
-    [[[nameLabel setW:self.view.width andH:140] insideLeftEdgeBy:0] insideBottomEdgeBy:0];
+    [[[nameLabel setW:self.view.width andH:self.view.height*0.2] insideLeftEdgeBy:0] insideBottomEdgeBy:0];
     nameLabel.text = @"山大生殖掌上医疗服务平台";
     nameLabel.font = FONT_20B;
     nameLabel.textColor = COLOR_TEXT_WHITE;
     nameLabel.textAlignment = NSTextAlignmentCenter;
+    nameLabel.backgroundColor = [UIColor clearColor];
 }
 
 - (CGFloat)xBaseOnWidth:(CGFloat)x {

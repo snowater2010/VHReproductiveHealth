@@ -68,7 +68,6 @@
 		E85E5B281A872F4000D98B8A /* DWTagList.m in Sources */ = {isa = PBXBuildFile; fileRef = E85E5B271A872F4000D98B8A /* DWTagList.m */; };
 		E860F8971A7DC5D2007803A3 /* table_init.sql in Resources */ = {isa = PBXBuildFile; fileRef = E860F8961A7DC5D2007803A3 /* table_init.sql */; };
 		E860F89C1A7DC91F007803A3 /* RHMenstrualViewCtro.m in Sources */ = {isa = PBXBuildFile; fileRef = E860F89A1A7DC91F007803A3 /* RHMenstrualViewCtro.m */; };
-		E860F8A21A7DC9CF007803A3 /* RHMenstrualDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E860F8A11A7DC9CF007803A3 /* RHMenstrualDataHelper.m */; };
 		E860F8AA1A7DC9F2007803A3 /* RHRootDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E860F8A51A7DC9F2007803A3 /* RHRootDataHelper.m */; };
 		E860F8AB1A7DC9F2007803A3 /* RHRootNavCtro.m in Sources */ = {isa = PBXBuildFile; fileRef = E860F8A71A7DC9F2007803A3 /* RHRootNavCtro.m */; };
 		E860F8AC1A7DC9F2007803A3 /* RHRootViewCtro.m in Sources */ = {isa = PBXBuildFile; fileRef = E860F8A91A7DC9F2007803A3 /* RHRootViewCtro.m */; };
@@ -222,8 +221,6 @@
 		E860F8961A7DC5D2007803A3 /* table_init.sql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = table_init.sql; sourceTree = "<group>"; };
 		E860F8991A7DC91F007803A3 /* RHMenstrualViewCtro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHMenstrualViewCtro.h; sourceTree = "<group>"; };
 		E860F89A1A7DC91F007803A3 /* RHMenstrualViewCtro.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHMenstrualViewCtro.m; sourceTree = "<group>"; };
-		E860F8A01A7DC9CF007803A3 /* RHMenstrualDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHMenstrualDataHelper.h; sourceTree = "<group>"; };
-		E860F8A11A7DC9CF007803A3 /* RHMenstrualDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHMenstrualDataHelper.m; sourceTree = "<group>"; };
 		E860F8A41A7DC9F2007803A3 /* RHRootDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHRootDataHelper.h; sourceTree = "<group>"; };
 		E860F8A51A7DC9F2007803A3 /* RHRootDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHRootDataHelper.m; sourceTree = "<group>"; };
 		E860F8A61A7DC9F2007803A3 /* RHRootNavCtro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHRootNavCtro.h; sourceTree = "<group>"; };
@@ -438,11 +435,10 @@
 		E848FF831A7767A2005B1851 /* Menstrual */ = {
 			isa = PBXGroup;
 			children = (
-				E8FC7DF91A875C030009403E /* Model */,
-				E8FC7DED1A8753540009403E /* Data */,
 				E860F8981A7DC91F007803A3 /* Controller */,
 				E83E917B1A8251090037F5E0 /* View */,
-				E860F89B1A7DC91F007803A3 /* DataHelper */,
+				E8FC7DF91A875C030009403E /* Model */,
+				E8FC7DED1A8753540009403E /* Data */,
 			);
 			path = Menstrual;
 			sourceTree = "<group>";
@@ -530,15 +526,6 @@
 				E83BB5A91A8674AB002DD31C /* Setting */,
 			);
 			path = Controller;
-			sourceTree = "<group>";
-		};
-		E860F89B1A7DC91F007803A3 /* DataHelper */ = {
-			isa = PBXGroup;
-			children = (
-				E860F8A01A7DC9CF007803A3 /* RHMenstrualDataHelper.h */,
-				E860F8A11A7DC9CF007803A3 /* RHMenstrualDataHelper.m */,
-			);
-			path = DataHelper;
 			sourceTree = "<group>";
 		};
 		E860F8A31A7DC9F2007803A3 /* Root */ = {
@@ -819,7 +806,6 @@
 				E841A53E1A8A209C00C4CA0F /* GKBarGraph.m in Sources */,
 				E85E5AE51A86EF2300D98B8A /* RHSettingCell3.m in Sources */,
 				E848FFAD1A777FF4005B1851 /* JTCalendarDataCache.m in Sources */,
-				E860F8A21A7DC9CF007803A3 /* RHMenstrualDataHelper.m in Sources */,
 				E85E5B281A872F4000D98B8A /* DWTagList.m in Sources */,
 				E841A54D1A8A210300C4CA0F /* NSMutableArray+MK_Misc.m in Sources */,
 				E83E917E1A8251390037F5E0 /* RHSettingCell.m in Sources */,
@@ -992,7 +978,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/VHReproductiveHealth/VHReproductiveHealth-Prefix.pch";
 				INFOPLIST_FILE = VHReproductiveHealth/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "e1fd0e28-4409-4da8-928f-0e3bffb6588c";
@@ -1010,7 +996,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/VHReproductiveHealth/VHReproductiveHealth-Prefix.pch";
 				INFOPLIST_FILE = VHReproductiveHealth/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "e1fd0e28-4409-4da8-928f-0e3bffb6588c";
